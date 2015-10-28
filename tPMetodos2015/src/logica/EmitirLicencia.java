@@ -10,7 +10,18 @@ public class EmitirLicencia {
 	
 	//categoria "nuevo" o "renovacion", con minusculas y sin tildes!!
 	
-	public List<Calendar> CalcularVigenciaLicencia (Titular titular, String categoria){
+	public static int calcularEdad(Calendar fechaNacimientoTitular){
+		Calendar fechaActual = Calendar.getInstance();
+		
+		int edad = (fechaActual.YEAR) - (fechaNacimientoTitular.YEAR);
+		
+		if (fechaNacimientoTitular.DAY_OF_YEAR > fechaActual.DAY_OF_YEAR) //quiere decir que no todavía no cumplió los anios
+			edad -= 1;
+		
+		return edad;
+	}
+	
+	public List<Calendar> calcularVigenciaLicencia (Titular titular, String categoria){
 		
 		Calendar fechaInicioVigencia = Calendar.getInstance();
 		Calendar fechaNacimientoTitular = titular.getFechaNacimiento();
@@ -19,10 +30,7 @@ public class EmitirLicencia {
 		fechaExpiracion.set(fechaExpiracion.DAY_OF_MONTH, fechaNacimientoTitular.DAY_OF_MONTH);
 		fechaExpiracion.set(fechaExpiracion.MONTH, fechaNacimientoTitular.MONTH);
 
-		int edad = (fechaInicioVigencia.YEAR) - (fechaNacimientoTitular.YEAR);
-		
-		if (fechaNacimientoTitular.DAY_OF_YEAR > fechaInicioVigencia.DAY_OF_YEAR) //quiere decir que no todavía no cumplió los anios
-			edad =- 1;
+		int edad = calcularEdad(fechaNacimientoTitular);
 		
 		if((edad < 21 && categoria.equals("nuevo")) || edad > 70)
 			fechaExpiracion.set(fechaExpiracion.YEAR, fechaNacimientoTitular.YEAR+1);		
