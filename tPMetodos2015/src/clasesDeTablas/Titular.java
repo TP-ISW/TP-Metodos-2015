@@ -194,4 +194,101 @@ public class Titular implements Serializable {
 		this.clasesSolicitadas = clasesSolicitadas;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((apellido == null) ? 0 : apellido.hashCode());
+		result = prime * result + ((clasesSolicitadas == null) ? 0 : clasesSolicitadas.hashCode());
+		result = prime * result + ((domicilio == null) ? 0 : domicilio.hashCode());
+		result = prime * result + ((donante == null) ? 0 : donante.hashCode());
+		result = prime * result + ((factorRh == null) ? 0 : factorRh.hashCode());
+		result = prime * result + ((fechaNacimiento == null) ? 0 : fechaNacimiento.hashCode());
+		result = prime * result + ((foto == null) ? 0 : foto.hashCode());
+		result = prime * result + ((grupoSanguineo == null) ? 0 : grupoSanguineo.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((licenciasExpiradas == null) ? 0 : licenciasExpiradas.hashCode());
+		result = prime * result + ((licenciasVigentes == null) ? 0 : licenciasVigentes.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((sexo == null) ? 0 : sexo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Titular other = (Titular) obj;
+		if (apellido == null) {
+			if (other.apellido != null)
+				return false;
+		} else if (!apellido.equals(other.apellido))
+			return false;
+		if (clasesSolicitadas == null) {
+			if (other.clasesSolicitadas != null)
+				return false;
+		} else if (!clasesSolicitadas.equals(other.clasesSolicitadas))
+			return false;
+		if (domicilio == null) {
+			if (other.domicilio != null)
+				return false;
+		} else if (!domicilio.equals(other.domicilio))
+			return false;
+		if (donante == null) {
+			if (other.donante != null)
+				return false;
+		} else if (!donante.equals(other.donante))
+			return false;
+		if (factorRh == null) {
+			if (other.factorRh != null)
+				return false;
+		} else if (!factorRh.equals(other.factorRh))
+			return false;
+		if (fechaNacimiento == null) {
+			if (other.fechaNacimiento != null)
+				return false;
+		} else if (!fechaNacimiento.equals(other.fechaNacimiento))
+			return false;
+		if (foto == null) {
+			if (other.foto != null)
+				return false;
+		} else if (!foto.equals(other.foto))
+			return false;
+		if (grupoSanguineo == null) {
+			if (other.grupoSanguineo != null)
+				return false;
+		} else if (!grupoSanguineo.equals(other.grupoSanguineo))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (licenciasExpiradas == null) {
+			if (other.licenciasExpiradas != null)
+				return false;
+		} else if (!licenciasExpiradas.equals(other.licenciasExpiradas))
+			return false;
+		if (licenciasVigentes == null) {
+			if (other.licenciasVigentes != null)
+				return false;
+		} else if (!licenciasVigentes.equals(other.licenciasVigentes))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (sexo == null) {
+			if (other.sexo != null)
+				return false;
+		} else if (!sexo.equals(other.sexo))
+			return false;
+		return true;
+	}
+
 }

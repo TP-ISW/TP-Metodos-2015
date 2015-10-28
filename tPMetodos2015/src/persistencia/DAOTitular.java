@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import clasesDeTablas.Titular;
+import clasesDeTablas.TitularPK;
 
 public class DAOTitular implements Repositorio<Titular> {
 
@@ -36,7 +37,7 @@ public class DAOTitular implements Repositorio<Titular> {
 		return null;
 	}
 	
-	public Titular getByDocumento(String documento) {
+	public Titular getByDocumentoYTipo(TitularPK documento) {
 		// TODO Auto-generated method stub
 		SessionFactory factory= FabricaSessionFactory.getFactory();
         Session session = factory.getCurrentSession(); 
