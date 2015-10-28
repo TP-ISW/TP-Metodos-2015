@@ -98,4 +98,15 @@ public class Clase implements Serializable {
 		this.titulares = titulares;
 	}
 
+	public boolean superior(Clase claseSolicitada) {
+			// TODO Auto-generated method stub
+			if(claseSolicitada.getIdClase().equals("B") && (this.getIdClase().equals("D")||this.getIdClase().equals("E")||
+					this.getIdClase().equals("C")))
+				return true;
+			else if(claseSolicitada.getIdClase().equals("C") && (this.getIdClase().equals("D")||this.getIdClase().equals("E")))
+				return true;
+			return false;
+		
+	}
+
 }

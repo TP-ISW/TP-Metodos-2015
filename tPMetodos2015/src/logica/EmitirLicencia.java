@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import clasesDeTablas.Licenciavigente;
 import clasesDeTablas.Titular;
 
 public class EmitirLicencia {
@@ -46,6 +47,15 @@ public class EmitirLicencia {
 		fechasVigencia.add(fechaExpiracion);
 		
 		return fechasVigencia;
+	}
+
+	public static int antiguedadLicencia(Licenciavigente licVig) {
+		// TODO Auto-generated method stub
+		Calendar fechaActual= Calendar.getInstance();
+		int antiguedad=licVig.getFechaEmision().YEAR - fechaActual.YEAR ;
+		if(licVig.getFechaEmision().DAY_OF_YEAR - fechaActual.DAY_OF_YEAR > 0)
+			antiguedad--;
+		return antiguedad;
 	}
 		
 }

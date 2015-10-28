@@ -10,35 +10,35 @@ import excepciones.ExcepcionValidador;
 
 public class Validar{
 	
-	boolean validarMayus(String campo){
+	static boolean validarMayus(String campo){
 		if(campo.toUpperCase().equals(campo)){
 			return true;
 		}
 		else return false;
 	}
 	
-	boolean validarLetras(String campo){
+	static boolean validarLetras(String campo){
 		if (Pattern.matches("[a-zA-Z ']+", campo) == true){
 			return true;
 		}
 		else return false;
 	}
 	
-	boolean validarNumero(String campo){
+	static boolean validarNumero(String campo){
 		if (Pattern.matches("[0-9]+", campo) == true){
 			return true;
 		}
 		else return false;
 	}
 	
-	boolean validarAlfaNumerico(String campo){
+	static boolean validarAlfaNumerico(String campo){
 		if (Pattern.matches("[a-zA-Z0-9]+", campo) == true){
 			return true;
 		}
 		else return false;
 	}
 	
-	void validar(Titular titular) throws ExcepcionValidador{
+	static void validar(Titular titular) throws ExcepcionValidador{
 		
 		List<String> tiposValidos = Arrays.asList("DNI", "LU", "LE");		
 		
@@ -76,25 +76,25 @@ public class Validar{
 			throw new ExcepcionValidador("El grupo sanguíneo es inválido.");
 		};
 		
-		if(titular.getFactorRh() != "+" && titular.getFactorRh() != "-"){
+		if(titular.getFactorRh() != "+" && titular.getFactorRh() != "-")
 			throw new ExcepcionValidador("El factor sanguíneo es inválido.");
 		
-		if(titular.getDonante()!= true && titular.getDonante()!=false){
+		if(titular.getDonante()!= true && titular.getDonante()!=false)
 			throw new ExcepcionValidador("El campo donante inválido.");
 		
 		List<String> clasesValidos = Arrays.asList("A","B","C","D","E","F","G");
 		
 		for(int j=0; j<titular.getClasesSolicitadas().size();j++){
-			if(!clasesValidos.contains(titular.getClasesSolicitadas().get(j))){
+			if(!clasesValidos.contains(titular.getClasesSolicitadas().get(j)))
 				throw new ExcepcionValidador("Una de las clases solicitadas es inválida.");
+			
 		}
-		
-		if(titular.getFoto().length()<200){
+		if(titular.getFoto().length()<200)
 			throw new ExcepcionValidador("La dirección de la foto es inválida.");
-		}
+		
 	}
 	
-	boolean validarAyN(String cadena){
+	static boolean validarAyN(String cadena){
 		if(cadena.length()<=50 && cadena.length() >1)
 		{
 			if(validarMayus(cadena) && validarLetras(cadena)) return true;
@@ -103,7 +103,7 @@ public class Validar{
 		else return false;
 	}
 	
-	boolean validarDireccion(String cadena){
+	static boolean validarDireccion(String cadena){
 		if(cadena.length()<=100 && cadena.length() >1)
 		{
 			if(validarMayus(cadena) && validarAlfaNumerico(cadena)) return true;
@@ -111,7 +111,7 @@ public class Validar{
 		}
 		else return false;
 	}
-	boolean validarFechaNac(Calendar fechaNacimiento){
+	static boolean validarFechaNac(Calendar fechaNacimiento){
 			Calendar fechaActual = Calendar.getInstance();
 			int edad = (fechaActual.YEAR) - (fechaNacimiento.YEAR);
 			if (fechaNacimiento.DAY_OF_YEAR > fechaActual.DAY_OF_YEAR) //quiere decir que no todavía no cumplió los anios
