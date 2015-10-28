@@ -39,7 +39,7 @@ public class Validar{
 		else return false;
 	}
 	
-	static void validar(Titular titular) throws ExcepcionValidador{
+	public static void validar(Titular titular) throws ExcepcionValidador{
 		
 		List<String> tiposValidos = Arrays.asList("DNI", "LU", "LE");		
 		

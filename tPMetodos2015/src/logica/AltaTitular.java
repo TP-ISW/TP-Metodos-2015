@@ -10,6 +10,7 @@ import clasesDeTablas.Licenciavigente;
 import clasesDeTablas.Titular;
 import clasesDeTablas.TitularPK;
 import excepciones.*;
+import persistencia.DAOTitular;
 import validacion.Validar;
 
 public class AltaTitular {
@@ -51,10 +52,15 @@ public class AltaTitular {
 		}		
 		nuevoTitular.setClasesSolicitadas(clasesSolicitadas);
 		
-		try{
-			Validar.validar(nuevoTitular);
-			chequearLicenciasSolicitadas(nuevoTitular);
-		}
+		Validar.validar(nuevoTitular);
+		chequearLicenciasSolicitadas(nuevoTitular);
+		DAOTitular daoTitular = new DAOTitular();
+		
+		if(titularYaExiste(nroDoc, tipoDoc))
+			daoTitular.update(nuevoTitular);
+		else
+			daoTitular.save(nuevoTitular);
+
 	}
 	private void chequearLicenciasSolicitadas(Titular nuevoTitular)throws ExcepcionLicenciasInvalidas {
 		// TODO Auto-generated method stub
@@ -111,7 +117,24 @@ public class AltaTitular {
 		}
 		return false;
 	}
-	public void verificarExistenciaTitular(String nroDoc) {
+	public Titular verificarExistenciaTitular(String nroDoc, String tipoDoc) {
+		TitularPK titularPK = new TitularPK();
+		titularPK.setNroDoc(nroDoc);
+		titularPK.setTipoDoc(tipoDoc);
 		
+		DAOTitular daoTitular= new DAOTitular();
+		Titular titular =daoTitular.getByDocumentoYTipo(titularPK);
+		return titular;
+	}
+	private boolean titularYaExiste(String nroDoc, String tipoDoc) {
+		TitularPK titularPK = new TitularPK();
+		titularPK.setNroDoc(nroDoc);
+		titularPK.setTipoDoc(tipoDoc);
+		
+		DAOTitular daoTitular= new DAOTitular();
+		Titular titular =daoTitular.getByDocumentoYTipo(titularPK);
+		if(titular==null)
+			return false;
+		return true;			
 	}
 }
