@@ -326,20 +326,20 @@ public class PanelAltaTitular extends JPanel {
 		 add(lblNewLabel);
 			
 		 JLabel lblFactorRh = new JLabel("Factor RH:");
-		 lblFactorRh.setBounds(201, 169, 57, 14);
+		 lblFactorRh.setBounds(239, 172, 57, 14);
 		 add(lblFactorRh);
 			
 			
 		//Combo box con opciones de gurpo sanguino
 		comboGrupoSanguineo = new JComboBox<String>();
 		comboGrupoSanguineo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "0", "A", "B", "AB"}));
-		comboGrupoSanguineo.setBounds(134, 169, 57, 20);
+		comboGrupoSanguineo.setBounds(149, 169, 57, 20);
 		add(comboGrupoSanguineo);
 		
 		//Combo box con opciones de factor RH
 		comboFactorRH = new JComboBox<String>();
 		comboFactorRH.setModel(new DefaultComboBoxModel<String>(new String[] {"", "+", "-"}));
-		comboFactorRH.setBounds(256, 169, 46, 20);
+		comboFactorRH.setBounds(306, 169, 46, 20);
 		add(comboFactorRH);
 
 		
@@ -389,7 +389,7 @@ public class PanelAltaTitular extends JPanel {
 		
 		//Si se selecciona D, se desactiva la opcion de seleccionar C y B
 		JCheckBox checkBoxClaseD = new JCheckBox("Clase D\r\n");
-		checkBoxClaseD.setBounds(190, 363, 114, 23);
+		checkBoxClaseD.setBounds(226, 255, 114, 23);
 		add(checkBoxClaseD);
 		checkBoxClaseD.addActionListener(new ActionListener() {
 			

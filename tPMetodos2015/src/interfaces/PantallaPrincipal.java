@@ -43,8 +43,8 @@ public class PantallaPrincipal extends JFrame {
 		//contentPane.setLayout(new BorderLayout(0, 0));
 		//setContentPane(contentPane);
 		
-		//PanelAltaTitular panelAltaTitular = new PanelAltaTitular();
-		//setContentPane(panelAltaTitular);
+		PanelAltaTitular panelAltaTitular = new PanelAltaTitular();
+		setContentPane(panelAltaTitular);
 	}
 
 }
