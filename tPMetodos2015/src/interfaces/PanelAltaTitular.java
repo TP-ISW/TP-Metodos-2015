@@ -4,13 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -22,26 +22,30 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.toedter.calendar.JDateChooser;
 
+import clasesDeTablas.Titular;
 import excepciones.ExcepcionNull;
 import excepciones.ExcepcionValidador;
+import logica.AltaTitular;
 
-import javax.swing.JButton;
-
-public class AltaTitular extends JPanel {
+public class PanelAltaTitular extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField textNumeroDoc;
 	private JTextField textApellido;
 	private JTextField textNombre;
 	private JTextField textDireccion;
 	private JTextField textRutaImagen;
-	private JComboBox comboTipoDoc;
-	private JComboBox comboGrupoSanguineo;
-	private JComboBox comboFactorRH;
-	private JComboBox comboBoxSexo;
+	private JComboBox<String> comboTipoDoc;
+	private JComboBox<String> comboGrupoSanguineo;
+	private JComboBox<String> comboFactorRH;
+	private JComboBox<String> comboBoxSexo;
 	private JDateChooser dateChooserNacimiento;
 	/**
 	 * Create the panel.
 	 */
-	public AltaTitular() {
+	public PanelAltaTitular() {
 		setLayout(null);
 		
 		//ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/icono.jpg"));
@@ -66,8 +70,8 @@ public class AltaTitular extends JPanel {
 		add(lblNumeroDoc);
 		
 		//Combo box con opciones de tipo de documento
-		comboTipoDoc = new JComboBox();
-		comboTipoDoc.setModel(new DefaultComboBoxModel(new String[] {"", "DNI", "LC", "LE"}));
+		comboTipoDoc = new JComboBox<String>();
+		comboTipoDoc.setModel(new DefaultComboBoxModel<String>(new String[] {"", "DNI", "LC", "LE"}));
 		comboTipoDoc.setBounds(139, 70, 165, 20);
 		add(comboTipoDoc);
 		
@@ -106,7 +110,32 @@ public class AltaTitular extends JPanel {
 			}
 		});
 		
-		
+		//Cuando se pierde el foco de textNumeroDoc: se comprueba si ya existe el numero y tipo de documento cargado
+		textNumeroDoc.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				//Se verifica que el numero de doc cargado sea mayor a 7 y que se haya seleccionado tipo de documento
+				if(textNumeroDoc.getText().length()>=7 && comboTipoDoc.getSelectedIndex()!=0){
+					AltaTitular titularAValidar = new AltaTitular();
+					Titular titular = titularAValidar.verificarExistenciaTitular(textNumeroDoc.getText(), comboTipoDoc.getSelectedItem().toString());
+					if(titular!=null){
+						titularExistente(titular);
+					}
+				}
+				
+				
+				
+			}
+
+			
+		});
 		/* Apellido, Nombre  y Direccion*/
 		
 		//Etiquetas
@@ -302,14 +331,14 @@ public class AltaTitular extends JPanel {
 			
 			
 		//Combo box con opciones de gurpo sanguino
-		comboGrupoSanguineo = new JComboBox();
-		comboGrupoSanguineo.setModel(new DefaultComboBoxModel(new String[] {"", "0", "A", "B", "AB"}));
+		comboGrupoSanguineo = new JComboBox<String>();
+		comboGrupoSanguineo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "0", "A", "B", "AB"}));
 		comboGrupoSanguineo.setBounds(134, 169, 57, 20);
 		add(comboGrupoSanguineo);
 		
 		//Combo box con opciones de factor RH
-		comboFactorRH = new JComboBox();
-		comboFactorRH.setModel(new DefaultComboBoxModel(new String[] {"", "+", "-"}));
+		comboFactorRH = new JComboBox<String>();
+		comboFactorRH.setModel(new DefaultComboBoxModel<String>(new String[] {"", "+", "-"}));
 		comboFactorRH.setBounds(256, 169, 46, 20);
 		add(comboFactorRH);
 
@@ -337,7 +366,7 @@ public class AltaTitular extends JPanel {
 		
 		
 		JCheckBox checkBoxClaseC = new JCheckBox("Clase C");
-		checkBoxClaseC.setBounds(139, 229, 80, 23);
+		checkBoxClaseC.setBounds(226, 229, 114, 23);
 		add(checkBoxClaseC);
 		
 		//Si se selecciona C, se desactiva la opcion de seleccionar B
@@ -360,7 +389,7 @@ public class AltaTitular extends JPanel {
 		
 		//Si se selecciona D, se desactiva la opcion de seleccionar C y B
 		JCheckBox checkBoxClaseD = new JCheckBox("Clase D\r\n");
-		checkBoxClaseD.setBounds(139, 255, 86, 23);
+		checkBoxClaseD.setBounds(190, 363, 114, 23);
 		add(checkBoxClaseD);
 		checkBoxClaseD.addActionListener(new ActionListener() {
 			
@@ -383,7 +412,7 @@ public class AltaTitular extends JPanel {
 		
 		//Si se selecciona E, se desactiva la opcion de seleccionar B,C y E
 		JCheckBox checkBoxClaseE = new JCheckBox("Clase E");
-		checkBoxClaseE.setBounds(230, 229, 61, 23);
+		checkBoxClaseE.setBounds(399, 229, 83, 23);
 		add(checkBoxClaseE);
 		checkBoxClaseE.addActionListener(new ActionListener() {
 			
@@ -403,11 +432,11 @@ public class AltaTitular extends JPanel {
 		});	
 		
 		JCheckBox chckbxClaseF = new JCheckBox("Clase F");
-		chckbxClaseF.setBounds(230, 255, 61, 23);
+		chckbxClaseF.setBounds(403, 255, 83, 23);
 		add(chckbxClaseF);
 		
 		JCheckBox chckbxClaseG = new JCheckBox("Clase G\r\n");
-		chckbxClaseG.setBounds(328, 229, 66, 23);
+		chckbxClaseG.setBounds(583, 229, 66, 23);
 		add(chckbxClaseG);
 
 		/*Fecha de nacimiento*/
@@ -425,8 +454,8 @@ public class AltaTitular extends JPanel {
 		lblSexo.setBounds(451, 113, 35, 14);
 		add(lblSexo);
 		
-		comboBoxSexo = new JComboBox();
-		comboBoxSexo.setModel(new DefaultComboBoxModel(new String[] {"", "Femenino", "Masculino"}));
+		comboBoxSexo = new JComboBox<String>();
+		comboBoxSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Femenino", "Masculino"}));
 		comboBoxSexo.setBounds(496, 107, 190, 20);
 		add(comboBoxSexo);
 
@@ -508,21 +537,15 @@ public class AltaTitular extends JPanel {
 		try{
 			
 		//Verificar Nulidad de numero y tipo de documento
-		if(!textNumeroDoc.getText().isEmpty() && comboTipoDoc.getSelectedIndex()!=0){
+		if(textNumeroDoc.getText().isEmpty() && comboTipoDoc.getSelectedIndex()==0)
+			throw new ExcepcionNull();
 			//Si no son nulos, verificar que los digitos del documento sean >= 7
-			if(textNumeroDoc.getText().length()<7){
+			else if(textNumeroDoc.getText().length()<7){
 				//si es menor a 7, se genera una excepcion
 				throw new ExcepcionValidador("Documento: cantidad de digitos de digitos incorrectos");
 			}
-			//
-			/*if(verificarExistenciaTitular(textNumeroDoc)){
-				
-			}
-		}
-		else{*/
-			//Si es nulo generar excepcion
-			throw new ExcepcionNull();
-		}
+		
+		
 		//Verificar nulidad
 		if (textApellido.getText().isEmpty() || textDireccion.getText().isEmpty()|| textNombre.getText().isEmpty()|| textRutaImagen.getText().isEmpty() 
 				||comboBoxSexo.getSelectedIndex()==0 || comboFactorRH.getSelectedIndex()==0 || comboGrupoSanguineo.getSelectedIndex()==0 ||
@@ -544,5 +567,11 @@ public class AltaTitular extends JPanel {
 			 JOptionPane.showMessageDialog(this,e2.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 		}
+	
+
+	private void titularExistente(Titular titular) {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this,	titular.getApellido()+'\t'+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);
+	}
 	
 }
