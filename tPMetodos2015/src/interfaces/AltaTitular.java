@@ -8,6 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -20,6 +21,10 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.toedter.calendar.JDateChooser;
+
+import excepciones.ExcepcionNull;
+import excepciones.ExcepcionValidador;
+
 import javax.swing.JButton;
 
 public class AltaTitular extends JPanel {
@@ -51,24 +56,28 @@ public class AltaTitular extends JPanel {
         //add(icono);
 		
 		/*Numero y tipo de documento*/
+		//etiquetas
 		JLabel lblTipoDeDocumento = new JLabel("Tipo de documento:");
 		lblTipoDeDocumento.setBounds(37, 73, 105, 14);
 		add(lblTipoDeDocumento);
-		
-		comboTipoDoc = new JComboBox();
-		comboTipoDoc.setModel(new DefaultComboBoxModel(new String[] {"", "DNI", "LC", "LE"}));
-		comboTipoDoc.setBounds(139, 70, 165, 20);
-		add(comboTipoDoc);
 		
 		JLabel lblNumeroDoc = new JLabel("N\u00FAmero de documento:");
 		lblNumeroDoc.setBounds(369, 73, 117, 14);
 		add(lblNumeroDoc);
 		
+		//Combo box con opciones de tipo de documento
+		comboTipoDoc = new JComboBox();
+		comboTipoDoc.setModel(new DefaultComboBoxModel(new String[] {"", "DNI", "LC", "LE"}));
+		comboTipoDoc.setBounds(139, 70, 165, 20);
+		add(comboTipoDoc);
+		
+		//Campo a completar con numero de documento
 		textNumeroDoc = new JTextField();
 		textNumeroDoc.setBounds(496, 70, 190, 20);
 		add(textNumeroDoc);
 		textNumeroDoc.setColumns(10);
-		//Permitir solo números
+		
+		//Campo NumeroDoc permite solo números y maximo 8
 		textNumeroDoc.addKeyListener(new KeyListener(){
             
             public void keyTyped(KeyEvent e)
@@ -113,13 +122,14 @@ public class AltaTitular extends JPanel {
 		lblDireccin.setBounds(37, 141, 57, 14);
 		add(lblDireccin);
 		
-		
-		
+		//Campo a completar con Apellido
 		textApellido = new JTextField();
 		textApellido.setBounds(88, 34, 214, 20);
 		add(textApellido);
 		textApellido.setColumns(10);
-		//Permite solo letras y tamaño:50
+		
+		
+		//Campo textApellido permite solo letras y tamaño:50
 		textApellido.addKeyListener(new KeyListener(){
             
             public void keyTyped(KeyEvent e)
@@ -170,10 +180,12 @@ public class AltaTitular extends JPanel {
         
                 });
 		
+        //Campo a completar Nombre
 		textNombre = new JTextField();
 		textNombre.setBounds(496, 34, 190, 20);
 		add(textNombre);
 		textNombre.setColumns(10);
+		//Campo textNombre permite solo letras (espacio y ') y tamaño:50, y mayuscula
 		textNombre.addKeyListener(new KeyListener(){
             
             public void keyTyped(KeyEvent e)
@@ -224,7 +236,7 @@ public class AltaTitular extends JPanel {
 	                });
 			
 		
-		
+		//Campo textDireccion permite solo letras, numeros (espacio y ') y tamaño:50, y mayuscula
 		textDireccion = new JTextField();
 		textDireccion.setBounds(88, 138, 216, 20);
 		add(textDireccion);
@@ -279,23 +291,29 @@ public class AltaTitular extends JPanel {
 	                });
 		
 		/*Grupo Sanguino y Factor RH*/
+		 //etiquetas
+		 JLabel lblNewLabel = new JLabel("Grupo sangu\u00EDneo:");
+		 lblNewLabel.setBounds(37, 172, 100, 14);
+		 add(lblNewLabel);
+			
+		 JLabel lblFactorRh = new JLabel("Factor RH:");
+		 lblFactorRh.setBounds(201, 169, 57, 14);
+		 add(lblFactorRh);
+			
+			
+		//Combo box con opciones de gurpo sanguino
 		comboGrupoSanguineo = new JComboBox();
 		comboGrupoSanguineo.setModel(new DefaultComboBoxModel(new String[] {"", "0", "A", "B", "AB"}));
 		comboGrupoSanguineo.setBounds(134, 169, 57, 20);
 		add(comboGrupoSanguineo);
 		
+		//Combo box con opciones de factor RH
 		comboFactorRH = new JComboBox();
 		comboFactorRH.setModel(new DefaultComboBoxModel(new String[] {"", "+", "-"}));
 		comboFactorRH.setBounds(256, 169, 46, 20);
 		add(comboFactorRH);
 
-		JLabel lblNewLabel = new JLabel("Grupo sangu\u00EDneo:");
-		lblNewLabel.setBounds(37, 172, 100, 14);
-		add(lblNewLabel);
 		
-		JLabel lblFactorRh = new JLabel("Factor RH:");
-		lblFactorRh.setBounds(201, 169, 57, 14);
-		add(lblFactorRh);
 		
 		
 		/*Clases : A,B,C,D,E,F,G 
@@ -303,6 +321,10 @@ public class AltaTitular extends JPanel {
 		 * D -> C
 		 * E -> C
 		 */
+		JLabel lblClasesSolicitadas = new JLabel("Clases solicitadas:");
+		lblClasesSolicitadas.setBounds(37, 197, 133, 14);
+		add(lblClasesSolicitadas);
+		
 		JCheckBox checkBoxClaseA = new JCheckBox("Clase A");
 		checkBoxClaseA.setBounds(37, 229, 97, 23);
 		add(checkBoxClaseA);
@@ -318,6 +340,7 @@ public class AltaTitular extends JPanel {
 		checkBoxClaseC.setBounds(139, 229, 80, 23);
 		add(checkBoxClaseC);
 		
+		//Si se selecciona C, se desactiva la opcion de seleccionar B
 		checkBoxClaseC.addActionListener(new ActionListener() {
 			
 			@Override
@@ -335,7 +358,7 @@ public class AltaTitular extends JPanel {
 			}
 		});
 		
-		
+		//Si se selecciona D, se desactiva la opcion de seleccionar C y B
 		JCheckBox checkBoxClaseD = new JCheckBox("Clase D\r\n");
 		checkBoxClaseD.setBounds(139, 255, 86, 23);
 		add(checkBoxClaseD);
@@ -358,6 +381,7 @@ public class AltaTitular extends JPanel {
 			}
 		});
 		
+		//Si se selecciona E, se desactiva la opcion de seleccionar B,C y E
 		JCheckBox checkBoxClaseE = new JCheckBox("Clase E");
 		checkBoxClaseE.setBounds(230, 229, 61, 23);
 		add(checkBoxClaseE);
@@ -386,15 +410,17 @@ public class AltaTitular extends JPanel {
 		chckbxClaseG.setBounds(328, 229, 66, 23);
 		add(chckbxClaseG);
 
-		/**/
-		dateChooserNacimiento = new JDateChooser();
-		dateChooserNacimiento.setBounds(149, 107, 155, 20);
-		add(dateChooserNacimiento);
-		
+		/*Fecha de nacimiento*/
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
 		lblFechaDeNacimiento.setBounds(37, 113, 105, 14);
 		add(lblFechaDeNacimiento);
 		
+		dateChooserNacimiento = new JDateChooser();
+		dateChooserNacimiento.setBounds(149, 107, 155, 20);
+		add(dateChooserNacimiento);
+		
+		
+		/*Sexo*/
 		JLabel lblSexo = new JLabel("Sexo:");
 		lblSexo.setBounds(451, 113, 35, 14);
 		add(lblSexo);
@@ -408,11 +434,16 @@ public class AltaTitular extends JPanel {
 		checkBoxDondante.setBounds(37, 295, 155, 23);
 		add(checkBoxDondante);
 		
+		
+		
+		/* Boton Aceptar*/
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(592, 346, 89, 23);
 		add(btnAceptar);
+		
+		//Si se selecciona el boton aceptar se ejecuta la funcion btnAceptarAction() y se envia el evento e(de seleccion)
 		btnAceptar.addActionListener(new ActionListener() {
-			
+		
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnAceptarAction(e);
@@ -423,11 +454,8 @@ public class AltaTitular extends JPanel {
 			
 		});
 		
-		JLabel lblClasesSolicitadas = new JLabel("Clases solicitadas:");
-		lblClasesSolicitadas.setBounds(37, 197, 133, 14);
-		add(lblClasesSolicitadas);
 		
-		//Foto
+		/*Foto*/
 		JLabel lblImagen = new JLabel("Foto:");
 		lblImagen.setBounds(37, 325, 46, 14);
 		add(lblImagen);
@@ -435,11 +463,12 @@ public class AltaTitular extends JPanel {
 		JButton btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.setBounds(217, 321, 89, 23);
 		add(btnSeleccionar);
+		//Si se selecciona el boton "Seleccionar" se ejecuta la funcion btnSeleccionarAction() y se envia el evento e(de seleccion)
 		btnSeleccionar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnSeleccionarAccion(e);
+				btnSeleccionarAction(e);
 				// TODO Auto-generated method stub
 				
 			}
@@ -453,7 +482,7 @@ public class AltaTitular extends JPanel {
 	
 	
 	}
-	private void btnSeleccionarAccion(ActionEvent e){
+	private void btnSeleccionarAction(ActionEvent e){
 		//permite solo imagenes jpeg
 		FileNameExtensionFilter filtro = new FileNameExtensionFilter("Formatos de archivos JPEG (*.JPG, *.JPEG)", "jpg","jpeg");
 		
@@ -475,27 +504,45 @@ public class AltaTitular extends JPanel {
 		}
 	}
 	private void btnAceptarAction(ActionEvent e) {
-		boolean licencia_previa=false; //MOOOOOOOODIFICAR con la funcion de logica
+	
+		try{
+			
+		//Verificar Nulidad de numero y tipo de documento
 		if(!textNumeroDoc.getText().isEmpty() && comboTipoDoc.getSelectedIndex()!=0){
+			//Si no son nulos, verificar que los digitos del documento sean >= 7
+			if(textNumeroDoc.getText().length()<7){
+				//si es menor a 7, se genera una excepcion
+				throw new ExcepcionValidador("Documento: cantidad de digitos de digitos incorrectos");
+			}
+			//
 			/*if(verificarExistenciaTitular(textNumeroDoc)){
 				
-			}*/
+			}
 		}
-		//else{
-			//throw new ExceptionNull();JOptionPane.showMessageDialog(this,"No se han cargado todos los datos", "Error", JOptionPane.INFORMATION_MESSAGE);
-		//}
+		else{*/
+			//Si es nulo generar excepcion
+			throw new ExcepcionNull();
+		}
+		//Verificar nulidad
 		if (textApellido.getText().isEmpty() || textDireccion.getText().isEmpty()|| textNombre.getText().isEmpty()|| textRutaImagen.getText().isEmpty() 
 				||comboBoxSexo.getSelectedIndex()==0 || comboFactorRH.getSelectedIndex()==0 || comboGrupoSanguineo.getSelectedIndex()==0 ||
 				comboFactorRH.getSelectedIndex()==0 ){
-			//throw new ExceptionNull();
+			throw new ExcepcionNull();
 			
 		}
-		//fechaNac = dateChooserNacimiento.getCalendar();
-        //Calendar fecha = Calendar.getInstance();
-        //if(fechaNac.after(fecha))
-        //        throw new Excepcion("Fecha de nacimiento incorrecta");
-		//else{
+		Calendar fechaNac = dateChooserNacimiento.getCalendar();
+        Calendar fecha = Calendar.getInstance();
+        if(fechaNac.after(fecha))
+                throw new ExcepcionValidador("Fecha de nacimiento incorrecta");
+		else{
 			
-		//}
+		}
 	}
+		catch(ExcepcionNull e1){ JOptionPane.showMessageDialog(this,"No se han cargado todos los datos", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+		catch (ExcepcionValidador e2){
+			 JOptionPane.showMessageDialog(this,e2.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+		}
+	
 }
