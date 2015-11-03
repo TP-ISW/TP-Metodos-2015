@@ -15,8 +15,8 @@ public class Clase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="CLASE_IDCLASE_GENERATOR", sequenceName="SECUENCIA")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CLASE_IDCLASE_GENERATOR")
+	/*@SequenceGenerator(name="CLASE_IDCLASE_GENERATOR", sequenceName="SECUENCIA")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CLASE_IDCLASE_GENERATOR")*/
 	private String idClase;
 
 	private Float costo;
@@ -96,6 +96,17 @@ public class Clase implements Serializable {
 
 	public void setTitulares(List<Titular> titulares) {
 		this.titulares = titulares;
+	}
+
+	public boolean superior(Clase claseSolicitada) {
+			// TODO Auto-generated method stub
+			if(claseSolicitada.getIdClase().equals("B") && (this.getIdClase().equals("D")||this.getIdClase().equals("E")||
+					this.getIdClase().equals("C")))
+				return true;
+			else if(claseSolicitada.getIdClase().equals("C") && (this.getIdClase().equals("D")||this.getIdClase().equals("E")))
+				return true;
+			return false;
+		
 	}
 
 }

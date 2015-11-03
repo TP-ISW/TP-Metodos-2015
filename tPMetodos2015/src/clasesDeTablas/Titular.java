@@ -60,6 +60,7 @@ public class Titular implements Serializable {
 	private List<Clase> clasesSolicitadas;
 
 	public Titular() {
+
 	}
 
 	public TitularPK getId() {

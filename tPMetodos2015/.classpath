@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_31"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/oraclexe/app/oracle/product/10.2.0/server/jdbc/lib/ojdbc14.jar"/>
 	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/Oracle Database 10g and 11g Driver Default"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/antlr.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/asm.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/cglib-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/commons-collections.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/hibernate3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/javassist.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/javassist-3.9.0.GA.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/jta.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/junit.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/log4j.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/slf4j-api-1.5.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Guillej/Google Drive/Metodos Ágiles/Librerias Hibernate/slf4j-log4j12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
