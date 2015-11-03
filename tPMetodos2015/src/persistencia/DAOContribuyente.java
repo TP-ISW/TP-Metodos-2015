@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import clasesDeTablas.Contribuyente;
-
+import clasesDeTablas.ContribuyentePK;
 public class DAOContribuyente implements Repositorio<Contribuyente> {
 
 	@Override
@@ -36,6 +36,15 @@ public class DAOContribuyente implements Repositorio<Contribuyente> {
         Session session = factory.getCurrentSession(); 
         session.beginTransaction();
         Contribuyente objeto = (Contribuyente) session.get(Contribuyente.class, id);
+        session.getTransaction().commit();
+        return objeto;
+	}
+	public Contribuyente getByDocumentoYTipo(ContribuyentePK documento) {
+		// TODO Auto-generated method stub
+		SessionFactory factory= FabricaSessionFactory.getFactory();
+        Session session = factory.getCurrentSession(); 
+        session.beginTransaction();
+        Contribuyente objeto = (Contribuyente) session.get(Contribuyente.class, documento);
         session.getTransaction().commit();
         return objeto;
 	}

@@ -5,12 +5,15 @@ import java.util.Calendar;
 import java.util.List;
 
 import clasesDeTablas.Clase;
+import clasesDeTablas.Contribuyente;
+import clasesDeTablas.ContribuyentePK;
 import clasesDeTablas.Licenciaexpirada;
 import clasesDeTablas.Licenciavigente;
 import clasesDeTablas.Titular;
 import clasesDeTablas.TitularPK;
 import excepciones.*;
 import persistencia.DAOClase;
+import persistencia.DAOContribuyente;
 import persistencia.DAOTitular;
 import validacion.Validar;
 
@@ -28,8 +31,9 @@ public class AltaTitular {
 
 	public void altaTitular(String nroDoc, String tipoDoc, String nombre, String apellido, String domicilio, 
 			Boolean donante, String factorRh,String grupoSanguineo, Calendar fechaNacimiento, String sexo, 
-			String foto, List<String> clases)throws ExcepcionValidador, ExcepcionLicenciasInvalidas{
+			String foto, List<String> clases)throws ExcepcionValidador, ExcepcionLicenciasInvalidas, ExcepcionContribuyente{
 		
+		//se verifica que el titular sea contribuyente
 		verificarSiEsContribuyente(nroDoc,tipoDoc);
 		
 		TitularPK id= new TitularPK();
@@ -69,8 +73,16 @@ public class AltaTitular {
 			daoTitular.save(nuevoTitular);
 
 	}
-	private void verificarSiEsContribuyente(String nroDoc, String tipoDoc) {
+	private void verificarSiEsContribuyente(String nroDoc, String tipoDoc) throws ExcepcionContribuyente {
 		// TODO Auto-generated method stub
+		DAOContribuyente daoContribuyente = new DAOContribuyente();
+		ContribuyentePK contriPK = new ContribuyentePK();
+		contriPK.setNrodoc(nroDoc);
+		contriPK.setTipodoc(tipoDoc);
+		
+		Contribuyente contribuyente = daoContribuyente.getByDocumentoYTipo(contriPK);
+		if(contribuyente==null)
+			throw new ExcepcionContribuyente("El titular no es contribuyente");
 		
 		
 	}
