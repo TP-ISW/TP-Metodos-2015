@@ -10,6 +10,7 @@ import clasesDeTablas.Licenciavigente;
 import clasesDeTablas.Titular;
 import clasesDeTablas.TitularPK;
 import excepciones.*;
+import persistencia.DAOClase;
 import persistencia.DAOTitular;
 import validacion.Validar;
 
@@ -25,9 +26,11 @@ public class AltaTitular {
 		add("E");			
 	}};
 
-	public AltaTitular(String nroDoc, String tipoDoc, String nombre, String apellido, String domicilio, 
+	public void altaTitular(String nroDoc, String tipoDoc, String nombre, String apellido, String domicilio, 
 			Boolean donante, String factorRh,String grupoSanguineo, Calendar fechaNacimiento, String sexo, 
 			String foto, List<String> clases)throws ExcepcionValidador, ExcepcionLicenciasInvalidas{
+		
+		verificarSiEsContribuyente(nroDoc,tipoDoc);
 		
 		TitularPK id= new TitularPK();
 		id.setNroDoc(nroDoc);
@@ -44,14 +47,18 @@ public class AltaTitular {
 		nuevoTitular.setNombre(nombre);
 		nuevoTitular.setSexo(sexo);
 		nuevoTitular.setId(id);
+		
+		DAOClase daoClase = new DAOClase();
+		
+		//se traen las clases solicitadas desde la BD
 		List <Clase> clasesSolicitadas=new ArrayList<>();
-		for (String string : clases) {
-			Clase clase = new Clase();
-			clase.setIdClase(string);
+		for (String idClase : clases) {
+			Clase clase = daoClase.getById(idClase);
 			clasesSolicitadas.add(clase);
 		}		
 		nuevoTitular.setClasesSolicitadas(clasesSolicitadas);
 		
+		//se ejecutan acciones para brindar seguridad (inyeccion sql y demas validaciones)
 		Validar.validar(nuevoTitular);
 		chequearLicenciasSolicitadas(nuevoTitular);
 		DAOTitular daoTitular = new DAOTitular();
@@ -61,6 +68,11 @@ public class AltaTitular {
 		else
 			daoTitular.save(nuevoTitular);
 
+	}
+	private void verificarSiEsContribuyente(String nroDoc, String tipoDoc) {
+		// TODO Auto-generated method stub
+		
+		
 	}
 	private void chequearLicenciasSolicitadas(Titular nuevoTitular)throws ExcepcionLicenciasInvalidas {
 		// TODO Auto-generated method stub

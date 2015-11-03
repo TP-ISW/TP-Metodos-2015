@@ -41,7 +41,7 @@ public class Licenciavigente implements Serializable {
 
 	//bi-directional one-to-one association to Comprobante
 	@OneToOne
-	@JoinColumn(name="IDLICENCIA", referencedColumnName="IDLICENCIA")
+	@JoinColumn(name="IDCOMPROBANTE", referencedColumnName="IDCOMPROBANTE")
 	private Comprobante comprobante;
 
 	//bi-directional many-to-one association to Titular

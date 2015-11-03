@@ -15,8 +15,8 @@ public class Clase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="CLASE_IDCLASE_GENERATOR", sequenceName="SECUENCIA")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CLASE_IDCLASE_GENERATOR")
+	/*@SequenceGenerator(name="CLASE_IDCLASE_GENERATOR", sequenceName="SECUENCIA")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CLASE_IDCLASE_GENERATOR")*/
 	private String idClase;
 
 	private Float costo;
