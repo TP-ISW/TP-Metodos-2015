@@ -103,12 +103,14 @@ public class AltaTitular {
 				else if (!puedeSerProfesional(nuevoTitular,edad))					
 					throw new ExcepcionLicenciasInvalidas("El titular no puede obtener una clase profesional");
 			}
-			for (Licenciavigente licVig : nuevoTitular.getLicenciasVigentes()) {
-				if(licVig.getClase().getIdClase().equals(claseSolicitada.getIdClase()))
-					throw new ExcepcionLicenciasInvalidas("Ya posee una licencia vigente de esta clase. Debería renovarla");
-				else if (licVig.getClase().superior(claseSolicitada))
-					throw new ExcepcionLicenciasInvalidas("La clase que solicita es inferior a la/s que posee");
-			}
+			
+			if(nuevoTitular.getLicenciasVigentes()!=null)	
+				for (Licenciavigente licVig : nuevoTitular.getLicenciasVigentes()) {
+					if(licVig.getClase().getIdClase().equals(claseSolicitada.getIdClase()))
+						throw new ExcepcionLicenciasInvalidas("Ya posee una licencia vigente de esta clase. Debería renovarla");
+					else if (licVig.getClase().superior(claseSolicitada))
+						throw new ExcepcionLicenciasInvalidas("La clase que solicita es inferior a la/s que posee");
+				}
 			
 		}
 	}
@@ -116,11 +118,11 @@ public class AltaTitular {
 	private boolean puedeSerProfesional(Titular nuevoTitular,int edad) {
 		
 		boolean tieneLicenciaProfesional=false;
-		
-		for (Licenciaexpirada licExp : nuevoTitular.getLicenciasExpiradas()) {
-			if(clasesRequieren21.contains(licExp.getClase().getIdClase()))
-				tieneLicenciaProfesional=true;
-		}
+		if(nuevoTitular.getLicenciasExpiradas()!=null)
+			for (Licenciaexpirada licExp : nuevoTitular.getLicenciasExpiradas()) {
+				if(clasesRequieren21.contains(licExp.getClase().getIdClase()))
+					tieneLicenciaProfesional=true;
+			}
 		if(edad>65)
 			if(tieneLicenciaProfesional)
 				return true;
@@ -128,11 +130,12 @@ public class AltaTitular {
 				return false;
 		//si sigue quiere decir que tiene menos de 65
 		//ahora verificamos que haya tenido al menos una clase B
-		
+		if(nuevoTitular.getLicenciasExpiradas()!=null)
 		for (Licenciaexpirada licExp : nuevoTitular.getLicenciasExpiradas()) {
 			if(licExp.getClase().getIdClase().equals("B"))
 				return true;
 		}
+		if(nuevoTitular.getLicenciasVigentes()!=null)
 		for(Licenciavigente licVig: nuevoTitular.getLicenciasVigentes()){
 			if(licVig.getClase().getIdClase().equals("B")){
 				if (EmitirLicencia.antiguedadLicencia(licVig)>=1)

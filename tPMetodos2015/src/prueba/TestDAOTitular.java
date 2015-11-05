@@ -9,6 +9,7 @@ import org.junit.Test;
 import clasesDeTablas.Clase;
 import clasesDeTablas.Titular;
 import clasesDeTablas.TitularPK;
+import excepciones.ExcepcionContribuyente;
 import excepciones.ExcepcionLicenciasInvalidas;
 import excepciones.ExcepcionValidador;
 import junit.framework.TestCase;
@@ -25,10 +26,12 @@ public class TestDAOTitular extends TestCase {
 	List<String> stringClases = new ArrayList<>();
 	DAOClase daoClase= new DAOClase();
 	List<Clase> clasesSolicitadas = new ArrayList<>();
+	Calendar fechaNac= Calendar.getInstance();
 	
 	@Test
 	public void testDAOTitular() {
 		//crea el titular y lo guarda en la BD
+		fechaNac.set(Calendar.YEAR, 1994);
 		stringClases.add("A");
 		AltaTitular altaTitular = new AltaTitular();
 		try {
@@ -40,7 +43,7 @@ public class TestDAOTitular extends TestCase {
 					false,
 					"+",
 					"A",
-					Calendar.getInstance(),
+					fechaNac,
 					"M",
 					"FOTO",
 					stringClases);
@@ -48,6 +51,9 @@ public class TestDAOTitular extends TestCase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExcepcionLicenciasInvalidas e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExcepcionContribuyente e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -58,7 +64,7 @@ public class TestDAOTitular extends TestCase {
 		titularDeEjemplo.setDomicilio("GENERAL PAZ 1111");
 		titularDeEjemplo.setDonante(false);
 		titularDeEjemplo.setFactorRh("+");
-		titularDeEjemplo.setFechaNacimiento(Calendar.getInstance());
+		titularDeEjemplo.setFechaNacimiento(fechaNac);
 		titularDeEjemplo.setFoto("LAFOTO");
 		titularDeEjemplo.setGrupoSanguineo("A");
 		titularDeEjemplo.setSexo("M"); 
@@ -76,7 +82,5 @@ public class TestDAOTitular extends TestCase {
 		
 		assertEquals(titularBD, titularDeEjemplo);
 		
-	    /*double appraisal= empBusinessLogic.calculateAppraisal(employee);
-	    assertEquals(500, appraisal, 0.0); */
 	   }
 }

@@ -7,7 +7,9 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -23,6 +25,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.toedter.calendar.JDateChooser;
 
 import clasesDeTablas.Titular;
+import excepciones.ExcepcionContribuyente;
+import excepciones.ExcepcionLicenciasInvalidas;
 import excepciones.ExcepcionNull;
 import excepciones.ExcepcionValidador;
 import logica.AltaTitular;
@@ -42,6 +46,15 @@ public class PanelAltaTitular extends JPanel {
 	private JComboBox<String> comboFactorRH;
 	private JComboBox<String> comboBoxSexo;
 	private JDateChooser dateChooserNacimiento;
+	private AltaTitular altaTitular = new AltaTitular();
+	JCheckBox checkBoxClaseA;
+	JCheckBox checkBoxClaseB;
+	JCheckBox checkBoxClaseC;
+	JCheckBox checkBoxClaseD;
+	JCheckBox checkBoxClaseE;
+	JCheckBox checkBoxClaseF;
+	JCheckBox checkBoxClaseG;
+	JCheckBox checkBoxDondante;
 	/**
 	 * Create the panel.
 	 */
@@ -123,8 +136,8 @@ public class PanelAltaTitular extends JPanel {
 			public void focusLost(FocusEvent e) {
 				//Se verifica que el numero de doc cargado sea mayor a 7 y que se haya seleccionado tipo de documento
 				if(textNumeroDoc.getText().length()>=7 && comboTipoDoc.getSelectedIndex()!=0){
-					AltaTitular titularAValidar = new AltaTitular();
-					Titular titular = titularAValidar.verificarExistenciaTitular(textNumeroDoc.getText(), comboTipoDoc.getSelectedItem().toString());
+					
+					Titular titular = altaTitular.verificarExistenciaTitular(textNumeroDoc.getText(), comboTipoDoc.getSelectedItem().toString());
 					if(titular!=null){
 						titularExistente(titular);
 					}
@@ -354,18 +367,18 @@ public class PanelAltaTitular extends JPanel {
 		lblClasesSolicitadas.setBounds(37, 197, 133, 14);
 		add(lblClasesSolicitadas);
 		
-		JCheckBox checkBoxClaseA = new JCheckBox("Clase A");
+		checkBoxClaseA = new JCheckBox("Clase A");
 		checkBoxClaseA.setBounds(37, 229, 97, 23);
 		add(checkBoxClaseA);
 		
 		
-		JCheckBox checkBoxClaseB = new JCheckBox("Clase B");
+		checkBoxClaseB = new JCheckBox("Clase B");
 		checkBoxClaseB.setBounds(37, 255, 97, 23);
 		add(checkBoxClaseB);
 		
 		
 		
-		JCheckBox checkBoxClaseC = new JCheckBox("Clase C");
+		checkBoxClaseC = new JCheckBox("Clase C");
 		checkBoxClaseC.setBounds(226, 229, 114, 23);
 		add(checkBoxClaseC);
 		
@@ -388,7 +401,7 @@ public class PanelAltaTitular extends JPanel {
 		});
 		
 		//Si se selecciona D, se desactiva la opcion de seleccionar C y B
-		JCheckBox checkBoxClaseD = new JCheckBox("Clase D\r\n");
+		checkBoxClaseD = new JCheckBox("Clase D\r\n");
 		checkBoxClaseD.setBounds(226, 255, 114, 23);
 		add(checkBoxClaseD);
 		checkBoxClaseD.addActionListener(new ActionListener() {
@@ -411,7 +424,7 @@ public class PanelAltaTitular extends JPanel {
 		});
 		
 		//Si se selecciona E, se desactiva la opcion de seleccionar B,C y E
-		JCheckBox checkBoxClaseE = new JCheckBox("Clase E");
+		checkBoxClaseE = new JCheckBox("Clase E");
 		checkBoxClaseE.setBounds(399, 229, 83, 23);
 		add(checkBoxClaseE);
 		checkBoxClaseE.addActionListener(new ActionListener() {
@@ -431,13 +444,13 @@ public class PanelAltaTitular extends JPanel {
 			}	
 		});	
 		
-		JCheckBox chckbxClaseF = new JCheckBox("Clase F");
-		chckbxClaseF.setBounds(403, 255, 83, 23);
-		add(chckbxClaseF);
+		checkBoxClaseF = new JCheckBox("Clase F");
+		checkBoxClaseF.setBounds(403, 255, 83, 23);
+		add(checkBoxClaseF);
 		
-		JCheckBox chckbxClaseG = new JCheckBox("Clase G\r\n");
-		chckbxClaseG.setBounds(583, 229, 66, 23);
-		add(chckbxClaseG);
+		checkBoxClaseG = new JCheckBox("Clase G\r\n");
+		checkBoxClaseG.setBounds(583, 229, 66, 23);
+		add(checkBoxClaseG);
 
 		/*Fecha de nacimiento*/
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
@@ -459,7 +472,7 @@ public class PanelAltaTitular extends JPanel {
 		comboBoxSexo.setBounds(496, 107, 190, 20);
 		add(comboBoxSexo);
 
-		JCheckBox checkBoxDondante = new JCheckBox("Donante de \u00F3rganos");
+		checkBoxDondante = new JCheckBox("Donante de \u00F3rganos");
 		checkBoxDondante.setBounds(37, 295, 155, 23);
 		add(checkBoxDondante);
 		
@@ -525,11 +538,11 @@ public class PanelAltaTitular extends JPanel {
 		// abrir ventana de seleccion de foto
 		int ventana = seleccionadorFoto.showOpenDialog(null); 
 		//pregunta si selecciono una foto
+		
 		if(ventana == JFileChooser.APPROVE_OPTION){
 			//agrega la ruta de la foto en textRutaImagen
 			File file= seleccionadorFoto.getSelectedFile();
 			textRutaImagen.setText(String.valueOf(file));
-	
 		}
 	}
 	private void btnAceptarAction(ActionEvent e) {
@@ -538,7 +551,7 @@ public class PanelAltaTitular extends JPanel {
 			
 		//Verificar Nulidad de numero y tipo de documento
 		if(textNumeroDoc.getText().isEmpty() && comboTipoDoc.getSelectedIndex()==0)
-			throw new ExcepcionNull();
+			throw new ExcepcionNull("El DNI o el tipo de DNI es nulo");
 			//Si no son nulos, verificar que los digitos del documento sean >= 7
 			else if(textNumeroDoc.getText().length()<7){
 				//si es menor a 7, se genera una excepcion
@@ -550,7 +563,7 @@ public class PanelAltaTitular extends JPanel {
 		if (textApellido.getText().isEmpty() || textDireccion.getText().isEmpty()|| textNombre.getText().isEmpty()|| textRutaImagen.getText().isEmpty() 
 				||comboBoxSexo.getSelectedIndex()==0 || comboFactorRH.getSelectedIndex()==0 || comboGrupoSanguineo.getSelectedIndex()==0 ||
 				comboFactorRH.getSelectedIndex()==0 ){
-			throw new ExcepcionNull();
+			throw new ExcepcionNull("Existen campos nulos de datos");
 			
 		}
 		Calendar fechaNac = dateChooserNacimiento.getCalendar();
@@ -558,17 +571,45 @@ public class PanelAltaTitular extends JPanel {
         if(fechaNac.after(fecha))
                 throw new ExcepcionValidador("Fecha de nacimiento incorrecta");
 		else{
-			
+			List<String> clasesSolicitadas =obtenerClasesTildadas();
+			altaTitular.altaTitular(textNumeroDoc.getText(), (String) comboTipoDoc.getSelectedItem(),
+					textNombre.getText(), textApellido.getText(), textDireccion.getText(), 
+					(boolean) checkBoxDondante.isSelected(), (String) comboFactorRH.getSelectedItem(), (String) comboGrupoSanguineo.getSelectedItem(), 
+					fechaNac,(String) comboBoxSexo.getSelectedItem(), (String) textRutaImagen.getText(), clasesSolicitadas);
 		}
 	}
 		catch(ExcepcionNull e1){ JOptionPane.showMessageDialog(this,"No se han cargado todos los datos", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
-		catch (ExcepcionValidador e2){
+		catch (ExcepcionValidador    e2){
 			 JOptionPane.showMessageDialog(this,e2.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+		catch (ExcepcionContribuyente   e3){
+			 JOptionPane.showMessageDialog(this,e3.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+		catch (ExcepcionLicenciasInvalidas e4){
+			 JOptionPane.showMessageDialog(this,e4.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 		}
 	
 
+	private List<String> obtenerClasesTildadas() {
+		List<String> listaClases = new ArrayList<>();
+		if(checkBoxClaseA.isSelected() && checkBoxClaseA.isEnabled())
+			listaClases.add("A");
+		if(checkBoxClaseB.isSelected()&& checkBoxClaseB.isEnabled())
+			listaClases.add("B");
+		if(checkBoxClaseC.isSelected()&& checkBoxClaseC.isEnabled())
+			listaClases.add("C");
+		if(checkBoxClaseD.isSelected()&& checkBoxClaseD.isEnabled())
+			listaClases.add("D");
+		if(checkBoxClaseE.isSelected()&& checkBoxClaseE.isEnabled())
+			listaClases.add("E");
+		if(checkBoxClaseF.isSelected()&& checkBoxClaseF.isEnabled())
+			listaClases.add("F");
+		if(checkBoxClaseG.isSelected()&& checkBoxClaseG.isEnabled())
+			listaClases.add("G");
+		return listaClases;
+	}
 	private void titularExistente(Titular titular) {
 		// TODO Auto-generated method stub
 		JOptionPane.showMessageDialog(this,	titular.getApellido()+'\t'+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);

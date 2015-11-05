@@ -6,6 +6,7 @@ import java.util.Calendar;
 
 import clasesDeTablas.Titular;
 import excepciones.ExcepcionValidador;
+import logica.EmitirLicencia;
 import validacion.Inyeccion;
 
 
@@ -33,7 +34,7 @@ public class Validar{
 	}
 	
 	static boolean validarAlfaNumerico(String campo){
-		if (Pattern.matches("[a-zA-Z0-9]+", campo) == true){
+		if (Pattern.matches("[a-zA-Z0-9 ]+", campo) == true){
 			return true;
 		}
 		else return false;
@@ -67,9 +68,9 @@ public class Validar{
 			throw new ExcepcionValidador("El usuario esta en un rango de edades no aceptado.");
 		};
 		
-		if(titular.getSexo()!="M" && titular.getSexo()!="F"){
-			throw new ExcepcionValidador("El sexo es inválido.");
-		};
+		/*if(titular.getSexo()!="Masculino" && titular.getSexo()!="Femenino"){
+			throw new ExcepcionValidador("El sexo seleccioes inválido.");
+		};*/
 		
 		List<String> gruposValidos = Arrays.asList("A","B","AB","O");
 		
@@ -86,11 +87,11 @@ public class Validar{
 		List<String> clasesValidos = Arrays.asList("A","B","C","D","E","F","G");
 		
 		for(int j=0; j<titular.getClasesSolicitadas().size();j++){
-			if(!clasesValidos.contains(titular.getClasesSolicitadas().get(j)))
+			if(!clasesValidos.contains(titular.getClasesSolicitadas().get(j).getIdClase()))
 				throw new ExcepcionValidador("Una de las clases solicitadas es inválida.");
 			
 		}
-		if(titular.getFoto().length()<200)
+		if(titular.getFoto().length()>200)
 			throw new ExcepcionValidador("La dirección de la foto es inválida.");
 		
 	}
@@ -113,10 +114,7 @@ public class Validar{
 		else return false;
 	}
 	static boolean validarFechaNac(Calendar fechaNacimiento){
-			Calendar fechaActual = Calendar.getInstance();
-			int edad = (fechaActual.YEAR) - (fechaNacimiento.YEAR);
-			if (fechaNacimiento.DAY_OF_YEAR > fechaActual.DAY_OF_YEAR) //quiere decir que no todavía no cumplió los anios
-				edad -= 1;
+			int edad = EmitirLicencia.calcularEdad(fechaNacimiento);
 			if(edad<17 || edad >90) return false;
 			else return true;
 	}
