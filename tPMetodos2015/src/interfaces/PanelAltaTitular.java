@@ -75,22 +75,22 @@ public class PanelAltaTitular extends JPanel {
 		/*Numero y tipo de documento*/
 		//etiquetas
 		JLabel lblTipoDeDocumento = new JLabel("Tipo de documento:");
-		lblTipoDeDocumento.setBounds(37, 73, 105, 14);
+		lblTipoDeDocumento.setBounds(37, 73, 115, 14);
 		add(lblTipoDeDocumento);
 		
 		JLabel lblNumeroDoc = new JLabel("N\u00FAmero de documento:");
-		lblNumeroDoc.setBounds(369, 73, 117, 14);
+		lblNumeroDoc.setBounds(369, 73, 145, 14);
 		add(lblNumeroDoc);
 		
 		//Combo box con opciones de tipo de documento
 		comboTipoDoc = new JComboBox<String>();
 		comboTipoDoc.setModel(new DefaultComboBoxModel<String>(new String[] {"", "DNI", "LC", "LE"}));
-		comboTipoDoc.setBounds(139, 70, 165, 20);
+		comboTipoDoc.setBounds(153, 70, 165, 20);
 		add(comboTipoDoc);
 		
 		//Campo a completar con numero de documento
 		textNumeroDoc = new JTextField();
-		textNumeroDoc.setBounds(496, 70, 190, 20);
+		textNumeroDoc.setBounds(510, 70, 190, 20);
 		add(textNumeroDoc);
 		textNumeroDoc.setColumns(10);
 		
@@ -153,11 +153,11 @@ public class PanelAltaTitular extends JPanel {
 		
 		//Etiquetas
 		JLabel lblApellido = new JLabel("Apellido:");
-		lblApellido.setBounds(37, 37, 46, 14);
+		lblApellido.setBounds(37, 37, 76, 14);
 		add(lblApellido);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(440, 37, 46, 14);
+		lblNombre.setBounds(440, 37, 53, 14);
 		add(lblNombre);
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
@@ -166,7 +166,7 @@ public class PanelAltaTitular extends JPanel {
 		
 		//Campo a completar con Apellido
 		textApellido = new JTextField();
-		textApellido.setBounds(88, 34, 214, 20);
+		textApellido.setBounds(104, 34, 214, 20);
 		add(textApellido);
 		textApellido.setColumns(10);
 		
@@ -224,7 +224,7 @@ public class PanelAltaTitular extends JPanel {
 		
         //Campo a completar Nombre
 		textNombre = new JTextField();
-		textNombre.setBounds(496, 34, 190, 20);
+		textNombre.setBounds(510, 34, 190, 20);
 		add(textNombre);
 		textNombre.setColumns(10);
 		//Campo textNombre permite solo letras (espacio y ') y tamaño:50, y mayuscula
@@ -280,7 +280,7 @@ public class PanelAltaTitular extends JPanel {
 		
 		//Campo textDireccion permite solo letras, numeros (espacio y ') y tamaño:50, y mayuscula
 		textDireccion = new JTextField();
-		textDireccion.setBounds(88, 138, 216, 20);
+		textDireccion.setBounds(104, 138, 216, 20);
 		add(textDireccion);
 		textDireccion.setColumns(10);
 		textDireccion.addKeyListener(new KeyListener(){
@@ -339,7 +339,7 @@ public class PanelAltaTitular extends JPanel {
 		 add(lblNewLabel);
 			
 		 JLabel lblFactorRh = new JLabel("Factor RH:");
-		 lblFactorRh.setBounds(239, 172, 57, 14);
+		 lblFactorRh.setBounds(239, 172, 60, 14);
 		 add(lblFactorRh);
 			
 			
@@ -445,20 +445,20 @@ public class PanelAltaTitular extends JPanel {
 		});	
 		
 		checkBoxClaseF = new JCheckBox("Clase F");
-		checkBoxClaseF.setBounds(403, 255, 83, 23);
+		checkBoxClaseF.setBounds(399, 255, 83, 23);
 		add(checkBoxClaseF);
 		
 		checkBoxClaseG = new JCheckBox("Clase G\r\n");
-		checkBoxClaseG.setBounds(583, 229, 66, 23);
+		checkBoxClaseG.setBounds(583, 229, 83, 23);
 		add(checkBoxClaseG);
 
 		/*Fecha de nacimiento*/
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
-		lblFechaDeNacimiento.setBounds(37, 113, 105, 14);
+		lblFechaDeNacimiento.setBounds(37, 110, 120, 14);
 		add(lblFechaDeNacimiento);
 		
 		dateChooserNacimiento = new JDateChooser();
-		dateChooserNacimiento.setBounds(149, 107, 155, 20);
+		dateChooserNacimiento.setBounds(163, 107, 155, 20);
 		add(dateChooserNacimiento);
 		
 		
@@ -469,11 +469,11 @@ public class PanelAltaTitular extends JPanel {
 		
 		comboBoxSexo = new JComboBox<String>();
 		comboBoxSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Femenino", "Masculino"}));
-		comboBoxSexo.setBounds(496, 107, 190, 20);
+		comboBoxSexo.setBounds(510, 107, 190, 20);
 		add(comboBoxSexo);
 
 		checkBoxDondante = new JCheckBox("Donante de \u00F3rganos");
-		checkBoxDondante.setBounds(37, 295, 155, 23);
+		checkBoxDondante.setBounds(508, 150, 155, 23);
 		add(checkBoxDondante);
 		
 		
