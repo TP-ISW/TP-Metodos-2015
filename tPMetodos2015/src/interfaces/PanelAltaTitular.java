@@ -413,7 +413,7 @@ public class PanelAltaTitular extends JPanel {
 					 checkBoxClaseC.setEnabled(false);
 					 repaint();
 				 }
-				if (checkBoxClaseC.isSelected()==false) {
+				if (checkBoxClaseD.isSelected()==false && checkBoxClaseE.isSelected()==false) {
 					 checkBoxClaseB.setEnabled(true);
 					 checkBoxClaseC.setEnabled(true);
 					 repaint();
@@ -436,7 +436,7 @@ public class PanelAltaTitular extends JPanel {
 					 checkBoxClaseC.setEnabled(false);
 					 repaint();
 				 }
-				if (checkBoxClaseE.isSelected()==false) {
+				if (checkBoxClaseE.isSelected()==false && checkBoxClaseD.isSelected()==false) {
 					 checkBoxClaseB.setEnabled(true);
 					 checkBoxClaseC.setEnabled(true);
 					 repaint();
