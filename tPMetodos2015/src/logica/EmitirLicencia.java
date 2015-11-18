@@ -47,7 +47,8 @@ public class EmitirLicencia {
 			licenciaVigente.setObservaciones(observacion);
 			licenciaVigente.setClase(claseSolicitada);
 			licenciaVigente.setUsuario(new Usuario());
-			licenciaVigente.setComprobante(comprobante);
+			//licenciaVigente.setComprobante(comprobante);
+			licenciaVigente.setTitular(titular);
 			
 			//aquellas licencias vigentes de menor jerarquía se deben hacer expirar (se hacen LicenciaExpirada)
 			expirarLicenciasMenorJerarquia(claseSolicitada, titular);
