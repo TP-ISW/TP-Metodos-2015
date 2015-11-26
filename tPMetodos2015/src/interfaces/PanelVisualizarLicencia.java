@@ -1,23 +1,33 @@
 package interfaces;
-import java.awt.EventQueue;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.print.*;
-import java.text.*;
+import java.util.Calendar;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+import clasesDeTablas.Licenciavigente;
+import excepciones.ExcepcionClaseLicencia;
+import excepciones.ExcepcionSQL;
+import logica.EmitirLicencia;
+import logica.ImprimirLicencia;
 
-public class ImprimirLicencia implements Printable {
+
+public class PanelVisualizarLicencia implements Printable {
 
 	private JFrame frame = new JFrame();
 	private JPanel licenciaFrente = new JPanel();
 	private JPanel licenciaAtras = new JPanel();
 	private JButton btnImprimir = new JButton("Imprimir");
+	ImprimirLicencia licenciaAImprimir = new ImprimirLicencia();
+	private Licenciavigente licencia;
 
-	public ImprimirLicencia() {
+	public PanelVisualizarLicencia(Licenciavigente licVig) {
+		licencia = licVig;
 		initialize();
+		
 		
 	}
 	
@@ -60,7 +70,7 @@ public class ImprimirLicencia implements Printable {
 		lblLicenciaN.setBounds(165, 48, 118, 14);
 		licenciaFrente.add(lblLicenciaN);
 		
-		JLabel lblNroLic = new JLabel("nroLic");
+		JLabel lblNroLic = new JLabel(""+licencia.getIdlicencia());
 		lblNroLic.setFont(new Font("Dialog", Font.PLAIN, 9));
 		lblNroLic.setBounds(293, 48, 145, 14);
 		licenciaFrente.add(lblNroLic);
@@ -95,27 +105,29 @@ public class ImprimirLicencia implements Printable {
 		lblLicenciaDeConducir.setFont(new Font("Tahoma", Font.BOLD, 12));
 		licenciaFrente.add(lblLicenciaDeConducir);
 		
-		JLabel lblApellido_1 = new JLabel("Apellido");
+		JLabel lblApellido_1 = new JLabel(""+licencia.getTitular().getApellido());
 		lblApellido_1.setFont(new Font("Dialog", Font.PLAIN, 9));
 		lblApellido_1.setBounds(293, 73, 145, 14);
 		licenciaFrente.add(lblApellido_1);
 		
-		JLabel lblNombres_1 = new JLabel("Nombre");
+		JLabel lblNombres_1 = new JLabel(""+licencia.getTitular().getNombre());
 		lblNombres_1.setFont(new Font("Dialog", Font.PLAIN, 9));
 		lblNombres_1.setBounds(293, 98, 145, 14);
 		licenciaFrente.add(lblNombres_1);
 		
-		JLabel lblDomicilio_1 = new JLabel("Domicilio");
+		JLabel lblDomicilio_1 = new JLabel(""+licencia.getTitular().getDomicilio());
 		lblDomicilio_1.setFont(new Font("Dialog", Font.PLAIN, 9));
 		lblDomicilio_1.setBounds(293, 123, 145, 14);
 		licenciaFrente.add(lblDomicilio_1);
 		
-		JLabel lblFecha = new JLabel("Fecha");
+		Calendar fechaVencimiento = licencia.getFechaVencimiento();
+		
+		JLabel lblFecha = new JLabel(""+fechaVencimiento.getInstance().get(Calendar.YEAR)+"/"+fechaVencimiento.getInstance().get(Calendar.MONTH)+"/"+fechaVencimiento.getInstance().get(Calendar.DATE)+" ");
 		lblFecha.setFont(new Font("Dialog", Font.PLAIN, 9));
 		lblFecha.setBounds(293, 148, 145, 14);
 		licenciaFrente.add(lblFecha);
 		
-		JLabel lblObservaciones_1 = new JLabel("Observaciones");
+		JLabel lblObservaciones_1 = new JLabel(""+licencia.getObservaciones());
 		lblObservaciones_1.setFont(new Font("Dialog", Font.PLAIN, 9));
 		lblObservaciones_1.setBounds(293, 173, 157, 14);
 		licenciaFrente.add(lblObservaciones_1);
@@ -126,7 +138,13 @@ public class ImprimirLicencia implements Printable {
 		
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				imprimirLicencia();
+				EmitirLicencia emitirLicencia = new EmitirLicencia();
+				try {
+					emitirLicencia.guardarLicencia(licencia);
+				} 
+				catch (ExcepcionClaseLicencia e5){
+					 JOptionPane.showMessageDialog(this,e5.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		
@@ -142,7 +160,8 @@ public class ImprimirLicencia implements Printable {
 		licenciaAtras.setBorder(new LineBorder(new Color(0, 0, 0)));
 		licenciaAtras.setLayout(null);
 		
-		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento:");
+		Calendar fechaNacimiento = Calendar.getInstance();
+		JLabel lblFechaDeNacimiento = new JLabel(""+fechaNacimiento.getInstance().get(Calendar.YEAR)+"/"+fechaNacimiento.getInstance().get(Calendar.MONTH)+"/"+fechaNacimiento.getInstance().get(Calendar.DATE)+" ");
 		lblFechaDeNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblFechaDeNacimiento.setBounds(34, 28, 128, 14);
 		licenciaAtras.add(lblFechaDeNacimiento);
@@ -187,53 +206,48 @@ public class ImprimirLicencia implements Printable {
 		lblDocumento.setBounds(34, 78, 94, 14);
 		licenciaAtras.add(lblDocumento);
 		
-		JLabel label = new JLabel("29/06/1987");
+		JLabel label = new JLabel(""+licencia.getTitular().getFechaNacimiento());
 		label.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		label.setBounds(182, 28, 104, 14);
 		licenciaAtras.add(label);
 		
-		JLabel lblNombrePais = new JLabel("Argentina");
-		lblNombrePais.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblNombrePais.setBounds(182, 53, 104, 14);
-		licenciaAtras.add(lblNombrePais);
-		
-		JLabel labelNroDoc = new JLabel("DNI 33023226");
+		JLabel labelNroDoc = new JLabel(""+licencia.getTitular().getId().getTipoDoc()+" "+licencia.getTitular().getId().getNroDoc());
 		labelNroDoc.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		labelNroDoc.setBounds(138, 78, 104, 14);
 		licenciaAtras.add(labelNroDoc);
 		
-		JLabel lblCategoria = new JLabel("Renovaci\u00F3n");
+		JLabel lblCategoria = new JLabel(licencia.getCategoria());
 		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblCategoria.setBounds(182, 103, 104, 14);
 		licenciaAtras.add(lblCategoria);
 		
-		JLabel lblA = new JLabel("A");
+		JLabel lblA = new JLabel(licencia.getTitular().getGrupoSanguineo());
 		lblA.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblA.setBounds(109, 128, 33, 14);
 		licenciaAtras.add(lblA);
 		
-		JLabel labelSigno = new JLabel("+");
+		JLabel labelSigno = new JLabel(licencia.getTitular().getFactorRh());
 		labelSigno.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		labelSigno.setBounds(251, 128, 46, 14);
 		licenciaAtras.add(labelSigno);
 		
-		JLabel lblM = new JLabel("M");
+		JLabel lblM = new JLabel(licencia.getTitular().getSexo());
 		lblM.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblM.setBounds(338, 78, 46, 14);
 		licenciaAtras.add(lblM);
 		
-		JLabel lblSi = new JLabel("SI");
+		JLabel lblSi = new JLabel("No");
+		if(licencia.getTitular().getDonante()==true){
+			lblSi.setText("Si");
+		}
 		lblSi.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblSi.setBounds(182, 153, 46, 14);
 		licenciaAtras.add(lblSi);
 		
-		JLabel label_1 = new JLabel("25/11/2015");
+		Calendar fechaOtorgamiento = Calendar.getInstance();
+		JLabel label_1 = new JLabel(""+fechaOtorgamiento.getInstance().get(Calendar.YEAR)+"/"+fechaOtorgamiento.getInstance().get(Calendar.MONTH)+"/"+fechaOtorgamiento.getInstance().get(Calendar.DATE)+" ");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		label_1.setBounds(182, 178, 104, 14);
 		licenciaAtras.add(label_1);
-		
-		JButton buttonComprobante = new JButton("Imprimir Comprobante");
-		buttonComprobante.setBounds(153, 487, 176, 23);
-		frame.getContentPane().add(buttonComprobante);
 	}
 }

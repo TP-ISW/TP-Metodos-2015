@@ -5,12 +5,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import clasesDeTablas.Clase;
+import clasesDeTablas.Comprobante;
 import clasesDeTablas.Licenciaexpirada;
 import clasesDeTablas.Licenciavigente;
 import clasesDeTablas.Titular;
 import clasesDeTablas.TitularPK;
 import clasesDeTablas.Usuario;
 import excepciones.ExcepcionClaseLicencia;
+import interfaces.PanelVisualizarLicencia;
 import persistencia.DAOClase;
 import persistencia.DAOLicenciaExpirada;
 import persistencia.DAOLicenciaVigente;
@@ -19,48 +21,53 @@ import persistencia.DAOTitular;
 public class EmitirLicencia {
 	
 	//categoria "nuevo" o "renovacion", con minusculas y sin tildes!!
-	public void emitirLicencia(Titular titular, String observacion, String categoria) throws ExcepcionClaseLicencia{
+	public void guardarLicencia(Licenciavigente licVig) throws ExcepcionClaseLicencia{
 		
-		List<Clase> clasesSolicitadas = titular.getClasesSolicitadas();
-		List<Calendar> fechasVigencia = calcularVigenciaLicencia(titular, categoria);
+		Titular titular = licVig.getTitular();		
 		DAOTitular daoTitular= new DAOTitular();
 		DAOLicenciaVigente daoLicenciaVigente = new DAOLicenciaVigente();
+		
+		//se manda a imprimir la licencia y el comprobante.
+		ImprimirLicencia impLicencia = new ImprimirLicencia();
+		Comprobante comprobante =impLicencia.imprimirLicencia(licVig);
+			
+		//setea comprobatne a licencia
+		licVig.setComprobante(comprobante);
+			
+		//aquellas licencias vigentes de menor jerarquía se deben hacer expirar (se hacen LicenciaExpirada)
+		expirarLicenciasMenorJerarquia(licVig.getClase(), titular);
+			
+		//por último, le agrego la licenciavigente al titular, lo actualizo y guardo la licencia en la BD
+		titular.getLicenciasVigentes().add(licVig);
+		daoTitular.update(titular);
+		daoLicenciaVigente.save(licVig);
+		
+		
+	}
+	public  void crearLicencia(Titular titular, String observacion, String categoria, Clase claseSolicitada) throws ExcepcionClaseLicencia{
+		List<Calendar> fechasVigencia = calcularVigenciaLicencia(titular, categoria);
 		
 		//se juntan todas las clases de las cuales el titular tiene licencias vigentes
 		List <Clase> clasesVigentes= new ArrayList<>();
 		for (Licenciavigente licVig : titular.getLicenciasVigentes()) {
 			clasesVigentes.add(licVig.getClase());
 		}
+		//se verifica que las clases solicitadas no sean de menor o igual jerarquía que las vigentes
+		verificarClaseSolicitada(claseSolicitada,clasesVigentes);
 		
+		//se procede a crear una licencia vigente
+		Licenciavigente licenciaVigente = new Licenciavigente();
+		licenciaVigente.setCategoria(categoria);
+		licenciaVigente.setCosto(claseSolicitada.getCosto()+8);
+		licenciaVigente.setFechaEmision(fechasVigencia.get(0));
+		licenciaVigente.setFechaVencimiento(fechasVigencia.get(1));
+		licenciaVigente.setObservaciones(observacion);
+		licenciaVigente.setClase(claseSolicitada);
+		licenciaVigente.setUsuario(new Usuario());
+		licenciaVigente.setTitular(titular);
 		
-		
-		for (Clase claseSolicitada : clasesSolicitadas) {
-			//se verifica que las clases solicitadas no sean de menor o igual jerarquía que las vigentes
-			verificarClaseSolicitada(claseSolicitada,clasesVigentes);
-			
-			//se procede a crear una licencia vigente
-			Licenciavigente licenciaVigente = new Licenciavigente();
-			licenciaVigente.setCategoria(categoria);
-			licenciaVigente.setCosto(claseSolicitada.getCosto()+8);
-			licenciaVigente.setFechaEmision(fechasVigencia.get(0));
-			licenciaVigente.setFechaVencimiento(fechasVigencia.get(1));
-			licenciaVigente.setObservaciones(observacion);
-			licenciaVigente.setClase(claseSolicitada);
-			licenciaVigente.setUsuario(new Usuario());
-			//licenciaVigente.setComprobante(comprobante);
-			licenciaVigente.setTitular(titular);
-			
-			//aquellas licencias vigentes de menor jerarquía se deben hacer expirar (se hacen LicenciaExpirada)
-			expirarLicenciasMenorJerarquia(claseSolicitada, titular);
-			
-			//por último, le agrego la licenciavigente al titular, lo actualizo y guardo la licencia en la BD
-			titular.getLicenciasVigentes().add(licenciaVigente);
-			daoTitular.update(titular);
-			daoLicenciaVigente.save(licenciaVigente);
-		}
-		
+		PanelVisualizarLicencia panel = new PanelVisualizarLicencia(licenciaVigente);
 	}
-	
 	private void expirarLicenciasMenorJerarquia(Clase claseSolicitada, Titular titular) {
 		// TODO Auto-generated method stub
 		List<Licenciavigente> licenciasVigentes= titular.getLicenciasVigentes();
