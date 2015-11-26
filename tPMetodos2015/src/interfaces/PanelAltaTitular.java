@@ -7,11 +7,13 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -30,6 +32,14 @@ import excepciones.ExcepcionLicenciasInvalidas;
 import excepciones.ExcepcionNull;
 import excepciones.ExcepcionValidador;
 import logica.AltaTitular;
+import java.awt.SystemColor;
+import javax.swing.JTextPane;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Canvas;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class PanelAltaTitular extends JPanel {
 	/**
@@ -47,19 +57,22 @@ public class PanelAltaTitular extends JPanel {
 	private JComboBox<String> comboBoxSexo;
 	private JDateChooser dateChooserNacimiento;
 	private AltaTitular altaTitular = new AltaTitular();
-	JCheckBox checkBoxClaseA;
-	JCheckBox checkBoxClaseB;
-	JCheckBox checkBoxClaseC;
-	JCheckBox checkBoxClaseD;
-	JCheckBox checkBoxClaseE;
-	JCheckBox checkBoxClaseF;
-	JCheckBox checkBoxClaseG;
-	JCheckBox checkBoxDondante;
+	private JLabel labelFoto;
+	private JCheckBox checkBoxClaseA;
+	private JCheckBox checkBoxClaseB;
+	private JCheckBox checkBoxClaseC;
+	private JCheckBox checkBoxClaseD;
+	private JCheckBox checkBoxClaseE;
+	private JCheckBox checkBoxClaseF;
+	private JCheckBox checkBoxClaseG;
+	private JCheckBox checkBoxDondante;
+	private JLabel labelFecha;
+	private JButton btnAceptar;
 	/**
 	 * Create the panel.
 	 */
 	public PanelAltaTitular() {
-		setLayout(null);
+		setBackground(new Color(245, 255, 250));
 		
 		//ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/icono.jpg"));
         
@@ -72,26 +85,203 @@ public class PanelAltaTitular extends JPanel {
         //icono.setBounds(677, 11, 142, 141);
         //add(icono);
 		
+		
+			GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{44, 94, 129, 123, 65, 20, 83, 109, 108, 294, 0};
+		gridBagLayout.rowHeights = new int[]{100, 16, 56, 25, 24, 24, 20, 20, 35, 14, 23, 23, 41, 25, 147, 25, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		setLayout(gridBagLayout);
+		
+		/*Titulo*/
+		JTextPane txtpnDarAltaTitular = new JTextPane();
+		txtpnDarAltaTitular.setBackground(new Color(0, 0, 51));
+		txtpnDarAltaTitular.setForeground(SystemColor.window);
+		txtpnDarAltaTitular.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
+		txtpnDarAltaTitular.setText("\r\n\tALTA TITULAR");
+		GridBagConstraints gbc_txtpnDarAltaTitular = new GridBagConstraints();
+		gbc_txtpnDarAltaTitular.weightx = 1.0;
+		gbc_txtpnDarAltaTitular.fill = GridBagConstraints.BOTH;
+		gbc_txtpnDarAltaTitular.insets = new Insets(0, 0, 5, 0);
+		gbc_txtpnDarAltaTitular.gridwidth = 10;
+		gbc_txtpnDarAltaTitular.gridx = 0;
+		gbc_txtpnDarAltaTitular.gridy = 0;
+		add(txtpnDarAltaTitular, gbc_txtpnDarAltaTitular);
 		/*Numero y tipo de documento*/
+	
+		
+		
+		
+		//Etiquetas
+		JLabel lblApellido = new JLabel("Apellido:");
+		GridBagConstraints gbc_lblApellido = new GridBagConstraints();
+		gbc_lblApellido.anchor = GridBagConstraints.WEST;
+		gbc_lblApellido.fill = GridBagConstraints.VERTICAL;
+		gbc_lblApellido.insets = new Insets(0, 0, 5, 5);
+		gbc_lblApellido.gridx = 1;
+		gbc_lblApellido.gridy = 3;
+		add(lblApellido, gbc_lblApellido);
+		
+
+		//Diseño etiquetas
+		lblApellido.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+		
+		//Campo a completar con Apellido
+		textApellido = new JTextField();
+		textApellido.setForeground(new Color(0, 0, 0));
+		GridBagConstraints gbc_textApellido = new GridBagConstraints();
+		gbc_textApellido.anchor = GridBagConstraints.SOUTH;
+		gbc_textApellido.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textApellido.insets = new Insets(0, 0, 5, 5);
+		gbc_textApellido.gridwidth = 2;
+		gbc_textApellido.gridx = 2;
+		gbc_textApellido.gridy = 3;
+		add(textApellido, gbc_textApellido);
+		textApellido.setColumns(10);
+		
+		
+		//Campo textApellido permite solo letras y tamaño:50
+		textApellido.addKeyListener(new KeyListener(){
+            
+            public void keyTyped(KeyEvent e)
+             
+            {textApellido.setText(textApellido.getText().toUpperCase());
+            
+              char c=e.getKeyChar(); 
+              
+              e.toString().toUpperCase();
+              
+             
+             if(!(Character.isLetter(c)) && !(c==' ')&& !(c=='\''))
+            	 e.consume(); 
+
+             if (textApellido.getText().length()== 50)
+                 e.consume();
+            }
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
+		gbc_lblNombre.anchor = GridBagConstraints.WEST;
+		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNombre.gridx = 6;
+		gbc_lblNombre.gridy = 3;
+		add(lblNombre, gbc_lblNombre);
+		lblNombre.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+		
+        //Campo a completar Nombre
+		textNombre = new JTextField();
+		GridBagConstraints gbc_textNombre = new GridBagConstraints();
+		gbc_textNombre.gridwidth = 2;
+		gbc_textNombre.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textNombre.anchor = GridBagConstraints.NORTH;
+		gbc_textNombre.insets = new Insets(0, 0, 5, 5);
+		gbc_textNombre.gridx = 7;
+		gbc_textNombre.gridy = 3;
+		add(textNombre, gbc_textNombre);
+		textNombre.setColumns(10);
+		//Campo textNombre permite solo letras (espacio y ') y tamaño:50, y mayuscula
+		textNombre.addKeyListener(new KeyListener(){
+            
+            public void keyTyped(KeyEvent e)
+             
+            {textNombre.setText(textNombre.getText().toUpperCase());
+            
+              char c=e.getKeyChar(); 
+       
+             
+             if(!(Character.isLetter(c)) && !(c==' ')&& !(c=='\''))
+            	 e.consume(); 
+
+             if (textNombre.getText().length()== 50)
+                 e.consume();
+            }
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		textNombre.addFocusListener (new FocusListener()
+	        {
+
+
+	                @Override
+	                public void focusGained(FocusEvent arg0) {
+	                        // TODO Auto-generated method stub
+	                        
+	                }
+
+	                @Override
+	                public void focusLost(FocusEvent arg0) {
+	                        {
+	                              String cadena = textNombre.getText();
+	                              textNombre.setText(cadena.toUpperCase());
+	                           }
+	                        
+	                }
+	        
+	                });
 		//etiquetas
 		JLabel lblTipoDeDocumento = new JLabel("Tipo de documento:");
-		lblTipoDeDocumento.setBounds(37, 73, 115, 14);
-		add(lblTipoDeDocumento);
-		
-		JLabel lblNumeroDoc = new JLabel("N\u00FAmero de documento:");
-		lblNumeroDoc.setBounds(369, 73, 145, 14);
-		add(lblNumeroDoc);
+		GridBagConstraints gbc_lblTipoDeDocumento = new GridBagConstraints();
+		gbc_lblTipoDeDocumento.anchor = GridBagConstraints.WEST;
+		gbc_lblTipoDeDocumento.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTipoDeDocumento.gridx = 1;
+		gbc_lblTipoDeDocumento.gridy = 4;
+		add(lblTipoDeDocumento, gbc_lblTipoDeDocumento);
+		lblTipoDeDocumento.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 		
 		//Combo box con opciones de tipo de documento
 		comboTipoDoc = new JComboBox<String>();
 		comboTipoDoc.setModel(new DefaultComboBoxModel<String>(new String[] {"", "DNI", "LC", "LE"}));
-		comboTipoDoc.setBounds(153, 70, 165, 20);
-		add(comboTipoDoc);
+		GridBagConstraints gbc_comboTipoDoc = new GridBagConstraints();
+		gbc_comboTipoDoc.anchor = GridBagConstraints.SOUTH;
+		gbc_comboTipoDoc.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboTipoDoc.insets = new Insets(0, 0, 5, 5);
+		gbc_comboTipoDoc.gridx = 2;
+		gbc_comboTipoDoc.gridy = 4;
+		add(comboTipoDoc, gbc_comboTipoDoc);
+		
+		JLabel lblNumeroDoc = new JLabel("N\u00FAmero de documento:");
+		GridBagConstraints gbc_lblNumeroDoc = new GridBagConstraints();
+		gbc_lblNumeroDoc.anchor = GridBagConstraints.EAST;
+		gbc_lblNumeroDoc.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNumeroDoc.gridx = 6;
+		gbc_lblNumeroDoc.gridy = 4;
+		add(lblNumeroDoc, gbc_lblNumeroDoc);
+		lblNumeroDoc.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 		
 		//Campo a completar con numero de documento
 		textNumeroDoc = new JTextField();
-		textNumeroDoc.setBounds(510, 70, 190, 20);
-		add(textNumeroDoc);
+		GridBagConstraints gbc_textNumeroDoc = new GridBagConstraints();
+		gbc_textNumeroDoc.gridwidth = 2;
+		gbc_textNumeroDoc.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textNumeroDoc.anchor = GridBagConstraints.NORTH;
+		gbc_textNumeroDoc.insets = new Insets(0, 0, 5, 5);
+		gbc_textNumeroDoc.gridx = 7;
+		gbc_textNumeroDoc.gridy = 4;
+		add(textNumeroDoc, gbc_textNumeroDoc);
 		textNumeroDoc.setColumns(10);
 		
 		//Campo NumeroDoc permite solo números y maximo 8
@@ -149,139 +339,63 @@ public class PanelAltaTitular extends JPanel {
 
 			
 		});
-		/* Apellido, Nombre  y Direccion*/
 		
-		//Etiquetas
-		JLabel lblApellido = new JLabel("Apellido:");
-		lblApellido.setBounds(37, 37, 76, 14);
-		add(lblApellido);
+		labelFecha = new JLabel("Fecha de Nacimiento:");
+		labelFecha.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+		GridBagConstraints gbc_labelFecha = new GridBagConstraints();
+		gbc_labelFecha.insets = new Insets(0, 0, 5, 5);
+		gbc_labelFecha.gridx = 1;
+		gbc_labelFecha.gridy = 5;
+		add(labelFecha, gbc_labelFecha);
 		
-		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(440, 37, 53, 14);
-		add(lblNombre);
+		dateChooserNacimiento = new JDateChooser();
+		dateChooserNacimiento.getCalendarButton().setBackground(new Color(204, 0, 51));
+		GridBagConstraints gbc_dateChooserNacimiento = new GridBagConstraints();
+		gbc_dateChooserNacimiento.anchor = GridBagConstraints.SOUTH;
+		gbc_dateChooserNacimiento.fill = GridBagConstraints.HORIZONTAL;
+		gbc_dateChooserNacimiento.insets = new Insets(0, 0, 5, 5);
+		gbc_dateChooserNacimiento.gridx = 2;
+		gbc_dateChooserNacimiento.gridy = 5;
+		add(dateChooserNacimiento, gbc_dateChooserNacimiento);
+		JLabel lblSexo = new JLabel("Sexo:");
+		GridBagConstraints gbc_lblSexo = new GridBagConstraints();
+		gbc_lblSexo.anchor = GridBagConstraints.WEST;
+		gbc_lblSexo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSexo.gridx = 6;
+		gbc_lblSexo.gridy = 5;
+		add(lblSexo, gbc_lblSexo);
+		lblSexo.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+		
+		comboBoxSexo = new JComboBox<String>();
+		comboBoxSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Femenino", "Masculino"}));
+		GridBagConstraints gbc_comboBoxSexo = new GridBagConstraints();
+		gbc_comboBoxSexo.anchor = GridBagConstraints.NORTH;
+		gbc_comboBoxSexo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxSexo.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxSexo.gridx = 7;
+		gbc_comboBoxSexo.gridy = 5;
+		add(comboBoxSexo, gbc_comboBoxSexo);
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
-		lblDireccin.setBounds(37, 141, 57, 14);
-		add(lblDireccin);
+		GridBagConstraints gbc_lblDireccin = new GridBagConstraints();
+		gbc_lblDireccin.anchor = GridBagConstraints.WEST;
+		gbc_lblDireccin.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDireccin.gridx = 1;
+		gbc_lblDireccin.gridy = 6;
+		add(lblDireccin, gbc_lblDireccin);
+		lblDireccin.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 		
-		//Campo a completar con Apellido
-		textApellido = new JTextField();
-		textApellido.setBounds(104, 34, 214, 20);
-		add(textApellido);
-		textApellido.setColumns(10);
-		
-		
-		//Campo textApellido permite solo letras y tamaño:50
-		textApellido.addKeyListener(new KeyListener(){
-            
-            public void keyTyped(KeyEvent e)
-             
-            {textApellido.setText(textApellido.getText().toUpperCase());
-            
-              char c=e.getKeyChar(); 
-       
-             
-             if(!(Character.isLetter(c)) && !(c==' ')&& !(c=='\''))
-            	 e.consume(); 
-
-             if (textApellido.getText().length()== 50)
-                 e.consume();
-            }
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-        //Permite solo mayuscula
-        textApellido.addFocusListener (new FocusListener()
-        {
-
-
-                @Override
-                public void focusGained(FocusEvent arg0) {
-                        // TODO Auto-generated method stub
-                        
-                }
-
-                @Override
-                public void focusLost(FocusEvent arg0) {
-                        {
-                              String cadena = textApellido.getText();
-                              textApellido.setText(cadena.toUpperCase());
-                           }
-                        
-                }
-        
-                });
-		
-        //Campo a completar Nombre
-		textNombre = new JTextField();
-		textNombre.setBounds(510, 34, 190, 20);
-		add(textNombre);
-		textNombre.setColumns(10);
-		//Campo textNombre permite solo letras (espacio y ') y tamaño:50, y mayuscula
-		textNombre.addKeyListener(new KeyListener(){
-            
-            public void keyTyped(KeyEvent e)
-             
-            {textNombre.setText(textNombre.getText().toUpperCase());
-            
-              char c=e.getKeyChar(); 
-       
-             
-             if(!(Character.isLetter(c)) && !(c==' ')&& !(c=='\''))
-            	 e.consume(); 
-
-             if (textNombre.getText().length()== 50)
-                 e.consume();
-            }
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		 textNombre.addFocusListener (new FocusListener()
-	        {
-
-
-	                @Override
-	                public void focusGained(FocusEvent arg0) {
-	                        // TODO Auto-generated method stub
-	                        
-	                }
-
-	                @Override
-	                public void focusLost(FocusEvent arg0) {
-	                        {
-	                              String cadena = textNombre.getText();
-	                              textNombre.setText(cadena.toUpperCase());
-	                           }
-	                        
-	                }
-	        
-	                });
-			
 		
 		//Campo textDireccion permite solo letras, numeros (espacio y ') y tamaño:50, y mayuscula
 		textDireccion = new JTextField();
-		textDireccion.setBounds(104, 138, 216, 20);
-		add(textDireccion);
+		GridBagConstraints gbc_textDireccion = new GridBagConstraints();
+		gbc_textDireccion.anchor = GridBagConstraints.NORTH;
+		gbc_textDireccion.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textDireccion.insets = new Insets(0, 0, 5, 5);
+		gbc_textDireccion.gridwidth = 2;
+		gbc_textDireccion.gridx = 2;
+		gbc_textDireccion.gridy = 6;
+		add(textDireccion, gbc_textDireccion);
 		textDireccion.setColumns(10);
 		textDireccion.addKeyListener(new KeyListener(){
             
@@ -311,7 +425,7 @@ public class PanelAltaTitular extends JPanel {
 				
 			}
 		});
-		 textDireccion.addFocusListener (new FocusListener()
+		textDireccion.addFocusListener (new FocusListener()
 	        {
 
 
@@ -331,56 +445,84 @@ public class PanelAltaTitular extends JPanel {
 	                }
 	        
 	                });
+		//etiquetas
+		JLabel lblNewLabel = new JLabel("Grupo sangu\u00EDneo:");
+		lblNewLabel.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 7;
+		add(lblNewLabel, gbc_lblNewLabel);
+		 
+		 
+		 //Combo box con opciones de gurpo sanguino
+		 comboGrupoSanguineo = new JComboBox<String>();
+		 comboGrupoSanguineo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "0", "A", "B", "AB"}));
+		 GridBagConstraints gbc_comboGrupoSanguineo = new GridBagConstraints();
+		 gbc_comboGrupoSanguineo.anchor = GridBagConstraints.NORTH;
+		 gbc_comboGrupoSanguineo.fill = GridBagConstraints.HORIZONTAL;
+		 gbc_comboGrupoSanguineo.insets = new Insets(0, 0, 5, 5);
+		 gbc_comboGrupoSanguineo.gridx = 2;
+		 gbc_comboGrupoSanguineo.gridy = 7;
+		 add(comboGrupoSanguineo, gbc_comboGrupoSanguineo);
 		
-		/*Grupo Sanguino y Factor RH*/
-		 //etiquetas
-		 JLabel lblNewLabel = new JLabel("Grupo sangu\u00EDneo:");
-		 lblNewLabel.setBounds(37, 172, 100, 14);
-		 add(lblNewLabel);
-			
 		 JLabel lblFactorRh = new JLabel("Factor RH:");
-		 lblFactorRh.setBounds(239, 172, 60, 14);
-		 add(lblFactorRh);
-			
-			
-		//Combo box con opciones de gurpo sanguino
-		comboGrupoSanguineo = new JComboBox<String>();
-		comboGrupoSanguineo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "0", "A", "B", "AB"}));
-		comboGrupoSanguineo.setBounds(149, 169, 57, 20);
-		add(comboGrupoSanguineo);
+		 GridBagConstraints gbc_lblFactorRh = new GridBagConstraints();
+		 gbc_lblFactorRh.insets = new Insets(0, 0, 5, 5);
+		 gbc_lblFactorRh.gridx = 3;
+		 gbc_lblFactorRh.gridy = 7;
+		 add(lblFactorRh, gbc_lblFactorRh);
+		 lblFactorRh.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 		
 		//Combo box con opciones de factor RH
 		comboFactorRH = new JComboBox<String>();
 		comboFactorRH.setModel(new DefaultComboBoxModel<String>(new String[] {"", "+", "-"}));
-		comboFactorRH.setBounds(306, 169, 46, 20);
-		add(comboFactorRH);
-
+		GridBagConstraints gbc_comboFactorRH = new GridBagConstraints();
+		gbc_comboFactorRH.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboFactorRH.anchor = GridBagConstraints.NORTH;
+		gbc_comboFactorRH.insets = new Insets(0, 0, 5, 5);
+		gbc_comboFactorRH.gridx = 4;
+		gbc_comboFactorRH.gridy = 7;
+		add(comboFactorRH, gbc_comboFactorRH);
 		
-		
-		
-		/*Clases : A,B,C,D,E,F,G 
-		 * C ->B
-		 * D -> C
-		 * E -> C
-		 */
+				checkBoxDondante = new JCheckBox("Donante de \u00F3rganos");
+				checkBoxDondante.setBackground(new Color(240, 255, 255));
+				GridBagConstraints gbc_checkBoxDondante = new GridBagConstraints();
+				gbc_checkBoxDondante.anchor = GridBagConstraints.WEST;
+				gbc_checkBoxDondante.insets = new Insets(0, 0, 5, 5);
+				gbc_checkBoxDondante.gridx = 6;
+				gbc_checkBoxDondante.gridy = 7;
+				add(checkBoxDondante, gbc_checkBoxDondante);
 		JLabel lblClasesSolicitadas = new JLabel("Clases solicitadas:");
-		lblClasesSolicitadas.setBounds(37, 197, 133, 14);
-		add(lblClasesSolicitadas);
+		GridBagConstraints gbc_lblClasesSolicitadas = new GridBagConstraints();
+		gbc_lblClasesSolicitadas.anchor = GridBagConstraints.EAST;
+		gbc_lblClasesSolicitadas.fill = GridBagConstraints.VERTICAL;
+		gbc_lblClasesSolicitadas.insets = new Insets(0, 0, 5, 5);
+		gbc_lblClasesSolicitadas.gridx = 1;
+		gbc_lblClasesSolicitadas.gridy = 9;
+		add(lblClasesSolicitadas, gbc_lblClasesSolicitadas);
+		lblClasesSolicitadas.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 		
 		checkBoxClaseA = new JCheckBox("Clase A");
-		checkBoxClaseA.setBounds(37, 229, 97, 23);
-		add(checkBoxClaseA);
-		
-		
-		checkBoxClaseB = new JCheckBox("Clase B");
-		checkBoxClaseB.setBounds(37, 255, 97, 23);
-		add(checkBoxClaseB);
+		checkBoxClaseA.setBackground(new Color(240, 255, 255));
+		GridBagConstraints gbc_checkBoxClaseA = new GridBagConstraints();
+		gbc_checkBoxClaseA.anchor = GridBagConstraints.NORTHWEST;
+		gbc_checkBoxClaseA.insets = new Insets(0, 0, 5, 5);
+		gbc_checkBoxClaseA.gridx = 2;
+		gbc_checkBoxClaseA.gridy = 10;
+		add(checkBoxClaseA, gbc_checkBoxClaseA);
 		
 		
 		
 		checkBoxClaseC = new JCheckBox("Clase C");
-		checkBoxClaseC.setBounds(226, 229, 114, 23);
-		add(checkBoxClaseC);
+		checkBoxClaseC.setBackground(new Color(240, 255, 255));
+		GridBagConstraints gbc_checkBoxClaseC = new GridBagConstraints();
+		gbc_checkBoxClaseC.anchor = GridBagConstraints.NORTHWEST;
+		gbc_checkBoxClaseC.insets = new Insets(0, 0, 5, 5);
+		gbc_checkBoxClaseC.gridx = 3;
+		gbc_checkBoxClaseC.gridy = 10;
+		add(checkBoxClaseC, gbc_checkBoxClaseC);
 		
 		//Si se selecciona C, se desactiva la opcion de seleccionar B
 		checkBoxClaseC.addActionListener(new ActionListener() {
@@ -400,33 +542,16 @@ public class PanelAltaTitular extends JPanel {
 			}
 		});
 		
-		//Si se selecciona D, se desactiva la opcion de seleccionar C y B
-		checkBoxClaseD = new JCheckBox("Clase D\r\n");
-		checkBoxClaseD.setBounds(226, 255, 114, 23);
-		add(checkBoxClaseD);
-		checkBoxClaseD.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (checkBoxClaseD.isSelected()==true) {
-					 checkBoxClaseB.setEnabled(false);
-					 checkBoxClaseC.setEnabled(false);
-					 repaint();
-				 }
-				if (checkBoxClaseD.isSelected()==false && checkBoxClaseE.isSelected()==false) {
-					 checkBoxClaseB.setEnabled(true);
-					 checkBoxClaseC.setEnabled(true);
-					 repaint();
-				 }
-				
-				
-			}
-		});
-		
 		//Si se selecciona E, se desactiva la opcion de seleccionar B,C y E
 		checkBoxClaseE = new JCheckBox("Clase E");
-		checkBoxClaseE.setBounds(399, 229, 83, 23);
-		add(checkBoxClaseE);
+		checkBoxClaseE.setBackground(new Color(240, 255, 255));
+		GridBagConstraints gbc_checkBoxClaseE = new GridBagConstraints();
+		gbc_checkBoxClaseE.anchor = GridBagConstraints.NORTH;
+		gbc_checkBoxClaseE.fill = GridBagConstraints.HORIZONTAL;
+		gbc_checkBoxClaseE.insets = new Insets(0, 0, 5, 5);
+		gbc_checkBoxClaseE.gridx = 4;
+		gbc_checkBoxClaseE.gridy = 10;
+		add(checkBoxClaseE, gbc_checkBoxClaseE);
 		checkBoxClaseE.addActionListener(new ActionListener() {
 			
 			@Override
@@ -436,7 +561,7 @@ public class PanelAltaTitular extends JPanel {
 					 checkBoxClaseC.setEnabled(false);
 					 repaint();
 				 }
-				if (checkBoxClaseE.isSelected()==false && checkBoxClaseD.isSelected()==false) {
+				if (checkBoxClaseE.isSelected()==false) {
 					 checkBoxClaseB.setEnabled(true);
 					 checkBoxClaseC.setEnabled(true);
 					 repaint();
@@ -444,67 +569,92 @@ public class PanelAltaTitular extends JPanel {
 			}	
 		});	
 		
-		checkBoxClaseF = new JCheckBox("Clase F");
-		checkBoxClaseF.setBounds(399, 255, 83, 23);
-		add(checkBoxClaseF);
-		
 		checkBoxClaseG = new JCheckBox("Clase G\r\n");
-		checkBoxClaseG.setBounds(583, 229, 83, 23);
-		add(checkBoxClaseG);
-
-		/*Fecha de nacimiento*/
-		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
-		lblFechaDeNacimiento.setBounds(37, 110, 120, 14);
-		add(lblFechaDeNacimiento);
-		
-		dateChooserNacimiento = new JDateChooser();
-		dateChooserNacimiento.setBounds(163, 107, 155, 20);
-		add(dateChooserNacimiento);
+		checkBoxClaseG.setBackground(new Color(240, 255, 255));
+		GridBagConstraints gbc_checkBoxClaseG = new GridBagConstraints();
+		gbc_checkBoxClaseG.anchor = GridBagConstraints.NORTHWEST;
+		gbc_checkBoxClaseG.insets = new Insets(0, 0, 5, 5);
+		gbc_checkBoxClaseG.gridx = 6;
+		gbc_checkBoxClaseG.gridy = 10;
+		add(checkBoxClaseG, gbc_checkBoxClaseG);
 		
 		
-		/*Sexo*/
-		JLabel lblSexo = new JLabel("Sexo:");
-		lblSexo.setBounds(451, 113, 35, 14);
-		add(lblSexo);
+		checkBoxClaseB = new JCheckBox("Clase B");
+		checkBoxClaseB.setBackground(new Color(240, 255, 255));
+		GridBagConstraints gbc_checkBoxClaseB = new GridBagConstraints();
+		gbc_checkBoxClaseB.anchor = GridBagConstraints.NORTHWEST;
+		gbc_checkBoxClaseB.insets = new Insets(0, 0, 5, 5);
+		gbc_checkBoxClaseB.gridx = 2;
+		gbc_checkBoxClaseB.gridy = 11;
+		add(checkBoxClaseB, gbc_checkBoxClaseB);
 		
-		comboBoxSexo = new JComboBox<String>();
-		comboBoxSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Femenino", "Masculino"}));
-		comboBoxSexo.setBounds(510, 107, 190, 20);
-		add(comboBoxSexo);
-
-		checkBoxDondante = new JCheckBox("Donante de \u00F3rganos");
-		checkBoxDondante.setBounds(508, 150, 155, 23);
-		add(checkBoxDondante);
-		
-		
-		
-		/* Boton Aceptar*/
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(592, 346, 89, 23);
-		add(btnAceptar);
-		
-		//Si se selecciona el boton aceptar se ejecuta la funcion btnAceptarAction() y se envia el evento e(de seleccion)
-		btnAceptar.addActionListener(new ActionListener() {
-		
+		//Si se selecciona D, se desactiva la opcion de seleccionar C y B
+		checkBoxClaseD = new JCheckBox("Clase D\r\n");
+		checkBoxClaseD.setBackground(new Color(240, 255, 255));
+		GridBagConstraints gbc_checkBoxClaseD = new GridBagConstraints();
+		gbc_checkBoxClaseD.anchor = GridBagConstraints.NORTHWEST;
+		gbc_checkBoxClaseD.insets = new Insets(0, 0, 5, 5);
+		gbc_checkBoxClaseD.gridx = 3;
+		gbc_checkBoxClaseD.gridy = 11;
+		add(checkBoxClaseD, gbc_checkBoxClaseD);
+		checkBoxClaseD.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnAceptarAction(e);
-				// TODO Auto-generated method stub
+				if (checkBoxClaseD.isSelected()==true) {
+					 checkBoxClaseB.setEnabled(false);
+					 checkBoxClaseC.setEnabled(false);
+					 repaint();
+				 }
+				if (checkBoxClaseC.isSelected()==false) {
+					 checkBoxClaseB.setEnabled(true);
+					 checkBoxClaseC.setEnabled(true);
+					 repaint();
+				 }
+				
 				
 			}
-
-			
 		});
 		
-		
-		/*Foto*/
+		checkBoxClaseF = new JCheckBox("Clase F");
+		checkBoxClaseF.setBackground(new Color(240, 255, 255));
+		GridBagConstraints gbc_checkBoxClaseF = new GridBagConstraints();
+		gbc_checkBoxClaseF.anchor = GridBagConstraints.NORTH;
+		gbc_checkBoxClaseF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_checkBoxClaseF.insets = new Insets(0, 0, 5, 5);
+		gbc_checkBoxClaseF.gridx = 4;
+		gbc_checkBoxClaseF.gridy = 11;
+		add(checkBoxClaseF, gbc_checkBoxClaseF);
 		JLabel lblImagen = new JLabel("Foto:");
-		lblImagen.setBounds(37, 325, 46, 14);
-		add(lblImagen);
+		GridBagConstraints gbc_lblImagen = new GridBagConstraints();
+		gbc_lblImagen.insets = new Insets(0, 0, 5, 5);
+		gbc_lblImagen.gridx = 1;
+		gbc_lblImagen.gridy = 12;
+		add(lblImagen, gbc_lblImagen);
+		lblImagen.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+		
+		textRutaImagen = new JTextField();
+		GridBagConstraints gbc_textRutaImagen = new GridBagConstraints();
+		gbc_textRutaImagen.gridwidth = 2;
+		gbc_textRutaImagen.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textRutaImagen.insets = new Insets(0, 0, 5, 5);
+		gbc_textRutaImagen.gridx = 2;
+		gbc_textRutaImagen.gridy = 12;
+		add(textRutaImagen, gbc_textRutaImagen);
+		textRutaImagen.setColumns(10);
 		
 		JButton btnSeleccionar = new JButton("Seleccionar");
-		btnSeleccionar.setBounds(217, 321, 89, 23);
-		add(btnSeleccionar);
+		btnSeleccionar.setFont(new Font("Lato Black", Font.PLAIN, 13));
+		btnSeleccionar.setBackground(new Color(240, 255, 255));
+		btnSeleccionar.setForeground(new Color(153, 0, 0));
+		GridBagConstraints gbc_btnSeleccionar = new GridBagConstraints();
+		gbc_btnSeleccionar.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnSeleccionar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSeleccionar.gridx = 3;
+		gbc_btnSeleccionar.gridy = 13;
+		add(btnSeleccionar, gbc_btnSeleccionar);
+		
+		
 		//Si se selecciona el boton "Seleccionar" se ejecuta la funcion btnSeleccionarAction() y se envia el evento e(de seleccion)
 		btnSeleccionar.addActionListener(new ActionListener() {
 			
@@ -516,15 +666,54 @@ public class PanelAltaTitular extends JPanel {
 			}
 		});
 		
-		textRutaImagen = new JTextField();
-		textRutaImagen.setBounds(73, 319, 133, 20);
-		add(textRutaImagen);
-		textRutaImagen.setColumns(10);
 		
-	
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.setForeground(new Color(153, 0, 0));
+		btnAceptar.setFont(new Font("Lato Black", Font.PLAIN, 13));
+		btnAceptar.setBackground(new Color(240, 255, 255));
+		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
+		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAceptar.gridx = 7;
+		gbc_btnAceptar.gridy = 15;
+		add(btnAceptar, gbc_btnAceptar);
+		btnAceptar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnAceptarAction(e);
+				// TODO Auto-generated method stub
+				
+			}
+
+			
+		});
+		
+		
+		/*Grupo Sanguino y Factor RH*/
+
+		
+		/* Apellido, Nombre  y Direccion*/
+		
+		/*Clases : A,B,C,D,E,F,G 
+		 * C ->B
+		 * D -> C
+		 * E -> C
+		 */
+
+		/*Fecha de nacimiento*/
+		
+		
+		/*Sexo*/
+		
+		
+		
+		/* Boton Aceptar*/
+		
+		
+		/*Foto*/
 	
 	}
-	private void btnSeleccionarAction(ActionEvent e){
+	private void btnSeleccionarAction(ActionEvent e) {
 		//permite solo imagenes jpeg
 		FileNameExtensionFilter filtro = new FileNameExtensionFilter("Formatos de archivos JPEG (*.JPG, *.JPEG)", "jpg","jpeg");
 		
@@ -543,10 +732,49 @@ public class PanelAltaTitular extends JPanel {
 			//agrega la ruta de la foto en textRutaImagen
 			File file= seleccionadorFoto.getSelectedFile();
 			textRutaImagen.setText(String.valueOf(file));
+			try {@SuppressWarnings("deprecation")
+			ImageIcon foto= new ImageIcon(seleccionadorFoto.getSelectedFile().toURL());
+			
+			
+			labelFoto= new JLabel(foto);
+			labelFoto.setForeground(new Color(153, 0, 0));
+			labelFoto.setBounds(377, 490, 147, 147);
+			add(labelFoto);
+			repaint();
+			
+			}
+			catch(MalformedURLException me){
+				System.out.println("error imagen");
+			}
 		}
 	}
-	private void btnAceptarAction(ActionEvent e) {
 	
+
+	private List<String> obtenerClasesTildadas() {
+		List<String> listaClases = new ArrayList<>();
+		if(checkBoxClaseA.isSelected() && checkBoxClaseA.isEnabled())
+			listaClases.add("A");
+		if(checkBoxClaseB.isSelected()&& checkBoxClaseB.isEnabled())
+			listaClases.add("B");
+		if(checkBoxClaseC.isSelected()&& checkBoxClaseC.isEnabled())
+			listaClases.add("C");
+		if(checkBoxClaseD.isSelected()&& checkBoxClaseD.isEnabled())
+			listaClases.add("D");
+		if(checkBoxClaseE.isSelected()&& checkBoxClaseE.isEnabled())
+			listaClases.add("E");
+		if(checkBoxClaseF.isSelected()&& checkBoxClaseF.isEnabled())
+			listaClases.add("F");
+		if(checkBoxClaseG.isSelected()&& checkBoxClaseG.isEnabled())
+			listaClases.add("G");
+		return listaClases;
+	}
+	private void titularExistente(Titular titular) {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this,	titular.getApellido()+'\t'+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	private void btnAceptarAction(ActionEvent e) {
+		
 		try{
 			
 		//Verificar Nulidad de numero y tipo de documento
@@ -590,29 +818,4 @@ public class PanelAltaTitular extends JPanel {
 			 JOptionPane.showMessageDialog(this,e4.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 		}
-	
-
-	private List<String> obtenerClasesTildadas() {
-		List<String> listaClases = new ArrayList<>();
-		if(checkBoxClaseA.isSelected() && checkBoxClaseA.isEnabled())
-			listaClases.add("A");
-		if(checkBoxClaseB.isSelected()&& checkBoxClaseB.isEnabled())
-			listaClases.add("B");
-		if(checkBoxClaseC.isSelected()&& checkBoxClaseC.isEnabled())
-			listaClases.add("C");
-		if(checkBoxClaseD.isSelected()&& checkBoxClaseD.isEnabled())
-			listaClases.add("D");
-		if(checkBoxClaseE.isSelected()&& checkBoxClaseE.isEnabled())
-			listaClases.add("E");
-		if(checkBoxClaseF.isSelected()&& checkBoxClaseF.isEnabled())
-			listaClases.add("F");
-		if(checkBoxClaseG.isSelected()&& checkBoxClaseG.isEnabled())
-			listaClases.add("G");
-		return listaClases;
-	}
-	private void titularExistente(Titular titular) {
-		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(this,	titular.getApellido()+'\t'+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);
-	}
-	
 }
