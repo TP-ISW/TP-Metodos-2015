@@ -25,6 +25,7 @@ public class EmitirLicencia {
 		List<Calendar> fechasVigencia = calcularVigenciaLicencia(titular, categoria);
 		DAOTitular daoTitular= new DAOTitular();
 		DAOLicenciaVigente daoLicenciaVigente = new DAOLicenciaVigente();
+		DAOClase daoClase = new DAOClase();
 		
 		//se juntan todas las clases de las cuales el titular tiene licencias vigentes
 		List <Clase> clasesVigentes= new ArrayList<>();
@@ -53,10 +54,17 @@ public class EmitirLicencia {
 			//aquellas licencias vigentes de menor jerarquía se deben hacer expirar (se hacen LicenciaExpirada)
 			expirarLicenciasMenorJerarquia(claseSolicitada, titular);
 			
-			//por último, le agrego la licenciavigente al titular, lo actualizo y guardo la licencia en la BD
+			//se agrega la licenciavigente al titular
 			titular.getLicenciasVigentes().add(licenciaVigente);
+			//se borra la clase solicitada por el titular y el titular de la clase
+			titular.getClasesSolicitadas().remove(claseSolicitada);
+			claseSolicitada.getTitulares().remove(titular);
+			
+			//se actualiza titular, la clase y se guarda la licencia en la BD
 			daoTitular.update(titular);
 			daoLicenciaVigente.save(licenciaVigente);
+			daoClase.update(claseSolicitada);
+			
 		}
 		
 	}

@@ -30,6 +30,7 @@ import clasesDeTablas.Titular;
 import excepciones.ExcepcionContribuyente;
 import excepciones.ExcepcionLicenciasInvalidas;
 import excepciones.ExcepcionNull;
+import excepciones.ExcepcionSQL;
 import excepciones.ExcepcionValidador;
 import logica.AltaTitular;
 import java.awt.SystemColor;
@@ -816,6 +817,9 @@ public class PanelAltaTitular extends JPanel {
 		}
 		catch (ExcepcionLicenciasInvalidas e4){
 			 JOptionPane.showMessageDialog(this,e4.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+		catch(ExcepcionSQL e5){
+			JOptionPane.showMessageDialog(this,e5.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 		}
 }
