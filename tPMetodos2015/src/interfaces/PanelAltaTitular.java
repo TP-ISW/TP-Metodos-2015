@@ -667,6 +667,7 @@ public class PanelAltaTitular extends JPanel {
 			}
 		});
 		
+		/* Boton Aceptar*/
 		
 		btnAceptar = new JButton("Aceptar");
 		btnAceptar.setForeground(new Color(153, 0, 0));
@@ -708,7 +709,7 @@ public class PanelAltaTitular extends JPanel {
 		
 		
 		
-		/* Boton Aceptar*/
+	
 		
 		
 		/*Foto*/
@@ -772,6 +773,11 @@ public class PanelAltaTitular extends JPanel {
 	private void titularExistente(Titular titular) {
 		// TODO Auto-generated method stub
 		JOptionPane.showMessageDialog(this,	titular.getApellido()+'\t'+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);
+		textNombre.setText(titular.getNombre());
+		textApellido.setText(titular.getApellido());
+		textDireccion.setText(titular.getDomicilio());
+		dateChooserNacimiento.setCalendar(titular.getFechaNacimiento());
+		
 	}
 	
 	private void btnAceptarAction(ActionEvent e) {
@@ -818,8 +824,8 @@ public class PanelAltaTitular extends JPanel {
 		catch (ExcepcionLicenciasInvalidas e4){
 			 JOptionPane.showMessageDialog(this,e4.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
-		catch(ExcepcionSQL e5){
-			JOptionPane.showMessageDialog(this,e5.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
+		catch (ExcepcionSQL e5){
+			 JOptionPane.showMessageDialog(this,e5.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 		}
 }

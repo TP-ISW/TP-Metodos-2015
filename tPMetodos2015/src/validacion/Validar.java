@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 import clasesDeTablas.Titular;
-import excepciones.ExcepcionSQL;
 import excepciones.ExcepcionValidador;
 import logica.EmitirLicencia;
 import validacion.Inyeccion;
@@ -41,9 +40,7 @@ public class Validar{
 		else return false;
 	}
 	
-	public static void validar(Titular titular) throws ExcepcionValidador, ExcepcionSQL{
-		
-		controlInyeccion(titular);
+	public static void validar(Titular titular) throws ExcepcionValidador{
 		
 		List<String> tiposValidos = Arrays.asList("DNI", "LU", "LE");		
 		
@@ -97,13 +94,6 @@ public class Validar{
 		if(titular.getFoto().length()>200)
 			throw new ExcepcionValidador("La dirección de la foto es inválida.");
 		
-	}
-	
-	private static void controlInyeccion(Titular titular) throws ExcepcionSQL{
-		Inyeccion.controlSQL(titular.getApellido());
-		Inyeccion.controlSQL(titular.getNombre());
-		Inyeccion.controlSQL(titular.getDomicilio());
-		Inyeccion.controlSQL(titular.getFoto());
 	}
 	
 	static boolean validarAyN(String cadena){

@@ -31,7 +31,7 @@ public class AltaTitular {
 
 	public void altaTitular(String nroDoc, String tipoDoc, String nombre, String apellido, String domicilio, 
 			Boolean donante, String factorRh,String grupoSanguineo, Calendar fechaNacimiento, String sexo, 
-			String foto, List<String> clases)throws ExcepcionValidador, ExcepcionLicenciasInvalidas, ExcepcionContribuyente, ExcepcionSQL{
+			String foto, List<String> clases)throws ExcepcionValidador, ExcepcionLicenciasInvalidas, ExcepcionContribuyente{
 		
 		//se verifica que el titular sea contribuyente
 		verificarSiEsContribuyente(nroDoc,tipoDoc);
