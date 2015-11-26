@@ -1,5 +1,9 @@
 package interfaces;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
@@ -8,6 +12,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
 import java.awt.SystemColor;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -18,14 +23,20 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JTable;
 import javax.swing.JList;
+
+import logica.EmitirLicencia;
+import clasesDeTablas.Titular;
 
 public class PanelEmitirLicencia extends JPanel {
 	private JTextField textApellido;
 	private JTextField textNombre;
 	private JTextField textNroDocumento;
 	private JList listaTitulares;
+	private JComboBox comboTipoDoc;
+	private DefaultListModel modeloListaTitulares;
 
 	/**
 	 * Create the panel.
@@ -40,7 +51,7 @@ public class PanelEmitirLicencia extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		/*titulo*/
+	
 		JTextPane txtpnDarAltaTitular = new JTextPane();
 		txtpnDarAltaTitular.setBackground(new Color(0, 0, 51));
 		txtpnDarAltaTitular.setForeground(SystemColor.window);
@@ -86,7 +97,10 @@ textApellido.addKeyListener(new KeyListener(){
 
              if (textApellido.getText().length()== 50)
                  e.consume();
+            
+             armarLista();
             }
+          
 
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -99,9 +113,10 @@ textApellido.addKeyListener(new KeyListener(){
 				// TODO Auto-generated method stub
 				
 			}
-			//buscarTitular(textNombre.getText(), textApellido.getTex(),(String) comboTipoDoc.getSelectedItem(), textNroDoc.getText());
-		});
-		
+			
+			});
+
+
 		
 		
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -131,7 +146,7 @@ textApellido.addKeyListener(new KeyListener(){
 		gbc_lblTipoDeDocumento.gridy = 5;
 		add(lblTipoDeDocumento, gbc_lblTipoDeDocumento);
 		
-		JComboBox comboTipoDoc = new JComboBox();
+		comboTipoDoc = new JComboBox();
 		comboTipoDoc.setModel(new DefaultComboBoxModel(new String[] {"", "DNI", "LU"}));
 		GridBagConstraints gbc_comboTipoDoc = new GridBagConstraints();
 		gbc_comboTipoDoc.fill = GridBagConstraints.HORIZONTAL;
@@ -159,6 +174,7 @@ textApellido.addKeyListener(new KeyListener(){
 		textNroDocumento.setColumns(10);
 		
 		listaTitulares = new JList();
+		modeloListaTitulares = new DefaultListModel();
 		GridBagConstraints gbc_listaTitulares = new GridBagConstraints();
 		gbc_listaTitulares.gridwidth = 4;
 		gbc_listaTitulares.insets = new Insets(0, 0, 0, 5);
@@ -166,7 +182,16 @@ textApellido.addKeyListener(new KeyListener(){
 		gbc_listaTitulares.gridx = 2;
 		gbc_listaTitulares.gridy = 8;
 		add(listaTitulares, gbc_listaTitulares);
+		listaTitulares.setModel(modeloListaTitulares);
 
+	}
+	
+	private void armarLista(){
+		EmitirLicencia emitirLicencia= new EmitirLicencia();
+		List<Titular> listaTit = emitirLicencia.buscarTitular(textNombre.getText(), textApellido.getText(), textNroDocumento.getText(),(String) comboTipoDoc.getSelectedItem());
+		for (Titular titular : listaTit) {
+			modeloListaTitulares.addElement(titular.getApellido());
+		}
 	}
 
 }

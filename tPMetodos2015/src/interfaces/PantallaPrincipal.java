@@ -52,12 +52,12 @@ public class PantallaPrincipal extends JFrame {
 	public PantallaPrincipal() {
 		
 		// Logo 
-		ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/icono.png"));
+		//ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/icono.png"));
 	    
 	    
-	    JLabel icono = new JLabel(img);
-	    icono.setBounds(677, 11, 142, 141);
-	    add(icono);
+	    //JLabel icono = new JLabel(img);
+	    //icono.setBounds(677, 11, 142, 141);
+	    //add(icono);
 		
 		setFont(new Font("Lato", Font.PLAIN, 12));
 		setTitle("Licencia de conducir\t\t\t\t\t\t\t\t\t\t\t\t");
@@ -93,8 +93,9 @@ public class PantallaPrincipal extends JFrame {
 		//contentPane.setLayout(new BorderLayout(0, 0));
 		//setContentPane(contentPane);
 		
-		PanelAltaTitular panelAltaTitular = new PanelAltaTitular();
-		setContentPane(panelAltaTitular);
+		PanelMenu panelMenu = new PanelMenu(this);
+		setContentPane(panelMenu);
+		
 	}
 
 }

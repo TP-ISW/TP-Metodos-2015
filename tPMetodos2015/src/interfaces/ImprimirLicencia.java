@@ -231,5 +231,9 @@ public class ImprimirLicencia implements Printable {
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		label_1.setBounds(182, 178, 104, 14);
 		licenciaAtras.add(label_1);
+		
+		JButton buttonComprobante = new JButton("Imprimir Comprobante");
+		buttonComprobante.setBounds(153, 487, 176, 23);
+		frame.getContentPane().add(buttonComprobante);
 	}
 }
