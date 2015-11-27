@@ -19,19 +19,14 @@ import persistencia.DAOLicenciaVigente;
 import persistencia.DAOTitular;
 
 public class EmitirLicencia {
-	
 	//categoria "nuevo" o "renovacion", con minusculas y sin tildes!!
-	public void guardarLicencia(Licenciavigente licVig) throws ExcepcionClaseLicencia{
+	public void guardarLicencia(Licenciavigente licVig, Comprobante comprobante) throws ExcepcionClaseLicencia{
 		
 		Titular titular = licVig.getTitular();		
 		DAOTitular daoTitular= new DAOTitular();
 		DAOLicenciaVigente daoLicenciaVigente = new DAOLicenciaVigente();
-		
-		//se manda a imprimir la licencia y el comprobante.
-		ImprimirLicencia impLicencia = new ImprimirLicencia();
-		Comprobante comprobante =impLicencia.imprimirLicencia(licVig);
 			
-		//setea comprobatne a licencia
+		//setea comprobante a licencia
 		licVig.setComprobante(comprobante);
 			
 		//aquellas licencias vigentes de menor jerarquía se deben hacer expirar (se hacen LicenciaExpirada)
@@ -41,9 +36,8 @@ public class EmitirLicencia {
 		titular.getLicenciasVigentes().add(licVig);
 		daoTitular.update(titular);
 		daoLicenciaVigente.save(licVig);
-		
-		
 	}
+		
 	public  void crearLicencia(Titular titular, String observacion, String categoria, Clase claseSolicitada) throws ExcepcionClaseLicencia{
 		List<Calendar> fechasVigencia = calcularVigenciaLicencia(titular, categoria);
 		
@@ -68,6 +62,7 @@ public class EmitirLicencia {
 		
 		PanelVisualizarLicencia panel = new PanelVisualizarLicencia(licenciaVigente);
 	}
+	
 	private void expirarLicenciasMenorJerarquia(Clase claseSolicitada, Titular titular) {
 		// TODO Auto-generated method stub
 		List<Licenciavigente> licenciasVigentes= titular.getLicenciasVigentes();
