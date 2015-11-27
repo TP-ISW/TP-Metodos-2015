@@ -1,37 +1,54 @@
 package logica;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
+import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.Calendar;
 
+import javax.swing.*;
+
 import clasesDeTablas.Comprobante;
+import clasesDeTablas.Licenciavigente;
 import persistencia.DAOComprobante;
 
-public class ImprimirLicencia {
 
-	static void imprimirLicencia(){
+public class ImprimirLicencia implements Printable{
+
+	private JFrame frame;
+	private JPanel panelComprobante;
+	private JLabel lblFechasistema;
+	private Licenciavigente licencia;
+
+	public Comprobante imprimirLicencia(Licenciavigente licenciaVigente){
 		
 		DAOComprobante daoComprobante = new DAOComprobante();
 		
+				
 		
 		//se instancia un comprobante y se setean valores ficticios
 		Comprobante comprobante = new Comprobante();
-		comprobante.setCuit("XX-XXXXXXXX-X");
+		comprobante.setCuit("99999999999");
 		comprobante.setFechaEmision(Calendar.getInstance());
 		comprobante.setLicenciaExpirada(null);
 		comprobante.setMonto((float) 99.0);
 		
-		imprimirComprobante(comprobante);
-
+		// Se dibuja un comprobante y se imprime.
+		crearComprobante(comprobante);
+		imprimirComprobante();
 				
 		//se guarda el comprobante en la BD
 		daoComprobante.save(comprobante);
 		
+		return comprobante;
+		
+		
 	}
-	public void imprimirComprobante(comprobante) {
+	
+	public void imprimirComprobante() {
         PrinterJob printerJob = PrinterJob.getPrinterJob();
         printerJob.setPrintable(this);
         try {
@@ -45,10 +62,75 @@ public class ImprimirLicencia {
         if (pageIndex == 0) {
             Graphics2D g2d = (Graphics2D) graphics;
             g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-            panel.printAll(graphics);
+            panelComprobante.printAll(graphics);
             return PAGE_EXISTS;
         } else {
             return NO_SUCH_PAGE;
         }
     }
+	
+	
+	
+	private void crearComprobante(Comprobante comprobante){
+		frame = new JFrame();
+		frame.setBounds(100, 100, 300, 350);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		panelComprobante = new JPanel();
+		panelComprobante.setBounds(10, 11, 264, 256);
+		frame.getContentPane().add(panelComprobante);
+		panelComprobante.setLayout(null);
+		
+		JLabel lblComprobanteDePago = new JLabel("COMPROBANTE DE PAGO");
+		lblComprobanteDePago.setBounds(56, 11, 163, 14);
+		panelComprobante.add(lblComprobanteDePago);
+		
+		JLabel lblMunicipalidad = new JLabel("Municipalidad de Santa Fe");
+		lblMunicipalidad.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblMunicipalidad.setBounds(10, 48, 244, 14);
+		panelComprobante.add(lblMunicipalidad);
+		
+		JLabel lblCuit = new JLabel(""+comprobante.getCuit()+"");
+		lblCuit.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblCuit.setBounds(114, 73, 129, 14);
+		panelComprobante.add(lblCuit);
+		
+		JLabel lblTipoLicencia = new JLabel("Licencia - "+licencia.getClase().getIdClase()+"");
+		lblTipoLicencia.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblTipoLicencia.setBounds(10, 150, 129, 14);
+		panelComprobante.add(lblTipoLicencia);
+		
+		JLabel lblGastosAdministrativos = new JLabel("Gastos Administrativos");
+		lblGastosAdministrativos.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblGastosAdministrativos.setBounds(10, 179, 129, 14);
+		panelComprobante.add(lblGastosAdministrativos);
+		
+		JLabel lblTotalAPagar = new JLabel("Total a pagar");
+		lblTotalAPagar.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblTotalAPagar.setBounds(10, 217, 129, 14);
+		panelComprobante.add(lblTotalAPagar);
+		
+		JLabel lblPrecioLicencia = new JLabel("$"+comprobante.getMonto()+"");
+		lblPrecioLicencia.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblPrecioLicencia.setBounds(185, 150, 69, 14);
+		panelComprobante.add(lblPrecioLicencia);
+		
+		JLabel labelGastos = new JLabel("$8");
+		labelGastos.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		labelGastos.setBounds(185, 179, 61, 14);
+		panelComprobante.add(labelGastos);
+		
+		JLabel labelTotal = new JLabel("$XX");
+		labelTotal.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		labelTotal.setBounds(182, 217, 61, 14);
+		panelComprobante.add(labelTotal);
+		
+		Calendar fecha = comprobante.getFechaEmision();
+		
+		lblFechasistema = new JLabel(""+fecha.getInstance().get(Calendar.YEAR)+"/"+fecha.getInstance().get(Calendar.MONTH)+"/"+fecha.getInstance().get(Calendar.DATE)+" "+fecha.getInstance().get(Calendar.HOUR_OF_DAY)+":"+fecha.getInstance().get(Calendar.MINUTE)+":"+fecha.getInstance().get(Calendar.SECOND)+"");
+		lblFechasistema.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblFechasistema.setBounds(10, 101, 209, 14);
+		panelComprobante.add(lblFechasistema);
+	}
 }
