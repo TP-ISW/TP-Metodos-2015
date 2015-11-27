@@ -229,7 +229,7 @@ textNombre.addKeyListener(new KeyListener(){
 			   public void actionPerformed(ActionEvent arg0) {
 				   armarLista();
 			   }
-		}
+		});
 		
 		
 		JLabel lblNmeroDeDocumento = new JLabel("N\u00FAmero de Documento:");
@@ -320,8 +320,12 @@ textNombre.addKeyListener(new KeyListener(){
 	
 	private void armarLista(){
 		EmitirLicencia emitirLicencia= new EmitirLicencia();
-		//modeloListaTitulares.clear();
+		for (int i = tablaTitulares.getRowCount() -1; i >= 0; i--){ 
+			modeloTablaTitulares.removeRow(i); 
+			} 
+		
 		List<Titular> listaTit = emitirLicencia.buscarTitular(textNombre.getText(), textApellido.getText(), textNroDocumento.getText(),(String) comboTipoDoc.getSelectedItem());
+		System.out.println(listaTit.size());
 		for (Titular titular : listaTit) {
 			//modeloListaTitulares.addElement(titular.getApellido());
 			modeloTablaTitulares.addRow(new Object[]{titular,titular.getApellido(),titular.getNombre(),titular.getId().getTipoDoc(),titular.getId().getNroDoc()});
