@@ -5,39 +5,12 @@ import excepciones.ExcepcionSQL;
 public class Inyeccion {
 	
 	static void controlSQL(String cadena) throws ExcepcionSQL{
-		if(cadena.contains("INSERT")){
+		if(cadena.contains("INSERT") || cadena.contains("SELECT") || cadena.contains("DROP") 
+			|| cadena.contains("DELETE") || cadena.contains("FROM") || cadena.contains("{")
+			|| cadena.contains("}") || cadena.contains("(") || cadena.contains(")")
+			|| cadena.contains(";"))
+			{
 			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
+			} 
 		}
-		if(cadena.contains("SELECT")){
-			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
-		}
-		if(cadena.contains("DROP")){
-			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
-		}
-		if(cadena.contains("DELETE")){
-			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
-		}
-		if(cadena.contains("FROM")){
-			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
-		}
-		if(cadena.contains("{")){
-			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
-		}
-		if(cadena.contains("}")){
-			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
-		}
-		if(cadena.contains("(")){
-			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
-		}
-		if(cadena.contains(")")){
-			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
-		}
-		if(cadena.contains(";")){
-			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
-		}
-
-	}
-	
-	
-	
 }
