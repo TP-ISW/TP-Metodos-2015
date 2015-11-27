@@ -391,7 +391,7 @@ public class PanelAltaTitular extends JPanel {
 		lblSexo.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 		
 		comboBoxSexo = new JComboBox<String>();
-		comboBoxSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Femenino", "Masculino"}));
+		comboBoxSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "F", "M"}));
 		GridBagConstraints gbc_comboBoxSexo = new GridBagConstraints();
 		gbc_comboBoxSexo.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxSexo.fill = GridBagConstraints.HORIZONTAL;
