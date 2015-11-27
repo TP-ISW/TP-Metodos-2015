@@ -80,6 +80,7 @@ public class PanelMenu extends JPanel {
 		
 		/*Titulo*/
 		JTextPane txtpnDarAltaTitular = new JTextPane();
+		txtpnDarAltaTitular.setEditable(false);
 		txtpnDarAltaTitular.setBackground(new Color(0, 0, 51));
 		txtpnDarAltaTitular.setForeground(SystemColor.window);
 		txtpnDarAltaTitular.setFont(new Font("Lato Heavy", Font.PLAIN, 30));

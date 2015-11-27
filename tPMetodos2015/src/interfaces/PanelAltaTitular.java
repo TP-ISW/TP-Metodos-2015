@@ -97,6 +97,7 @@ public class PanelAltaTitular extends JPanel {
 		
 		
 		JTextPane txtpnDarAltaTitular = new JTextPane();
+		txtpnDarAltaTitular.setEditable(false);
 		txtpnDarAltaTitular.setBackground(new Color(0, 0, 51));
 		txtpnDarAltaTitular.setForeground(SystemColor.window);
 		txtpnDarAltaTitular.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
@@ -150,7 +151,7 @@ public class PanelAltaTitular extends JPanel {
             
               char c=e.getKeyChar(); 
               
-              e.toString().toUpperCase();
+             // e.toString().toUpperCase();
               
              
              if(!(Character.isLetter(c)) && !(c==' ')&& !(c=='\''))
@@ -172,6 +173,23 @@ public class PanelAltaTitular extends JPanel {
 				
 			}
 		});
+		textApellido.addFocusListener (new FocusListener()
+        {
+
+
+            @Override
+            public void focusGained(FocusEvent arg0) {
+                    // TODO Auto-generated method stub
+            	
+            }
+
+            @Override
+            public void focusLost(FocusEvent arg0) {
+            	 String cadena = textNombre.getText();
+                 textNombre.setText(cadena.toUpperCase());
+            }
+    
+            });
 		
 		
 		JLabel lblNombre = new JLabel("Nombre:");

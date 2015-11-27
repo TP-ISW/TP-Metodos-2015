@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JList;
 
@@ -40,9 +41,9 @@ public class PanelEmitirLicencia extends JPanel {
 	private JTextField textNombre;
 	private JTextField textNroDocumento;
 	private JComboBox comboTipoDoc;
-	//private DefaultListModel modeloListaTitulares;
 	private JTable tablaTitulares;
 	private DefaultTableModel modeloTablaTitulares;
+	private JButton btnAceptar;
 	/**
 	 * Create the panel.
 	 */
@@ -51,13 +52,14 @@ public class PanelEmitirLicencia extends JPanel {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{43, 146, 204, 17, 123, 157};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 51, 0, 97, 86, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 51, 0, 97, 0, 86, 0};
 		gridBagLayout.columnWeights = new double[]{4.9E-324, 1.0, 1.0, 0.0, 0.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 	
 		JTextPane txtpnDarAltaTitular = new JTextPane();
+		txtpnDarAltaTitular.setEditable(false);
 		txtpnDarAltaTitular.setBackground(new Color(0, 0, 51));
 		txtpnDarAltaTitular.setForeground(SystemColor.window);
 		txtpnDarAltaTitular.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
@@ -262,6 +264,8 @@ textNombre.addKeyListener(new KeyListener(){
             	  e.consume(); 
               if (textNroDocumento.getText().length()== 8)
                  e.consume();
+              
+              armarLista();
             }
 
 			@Override
@@ -311,11 +315,33 @@ textNombre.addKeyListener(new KeyListener(){
         tablaTitulares = new JTable();
         scrollPane.setViewportView(tablaTitulares);
         tablaTitulares.setModel(modeloTablaTitulares);
+
         
         tablaTitulares.getColumnModel().getColumn(0).setMaxWidth(0);
         tablaTitulares.getColumnModel().getColumn(0).setMinWidth(0);
         tablaTitulares.getColumnModel().getColumn(0).setPreferredWidth(0);
        
+        btnAceptar = new JButton("Aceptar");
+		btnAceptar.setForeground(new Color(153, 0, 0));
+		btnAceptar.setFont(new Font("Lato Black", Font.PLAIN, 13));
+		btnAceptar.setBackground(new Color(240, 255, 255));
+		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
+		gbc_btnAceptar.anchor = GridBagConstraints.SOUTH;
+		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAceptar.gridx = 5;
+		gbc_btnAceptar.gridy = 9;
+		add(btnAceptar, gbc_btnAceptar);
+		btnAceptar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnAceptarAction(e);
+				// TODO Auto-generated method stub
+				
+			}
+
+			
+		});
 	}
 	
 	private void armarLista(){
@@ -330,7 +356,32 @@ textNombre.addKeyListener(new KeyListener(){
 			//modeloListaTitulares.addElement(titular.getApellido());
 			modeloTablaTitulares.addRow(new Object[]{titular,titular.getApellido(),titular.getNombre(),titular.getId().getTipoDoc(),titular.getId().getNroDoc()});
 		}
+	
+		/*btnAceptar = new JButton("Aceptar");
+		btnAceptar.setForeground(new Color(153, 0, 0));
+		btnAceptar.setFont(new Font("Lato Black", Font.PLAIN, 13));
+		btnAceptar.setBackground(new Color(240, 255, 255));
+		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
+		gbc_btnAceptar.anchor = GridBagConstraints.SOUTH;
+		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAceptar.gridx = 5;
+		gbc_btnAceptar.gridy = 9;
+		add(btnAceptar, gbc_btnAceptar);
+		btnAceptar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnAceptarAction(e);
+				// TODO Auto-generated method stub
+				
+			}
+
+			
+		});*/
+
 	}
+	
+	
 		
 	private void btnSeleccionarAction(){
 		try{
@@ -347,4 +398,11 @@ textNombre.addKeyListener(new KeyListener(){
 		
 	
 }
+	
+
+	private void btnAceptarAction(ActionEvent e) {
+		// TODO Auto-generated method stub
+		Titular titularSeleccionado= (Titular) tablaTitulares.getValueAt(tablaTitulares.getSelectedRow(),0);
+	}
+
 }
