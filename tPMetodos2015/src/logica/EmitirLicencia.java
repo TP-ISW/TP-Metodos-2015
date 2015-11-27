@@ -143,9 +143,13 @@ public class EmitirLicencia {
 		List<Titular> titulares = new ArrayList<>();
 		DAOTitular daoTitular= new DAOTitular();
 		List<Titular> todosLosTitulares =daoTitular.getAll();
+		
 		for (Titular titular : todosLosTitulares) {
-			if(titular.getApellido().equals(apellido)||titular.getNombre().equals(nombre)||
-					titular.getId().getNroDoc().equals(nroDoc)||titular.getId().getTipoDoc().equals(tipoDoc))
+			if(titular.getApellido().toLowerCase().startsWith(apellido.toLowerCase()) ||
+			   titular.getNombre().toLowerCase().startsWith(nombre.toLowerCase()) 	  ||
+			   titular.getId().getNroDoc().toLowerCase().startsWith(nroDoc.toLowerCase()) ||
+			   titular.getId().getTipoDoc().toLowerCase().startsWith(tipoDoc.toLowerCase())
+			   )
 				titulares.add(titular);
 		}
 		return titulares;
