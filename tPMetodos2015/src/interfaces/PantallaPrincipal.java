@@ -50,6 +50,8 @@ public class PantallaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public PantallaPrincipal() {
+		setResizable(false);
+		
 		
 		// Logo 
 		//ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/icono.png"));
@@ -62,7 +64,7 @@ public class PantallaPrincipal extends JFrame {
 		setFont(new Font("Lato", Font.PLAIN, 12));
 		setTitle("Licencia de conducir\t\t\t\t\t\t\t\t\t\t\t\t");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(300, 100, 929, 718);
+		setBounds(200, 10, 980, 710);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(SystemColor.activeCaption);

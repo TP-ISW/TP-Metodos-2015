@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.JTextComponent;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -94,7 +95,7 @@ public class PanelAltaTitular extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		/*Titulo*/
+		
 		JTextPane txtpnDarAltaTitular = new JTextPane();
 		txtpnDarAltaTitular.setBackground(new Color(0, 0, 51));
 		txtpnDarAltaTitular.setForeground(SystemColor.window);
@@ -108,7 +109,6 @@ public class PanelAltaTitular extends JPanel {
 		gbc_txtpnDarAltaTitular.gridx = 0;
 		gbc_txtpnDarAltaTitular.gridy = 0;
 		add(txtpnDarAltaTitular, gbc_txtpnDarAltaTitular);
-		/*Numero y tipo de documento*/
 	
 		
 		
@@ -200,7 +200,8 @@ public class PanelAltaTitular extends JPanel {
             public void keyTyped(KeyEvent e)
              
             {textNombre.setText(textNombre.getText().toUpperCase());
-            
+        	
+                
               char c=e.getKeyChar(); 
        
              
@@ -215,10 +216,12 @@ public class PanelAltaTitular extends JPanel {
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
 				
+				
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
+				
 				// TODO Auto-generated method stub
 				
 			}
@@ -230,16 +233,13 @@ public class PanelAltaTitular extends JPanel {
 	                @Override
 	                public void focusGained(FocusEvent arg0) {
 	                        // TODO Auto-generated method stub
-	                        
+	                	
 	                }
 
 	                @Override
 	                public void focusLost(FocusEvent arg0) {
-	                        {
-	                              String cadena = textNombre.getText();
-	                              textNombre.setText(cadena.toUpperCase());
-	                           }
-	                        
+	                	 String cadena = textNombre.getText();
+	                     textNombre.setText(cadena.toUpperCase());
 	                }
 	        
 	                });
@@ -350,6 +350,11 @@ public class PanelAltaTitular extends JPanel {
 		add(labelFecha, gbc_labelFecha);
 		
 		dateChooserNacimiento = new JDateChooser();
+		/*Hacer que el dateChooser sea no editable mateniendo la letra visible*/
+		dateChooserNacimiento.getDateEditor().setEnabled(false);
+		((JTextComponent) dateChooserNacimiento.getDateEditor()).setDisabledTextColor(Color.darkGray);
+		
+		
 		dateChooserNacimiento.getCalendarButton().setBackground(new Color(204, 0, 51));
 		GridBagConstraints gbc_dateChooserNacimiento = new GridBagConstraints();
 		gbc_dateChooserNacimiento.anchor = GridBagConstraints.SOUTH;
@@ -674,9 +679,10 @@ public class PanelAltaTitular extends JPanel {
 		btnAceptar.setFont(new Font("Lato Black", Font.PLAIN, 13));
 		btnAceptar.setBackground(new Color(240, 255, 255));
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
-		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAceptar.gridx = 7;
-		gbc_btnAceptar.gridy = 15;
+		gbc_btnAceptar.anchor = GridBagConstraints.SOUTH;
+		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAceptar.gridx = 8;
+		gbc_btnAceptar.gridy = 14;
 		add(btnAceptar, gbc_btnAceptar);
 		btnAceptar.addActionListener(new ActionListener() {
 			
@@ -772,11 +778,17 @@ public class PanelAltaTitular extends JPanel {
 	}
 	private void titularExistente(Titular titular) {
 		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(this,	titular.getApellido()+'\t'+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this,	titular.getApellido()+"\t"+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);
 		textNombre.setText(titular.getNombre());
 		textApellido.setText(titular.getApellido());
 		textDireccion.setText(titular.getDomicilio());
 		dateChooserNacimiento.setCalendar(titular.getFechaNacimiento());
+		comboBoxSexo.setSelectedItem(titular.getSexo());
+		comboFactorRH.setSelectedItem(titular.getFactorRh());
+		comboGrupoSanguineo.setSelectedItem(titular.getGrupoSanguineo());
+		if(titular.getDonante()){
+			checkBoxDondante.setSelected(true);
+		}
 		
 	}
 	

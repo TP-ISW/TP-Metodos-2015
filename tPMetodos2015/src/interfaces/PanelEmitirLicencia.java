@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -14,6 +15,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -29,15 +32,17 @@ import javax.swing.JList;
 
 import logica.EmitirLicencia;
 import clasesDeTablas.Titular;
+import excepciones.ExcepcionTabla;
+import javax.swing.JScrollPane;
 
 public class PanelEmitirLicencia extends JPanel {
 	private JTextField textApellido;
 	private JTextField textNombre;
 	private JTextField textNroDocumento;
-	private JList listaTitulares;
 	private JComboBox comboTipoDoc;
-	private DefaultListModel modeloListaTitulares;
-
+	//private DefaultListModel modeloListaTitulares;
+	private JTable tablaTitulares;
+	private DefaultTableModel modeloTablaTitulares;
 	/**
 	 * Create the panel.
 	 */
@@ -46,9 +51,9 @@ public class PanelEmitirLicencia extends JPanel {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{43, 146, 204, 17, 123, 157};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{4.9E-324, 0.0, 1.0, 0.0, 0.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 51, 0, 97, 86, 0};
+		gridBagLayout.columnWeights = new double[]{4.9E-324, 1.0, 1.0, 0.0, 0.0, 1.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 	
@@ -90,7 +95,7 @@ textApellido.addKeyListener(new KeyListener(){
             {textApellido.setText(textApellido.getText().toUpperCase());
             
               char c=e.getKeyChar(); 
-              e.toString().toUpperCase();
+              //e.toString().toUpperCase();
              
              if(!(Character.isLetter(c)) && !(c==' ')&& !(c=='\''))
             	 e.consume(); 
@@ -116,7 +121,23 @@ textApellido.addKeyListener(new KeyListener(){
 			
 			});
 
+textApellido.addFocusListener (new FocusListener()
+{
 
+
+        @Override
+        public void focusGained(FocusEvent arg0) {
+                // TODO Auto-generated method stub
+        	
+        }
+
+        @Override
+        public void focusLost(FocusEvent arg0) {
+        	 String cadena = textNombre.getText();
+             textNombre.setText(cadena.toUpperCase());
+        }
+
+        });
 		
 		
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -136,6 +157,56 @@ textApellido.addKeyListener(new KeyListener(){
 		gbc_textNombre.gridy = 4;
 		add(textNombre, gbc_textNombre);
 		textNombre.setColumns(10);
+textNombre.addKeyListener(new KeyListener(){
+            
+            public void keyTyped(KeyEvent e)
+             
+            {textNombre.setText(textNombre.getText().toUpperCase());
+        	
+                
+              char c=e.getKeyChar(); 
+       
+             
+             if(!(Character.isLetter(c)) && !(c==' ')&& !(c=='\''))
+            	 e.consume(); 
+
+             if (textNombre.getText().length()== 50)
+                 e.consume();
+             
+             armarLista();
+            }
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		textNombre.addFocusListener (new FocusListener()
+	        {
+
+
+	                @Override
+	                public void focusGained(FocusEvent arg0) {
+	                        // TODO Auto-generated method stub
+	                	
+	                }
+
+	                @Override
+	                public void focusLost(FocusEvent arg0) {
+	                	 String cadena = textNombre.getText();
+	                     textNombre.setText(cadena.toUpperCase());
+	                }
+	        
+	                });
 		
 		JLabel lblTipoDeDocumento = new JLabel("Tipo de Documento:");
 		lblTipoDeDocumento.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -154,6 +225,12 @@ textApellido.addKeyListener(new KeyListener(){
 		gbc_comboTipoDoc.gridx = 2;
 		gbc_comboTipoDoc.gridy = 5;
 		add(comboTipoDoc, gbc_comboTipoDoc);
+		comboTipoDoc.addActionListener(new ActionListener() {
+			   public void actionPerformed(ActionEvent arg0) {
+				   armarLista();
+			   }
+		}
+		
 		
 		JLabel lblNmeroDeDocumento = new JLabel("N\u00FAmero de Documento:");
 		lblNmeroDeDocumento.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -172,26 +249,98 @@ textApellido.addKeyListener(new KeyListener(){
 		gbc_textNroDocumento.gridy = 5;
 		add(textNroDocumento, gbc_textNroDocumento);
 		textNroDocumento.setColumns(10);
-		
-		listaTitulares = new JList();
-		modeloListaTitulares = new DefaultListModel();
-		GridBagConstraints gbc_listaTitulares = new GridBagConstraints();
-		gbc_listaTitulares.gridwidth = 4;
-		gbc_listaTitulares.insets = new Insets(0, 0, 0, 5);
-		gbc_listaTitulares.fill = GridBagConstraints.BOTH;
-		gbc_listaTitulares.gridx = 2;
-		gbc_listaTitulares.gridy = 8;
-		add(listaTitulares, gbc_listaTitulares);
-		listaTitulares.setModel(modeloListaTitulares);
+		textNroDocumento.addKeyListener(new KeyListener(){
+            
+            public void keyTyped(KeyEvent e)
+             
+            {textNroDocumento.setText(textNroDocumento.getText().toUpperCase());
+            
+              char c=e.getKeyChar(); 
+     
+             
+              if(!(Character.isDigit(c)) )
+            	  e.consume(); 
+              if (textNroDocumento.getText().length()== 8)
+                 e.consume();
+            }
 
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		
+        modeloTablaTitulares =(new DefaultTableModel(
+                new Object[][] {
+                },
+                new String[] {
+                       "Titular", "Apellido", "Nombres", "Tipo de documento", "Número de documento"
+                }
+        ) {
+                /**
+                 * 
+                 */
+                private static final long serialVersionUID = 1L;
+                boolean[] columnEditables = new boolean[] {
+                        false, false, false, false
+                };
+                public boolean isCellEditable(int row, int column) {
+                        return columnEditables[column];
+                }
+        });
+        
+        
+        JScrollPane scrollPane = new JScrollPane();
+        GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+        gbc_scrollPane.gridwidth = 4;
+        gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+        gbc_scrollPane.fill = GridBagConstraints.BOTH;
+        gbc_scrollPane.gridx = 1;
+        gbc_scrollPane.gridy = 8;
+        add(scrollPane, gbc_scrollPane);
+        
+        tablaTitulares = new JTable();
+        scrollPane.setViewportView(tablaTitulares);
+        tablaTitulares.setModel(modeloTablaTitulares);
+        
+        tablaTitulares.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaTitulares.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaTitulares.getColumnModel().getColumn(0).setPreferredWidth(0);
+       
 	}
 	
 	private void armarLista(){
 		EmitirLicencia emitirLicencia= new EmitirLicencia();
+		//modeloListaTitulares.clear();
 		List<Titular> listaTit = emitirLicencia.buscarTitular(textNombre.getText(), textApellido.getText(), textNroDocumento.getText(),(String) comboTipoDoc.getSelectedItem());
 		for (Titular titular : listaTit) {
-			modeloListaTitulares.addElement(titular.getApellido());
+			//modeloListaTitulares.addElement(titular.getApellido());
+			modeloTablaTitulares.addRow(new Object[]{titular,titular.getApellido(),titular.getNombre(),titular.getId().getTipoDoc(),titular.getId().getNroDoc()});
 		}
 	}
-
+		
+	private void btnSeleccionarAction(){
+		try{
+           
+              int cantFilasSeleccionadas=0;
+              cantFilasSeleccionadas=tablaTitulares.getSelectedRowCount();
+               if (cantFilasSeleccionadas>1 || cantFilasSeleccionadas==0)
+                            throw new ExcepcionTabla("Seleccionar solo una fila");
+                 
+	}
+		catch(ExcepcionTabla e1){
+			
+		}
+		
+	
+}
 }
