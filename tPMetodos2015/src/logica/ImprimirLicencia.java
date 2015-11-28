@@ -13,6 +13,7 @@ import javax.swing.*;
 
 import clasesDeTablas.Comprobante;
 import clasesDeTablas.Licenciavigente;
+import excepciones.ExcepcionClaseLicencia;
 import persistencia.DAOComprobante;
 
 
@@ -20,14 +21,16 @@ public class ImprimirLicencia implements Printable{
 
 	private JFrame frame;
 	private JPanel panelComprobante;
+	private JPanel panelLicencia;
 	private JLabel lblFechasistema;
 	private Licenciavigente licencia;
-
-	public Comprobante imprimirLicencia(Licenciavigente licenciaVigente){
+	private int idImpresion;
+	
+	public void imprimirLicencia(Licenciavigente licenciaVigente, JPanel  licenciaAImprimir) throws ExcepcionClaseLicencia{
 		
 		DAOComprobante daoComprobante = new DAOComprobante();
 		
-				
+		panelLicencia = licenciaAImprimir;
 		
 		//se instancia un comprobante y se setean valores ficticios
 		Comprobante comprobante = new Comprobante();
@@ -35,20 +38,25 @@ public class ImprimirLicencia implements Printable{
 		comprobante.setFechaEmision(Calendar.getInstance());
 		comprobante.setLicenciaExpirada(null);
 		comprobante.setMonto((float) 99.0);
+		// Se manda a imprimir con el id en 0, lo que hace que se imprima la licencia.
+		idImpresion = 0;
+		imprimir();
 		
-		// Se dibuja un comprobante y se imprime.
+		// Se dibuja un comprobante y se imprime con el id en 1, que hace que se imprima el comprobante.
+		idImpresion++;
 		crearComprobante(comprobante);
-		imprimirComprobante();
+		imprimir();
 				
 		//se guarda el comprobante en la BD
 		daoComprobante.save(comprobante);
 		
-		return comprobante;
-		
+		//Se envía el comprobante y la licencta a la lógica de emitir licencia, para que esta lo persista en la BD.
+		EmitirLicencia emitir = new EmitirLicencia();
+		emitir.guardarLicencia(licenciaVigente, comprobante);
 		
 	}
-	
-	public void imprimirComprobante() {
+	// Abrimos el diálogo con la impresora.
+	public void imprimir() {
         PrinterJob printerJob = PrinterJob.getPrinterJob();
         printerJob.setPrintable(this);
         try {
@@ -62,7 +70,8 @@ public class ImprimirLicencia implements Printable{
         if (pageIndex == 0) {
             Graphics2D g2d = (Graphics2D) graphics;
             g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-            panelComprobante.printAll(graphics);
+            if(idImpresion==0) panelLicencia.printAll(graphics);
+            else panelComprobante.printAll(graphics);
             return PAGE_EXISTS;
         } else {
             return NO_SUCH_PAGE;

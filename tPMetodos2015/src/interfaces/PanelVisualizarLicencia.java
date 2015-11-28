@@ -2,7 +2,6 @@ package interfaces;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.print.*;
 import java.util.Calendar;
 
 import javax.swing.*;
@@ -10,14 +9,13 @@ import javax.swing.border.LineBorder;
 
 import clasesDeTablas.Licenciavigente;
 import excepciones.ExcepcionClaseLicencia;
-import excepciones.ExcepcionSQL;
-import logica.EmitirLicencia;
 import logica.ImprimirLicencia;
 
 
-public class PanelVisualizarLicencia implements Printable {
+public class PanelVisualizarLicencia{
 
 	private JFrame frame = new JFrame();
+	private JPanel licenciaCompleta = new JPanel();
 	private JPanel licenciaFrente = new JPanel();
 	private JPanel licenciaAtras = new JPanel();
 	private JButton btnImprimir = new JButton("Imprimir");
@@ -27,43 +25,23 @@ public class PanelVisualizarLicencia implements Printable {
 	public PanelVisualizarLicencia(Licenciavigente licVig) {
 		licencia = licVig;
 		initialize();
-		
-		
 	}
-	
-	public void imprimirLicencia() {
-        PrinterJob printerJob = PrinterJob.getPrinterJob();
-        printerJob.setPrintable(this);
-        try {
-            printerJob.printDialog();
-            printerJob.print();
-        } catch (PrinterException ex) {
-            System.out.println("Error:" + ex);
-        }
-    }
-	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-        if (pageIndex == 0) {
-            Graphics2D g2d = (Graphics2D) graphics;
-            g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-            licenciaFrente.printAll(graphics);
-            return PAGE_EXISTS;
-        } else {
-            return NO_SUCH_PAGE;
-        }
-    }
-	/**
-	 * Initialize the contents of the frame.
-	 */
+		
 	private void initialize() {
+		
 		frame.setBounds(100, 50, 500, 560);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+				
+		licenciaCompleta.setBounds(10, 11, 464, 506);
+		frame.getContentPane().add(licenciaCompleta);
+		licenciaCompleta.setLayout(null);
 		
 		licenciaFrente.setBorder(new LineBorder(new Color(0, 0, 0)));
 		licenciaFrente.setBounds(10, 11, 460, 219);
 		frame.getContentPane().add(licenciaFrente);
 		licenciaFrente.setLayout(null);
+		licenciaCompleta.add(licenciaFrente);
 		
 		JLabel lblLicenciaN = new JLabel("Licencia N\u00BA:");
 		lblLicenciaN.setFont(new Font("Dialog", Font.PLAIN, 9));
@@ -138,12 +116,11 @@ public class PanelVisualizarLicencia implements Printable {
 		
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EmitirLicencia emitirLicencia = new EmitirLicencia();
 				try {
-					emitirLicencia.guardarLicencia(licencia);
-				} 
-				catch (ExcepcionClaseLicencia e5){
-					 JOptionPane.showMessageDialog(this,e5.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
+					licenciaAImprimir.imprimirLicencia(licencia, licenciaCompleta);
+				} catch (ExcepcionClaseLicencia e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -159,6 +136,7 @@ public class PanelVisualizarLicencia implements Printable {
 		
 		licenciaAtras.setBorder(new LineBorder(new Color(0, 0, 0)));
 		licenciaAtras.setLayout(null);
+		licenciaCompleta.add(licenciaAtras);
 		
 		Calendar fechaNacimiento = Calendar.getInstance();
 		JLabel lblFechaDeNacimiento = new JLabel(""+fechaNacimiento.getInstance().get(Calendar.YEAR)+"/"+fechaNacimiento.getInstance().get(Calendar.MONTH)+"/"+fechaNacimiento.getInstance().get(Calendar.DATE)+" ");
