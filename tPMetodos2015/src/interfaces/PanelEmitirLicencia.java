@@ -353,56 +353,27 @@ textNombre.addKeyListener(new KeyListener(){
 		List<Titular> listaTit = emitirLicencia.buscarTitular(textNombre.getText(), textApellido.getText(), textNroDocumento.getText(),(String) comboTipoDoc.getSelectedItem());
 		System.out.println(listaTit.size());
 		for (Titular titular : listaTit) {
-			//modeloListaTitulares.addElement(titular.getApellido());
+			
 			modeloTablaTitulares.addRow(new Object[]{titular,titular.getApellido(),titular.getNombre(),titular.getId().getTipoDoc(),titular.getId().getNroDoc()});
 		}
 	
-		/*btnAceptar = new JButton("Aceptar");
-		btnAceptar.setForeground(new Color(153, 0, 0));
-		btnAceptar.setFont(new Font("Lato Black", Font.PLAIN, 13));
-		btnAceptar.setBackground(new Color(240, 255, 255));
-		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
-		gbc_btnAceptar.anchor = GridBagConstraints.SOUTH;
-		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAceptar.gridx = 5;
-		gbc_btnAceptar.gridy = 9;
-		add(btnAceptar, gbc_btnAceptar);
-		btnAceptar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				btnAceptarAction(e);
-				// TODO Auto-generated method stub
-				
-			}
-
-			
-		});*/
-
+		
 	}
 	
 	
-		
-	private void btnSeleccionarAction(){
-		try{
-           
-              int cantFilasSeleccionadas=0;
-              cantFilasSeleccionadas=tablaTitulares.getSelectedRowCount();
-               if (cantFilasSeleccionadas>1 || cantFilasSeleccionadas==0)
-                            throw new ExcepcionTabla("Seleccionar solo una fila");
-                 
-	}
-		catch(ExcepcionTabla e1){
-			
-		}
-		
 	
-}
 	
 
 	private void btnAceptarAction(ActionEvent e) {
 		// TODO Auto-generated method stub
+		try{
 		Titular titularSeleccionado= (Titular) tablaTitulares.getValueAt(tablaTitulares.getSelectedRow(),0);
+		 if (titularSeleccionado==null)
+             throw new ExcepcionTabla("Seleccionar fila");
+		}
+		catch(ExcepcionTabla e1){
+			
+		}
 	}
 
 }

@@ -123,8 +123,6 @@ public class PanelAltaTitular extends JPanel {
 		gbc_lblApellido.gridx = 1;
 		gbc_lblApellido.gridy = 3;
 		add(lblApellido, gbc_lblApellido);
-		
-
 		//Diseño etiquetas
 		lblApellido.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 		
@@ -470,14 +468,14 @@ public class PanelAltaTitular extends JPanel {
 	        
 	                });
 		//etiquetas
-		JLabel lblNewLabel = new JLabel("Grupo sangu\u00EDneo:");
-		lblNewLabel.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+		JLabel lblGrupoSanguineo = new JLabel("Grupo sangu\u00EDneo:");
+		lblGrupoSanguineo.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 7;
-		add(lblNewLabel, gbc_lblNewLabel);
+		add(lblGrupoSanguineo, gbc_lblNewLabel);
 		 
 		 
 		 //Combo box con opciones de gurpo sanguino
