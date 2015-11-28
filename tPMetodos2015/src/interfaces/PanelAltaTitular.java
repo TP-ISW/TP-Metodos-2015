@@ -183,8 +183,8 @@ public class PanelAltaTitular extends JPanel {
 
             @Override
             public void focusLost(FocusEvent arg0) {
-            	 String cadena = textNombre.getText();
-                 textNombre.setText(cadena.toUpperCase());
+            	 String cadena = textApellido.getText();
+                 textApellido.setText(cadena.toUpperCase());
             }
     
             });
