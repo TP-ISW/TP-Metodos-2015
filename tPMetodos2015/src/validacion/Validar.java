@@ -94,7 +94,7 @@ public class Validar{
 				throw new ExcepcionValidador("Una de las clases solicitadas es inválida.");
 			
 		}
-		if(titular.getFoto().length()>200)
+		if(titular.getFoto().length()>200 || !titular.getFoto().endsWith(".jpg"))
 			throw new ExcepcionValidador("La dirección de la foto es inválida.");
 		
 	}
