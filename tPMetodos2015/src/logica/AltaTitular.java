@@ -10,6 +10,7 @@ import clasesDeTablas.ContribuyentePK;
 import clasesDeTablas.Licenciaexpirada;
 import clasesDeTablas.Licenciavigente;
 import clasesDeTablas.Titular;
+import clasesDeTablas.TitularAux;
 import clasesDeTablas.TitularPK;
 import excepciones.*;
 import persistencia.DAOClase;
@@ -29,31 +30,31 @@ public class AltaTitular {
 		add("E");			
 	}};
 
-	public void altaTitular(String nroDoc, String tipoDoc, String nombre, String apellido, String domicilio, 
-			Boolean donante, String factorRh,String grupoSanguineo, Calendar fechaNacimiento, String sexo, 
-			String foto, List<String> clases)throws ExcepcionValidador, ExcepcionLicenciasInvalidas, ExcepcionContribuyente, ExcepcionSQL{
+	public void altaTitular(TitularAux titularAux)throws ExcepcionValidador, ExcepcionLicenciasInvalidas, ExcepcionContribuyente, ExcepcionSQL{
 		
 		//se verifica que el titular sea contribuyente
-		verificarSiEsContribuyente(nroDoc,tipoDoc);
+		verificarSiEsContribuyente(titularAux.getNroDoc(),titularAux.getTipoDoc());
 		
 		TitularPK id= new TitularPK();
-		id.setNroDoc(nroDoc);
-		id.setTipoDoc(tipoDoc);
+		id.setNroDoc(titularAux.getNroDoc());
+		id.setTipoDoc(titularAux.getTipoDoc());
 		
 		Titular nuevoTitular= new Titular();
-		nuevoTitular.setApellido(apellido);
-		nuevoTitular.setDomicilio(domicilio);
-		nuevoTitular.setDonante(donante);
-		nuevoTitular.setFactorRh(factorRh);
-		nuevoTitular.setFechaNacimiento(fechaNacimiento);
-		nuevoTitular.setFoto(foto);
-		nuevoTitular.setGrupoSanguineo(grupoSanguineo);
-		nuevoTitular.setNombre(nombre);
-		nuevoTitular.setSexo(sexo);
+		nuevoTitular.setApellido(titularAux.getApellido());
+		nuevoTitular.setDomicilio(titularAux.getDomicilio());
+		nuevoTitular.setDonante(titularAux.getDonante());
+		nuevoTitular.setFactorRh(titularAux.getFactorRh());
+		nuevoTitular.setFechaNacimiento(titularAux.getFechaNacimiento());
+		nuevoTitular.setFoto(titularAux.getFoto());
+		nuevoTitular.setGrupoSanguineo(titularAux.getGrupoSanguineo());
+		nuevoTitular.setNombre(titularAux.getNombre());
+		nuevoTitular.setSexo(titularAux.getSexo());
 		nuevoTitular.setId(id);
 		
 		DAOClase daoClase = new DAOClase();
 		
+		//se obtienen las clase seleccionadas como un lista de String
+		List<String> clases = titularAux.getClases();
 		//se traen las clases solicitadas desde la BD
 		List <Clase> clasesSolicitadas=new ArrayList<>();
 		for (String idClase : clases) {
@@ -67,7 +68,7 @@ public class AltaTitular {
 		chequearLicenciasSolicitadas(nuevoTitular);
 		DAOTitular daoTitular = new DAOTitular();
 		
-		if(titularYaExiste(nroDoc, tipoDoc))
+		if(titularYaExiste(titularAux.getNroDoc(), titularAux.getTipoDoc()))
 			daoTitular.update(nuevoTitular);
 		else
 			daoTitular.save(nuevoTitular);
