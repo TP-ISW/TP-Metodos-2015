@@ -124,7 +124,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 		
 		PanelMenu panelMenu = new PanelMenu(this);
 		GridBagLayout gridBagLayout = (GridBagLayout) panelMenu.getLayout();
-		gridBagLayout.rowHeights = new int[]{98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{109, 28, 63, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
 		setContentPane(panelMenu);

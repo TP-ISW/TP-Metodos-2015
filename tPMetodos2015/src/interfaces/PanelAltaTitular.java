@@ -40,6 +40,7 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.Canvas;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
@@ -76,16 +77,7 @@ public class PanelAltaTitular extends JPanel {
 	public PanelAltaTitular() {
 		setBackground(new Color(245, 255, 250));
 		
-		//ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/icono.jpg"));
-        
-        //setBackground(new Color(105, 105, 105));
-        //setForeground(new Color(128, 128, 0));
-        
-        
-        
-        //icono = new JLabel(img);
-        //icono.setBounds(677, 11, 142, 141);
-        //add(icono);
+	
 		
 		
 			GridBagLayout gridBagLayout = new GridBagLayout();
@@ -758,9 +750,10 @@ public class PanelAltaTitular extends JPanel {
 			textRutaImagen.setText(String.valueOf(file));
 			try {@SuppressWarnings("deprecation")
 			ImageIcon foto= new ImageIcon(seleccionadorFoto.getSelectedFile().toURL());
+			Image imagen= foto.getImage();
+			ImageIcon fotoEscalada = new ImageIcon (imagen.getScaledInstance(120,120,Image.SCALE_SMOOTH)); 
 			
-			
-			labelFoto= new JLabel(foto);
+			labelFoto= new JLabel(fotoEscalada);
 			labelFoto.setForeground(new Color(153, 0, 0));
 			labelFoto.setBounds(377, 490, 147, 147);
 			add(labelFoto);

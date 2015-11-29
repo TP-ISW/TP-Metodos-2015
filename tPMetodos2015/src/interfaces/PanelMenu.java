@@ -42,6 +42,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import java.awt.Image;
+
 public class PanelMenu extends JPanel {
 	
 	/**
@@ -53,51 +55,62 @@ public class PanelMenu extends JPanel {
 	private JButton btnAceptar;
 	private JButton btnAltaTitular;
 	private JButton btnEmitirLicencia;
+	private JPanel panelTitulo;
 	/**
 	 * Create the panel.
 	 */
 	public PanelMenu(JFrame pantallaPrincipal) {
 		setBackground(new Color(245, 255, 250));
 		
-		//ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/icono.jpg"));
-        
-        //setBackground(new Color(105, 105, 105));
-        //setForeground(new Color(128, 128, 0));
-        
-        
-        
-        //icono = new JLabel(img);
-        //icono.setBounds(677, 11, 142, 141);
-        //add(icono);
+		
 		
 		
 			GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{44, 94, 129, 123, 65, 20, 83, 109, 108, 294, 0};
-		gridBagLayout.rowHeights = new int[]{100, 16, 56, 25, 24, 24, 20, 20, 35, 14, 23, 23, 41, 25, 147, 25, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowHeights = new int[]{120, 16, 56, 25, 24, 24, 20, 20, 35, 14, 23, 23, 41, 25, 147, 25, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		/*Titulo*/
-		JTextPane txtpnDarAltaTitular = new JTextPane();
-		txtpnDarAltaTitular.setEditable(false);
-		txtpnDarAltaTitular.setBackground(new Color(0, 0, 51));
-		txtpnDarAltaTitular.setForeground(SystemColor.window);
-		txtpnDarAltaTitular.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
-		txtpnDarAltaTitular.setText("\r\n\tMENU PRINCIPAL");
-		GridBagConstraints gbc_txtpnDarAltaTitular = new GridBagConstraints();
-		gbc_txtpnDarAltaTitular.weightx = 1.0;
-		gbc_txtpnDarAltaTitular.fill = GridBagConstraints.BOTH;
-		gbc_txtpnDarAltaTitular.insets = new Insets(0, 0, 5, 0);
-		gbc_txtpnDarAltaTitular.gridwidth = 10;
-		gbc_txtpnDarAltaTitular.gridx = 0;
-		gbc_txtpnDarAltaTitular.gridy = 0;
-		add(txtpnDarAltaTitular, gbc_txtpnDarAltaTitular);
+	
+		
+		panelTitulo = new JPanel();
+		panelTitulo.setBackground(new Color(0, 0, 51));
+		panelTitulo.setLayout(null);
+		GridBagConstraints gbc_panelTitulo = new GridBagConstraints();
+		gbc_panelTitulo.gridwidth = 10;
+		gbc_panelTitulo.insets = new Insets(0, 0, 5, 0);
+		gbc_panelTitulo.fill = GridBagConstraints.BOTH;
+		gbc_panelTitulo.gridx = 0;
+		gbc_panelTitulo.gridy = 0;
+		add(panelTitulo, gbc_panelTitulo);
+		
+		JTextPane txtpnTITULO = new JTextPane();
+		txtpnTITULO.setBounds(128, 0, 259, 80);
+		panelTitulo.add(txtpnTITULO);
+		txtpnTITULO.setEditable(false);
+		txtpnTITULO.setBackground(new Color(0, 0, 51));
+		txtpnTITULO.setForeground(SystemColor.window);
+		txtpnTITULO.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
+		txtpnTITULO.setText("\r\nMENU PRINCIPAL");
+		
+		
+		ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/Icono-mano-llave.png")); 
+		Image imagen= img.getImage();
+		ImageIcon iconoEscalado = new ImageIcon (imagen.getScaledInstance(70,70,Image.SCALE_SMOOTH)); 
+		JLabel lblImagen = new JLabel(iconoEscalado);
+		lblImagen.setBounds(10, 11, 108, 84);
+		panelTitulo.add(lblImagen);
+		
+		
+		
+		
 		
 		btnAltaTitular = new JButton("Alta Titular");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 2;
+		gbc_btnNewButton.gridx = 3;
 		gbc_btnNewButton.gridy = 4;
 		add(btnAltaTitular, gbc_btnNewButton);
 		btnAltaTitular.addActionListener(new ActionListener() {
@@ -117,7 +130,7 @@ public class PanelMenu extends JPanel {
 		btnEmitirLicencia = new JButton("Emitir Licencia");
 		GridBagConstraints gbc_btnEmitirLicencia = new GridBagConstraints();
 		gbc_btnEmitirLicencia.insets = new Insets(0, 0, 5, 5);
-		gbc_btnEmitirLicencia.gridx = 2;
+		gbc_btnEmitirLicencia.gridx = 3;
 		gbc_btnEmitirLicencia.gridy = 5;
 		add(btnEmitirLicencia, gbc_btnEmitirLicencia);
 btnEmitirLicencia.addActionListener(new ActionListener() {
