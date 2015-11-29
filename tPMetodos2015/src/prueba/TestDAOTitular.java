@@ -11,6 +11,7 @@ import clasesDeTablas.Titular;
 import clasesDeTablas.TitularPK;
 import excepciones.ExcepcionContribuyente;
 import excepciones.ExcepcionLicenciasInvalidas;
+import excepciones.ExcepcionSQL;
 import excepciones.ExcepcionValidador;
 import junit.framework.TestCase;
 import logica.AltaTitular;
@@ -29,7 +30,7 @@ public class TestDAOTitular extends TestCase {
 	Calendar fechaNac= Calendar.getInstance();
 	
 	@Test
-	public void testDAOTitular() {
+	public void testDAOTitular() throws Exception {
 		//crea el titular y lo guarda en la BD
 		fechaNac.set(Calendar.YEAR, 1994);
 		stringClases.add("A");
@@ -45,7 +46,7 @@ public class TestDAOTitular extends TestCase {
 					"A",
 					fechaNac,
 					"M",
-					"FOTO",
+					"FOTO.jpg",
 					stringClases);
 		} catch (ExcepcionValidador e) {
 			// TODO Auto-generated catch block
@@ -65,7 +66,7 @@ public class TestDAOTitular extends TestCase {
 		titularDeEjemplo.setDonante(false);
 		titularDeEjemplo.setFactorRh("+");
 		titularDeEjemplo.setFechaNacimiento(fechaNac);
-		titularDeEjemplo.setFoto("LAFOTO");
+		titularDeEjemplo.setFoto("FOTO.jpg");
 		titularDeEjemplo.setGrupoSanguineo("A");
 		titularDeEjemplo.setSexo("M"); 
 		

@@ -191,7 +191,9 @@ public class EmitirLicencia {
 	public static int antiguedadLicencia(Licenciavigente licVig) {
 		// TODO Auto-generated method stub
 		Calendar fechaActual= Calendar.getInstance();
-		int antiguedad=licVig.getFechaEmision().YEAR - fechaActual.YEAR ;
+		
+		int antiguedad = fechaActual.get(Calendar.YEAR) - licVig.getFechaEmision().get(Calendar.YEAR);
+		
 		if(licVig.getFechaEmision().get(Calendar.DAY_OF_YEAR) - fechaActual.get(Calendar.DAY_OF_YEAR) > 0)
 			antiguedad--;
 		return antiguedad;
