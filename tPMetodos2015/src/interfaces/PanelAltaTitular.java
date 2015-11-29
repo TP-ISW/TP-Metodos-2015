@@ -470,12 +470,12 @@ public class PanelAltaTitular extends JPanel {
 		//etiquetas
 		JLabel lblGrupoSanguineo = new JLabel("Grupo sangu\u00EDneo:");
 		lblGrupoSanguineo.setFont(new Font("Lato Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 7;
-		add(lblGrupoSanguineo, gbc_lblNewLabel);
+		GridBagConstraints gbc_lblIcono = new GridBagConstraints();
+		gbc_lblIcono.anchor = GridBagConstraints.WEST;
+		gbc_lblIcono.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIcono.gridx = 1;
+		gbc_lblIcono.gridy = 7;
+		add(lblGrupoSanguineo, gbc_lblIcono);
 		 
 		 
 		 //Combo box con opciones de gurpo sanguino
@@ -697,7 +697,7 @@ public class PanelAltaTitular extends JPanel {
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
 		gbc_btnAceptar.anchor = GridBagConstraints.SOUTH;
 		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAceptar.gridx = 8;
+		gbc_btnAceptar.gridx = 7;
 		gbc_btnAceptar.gridy = 14;
 		add(btnAceptar, gbc_btnAceptar);
 		btnAceptar.addActionListener(new ActionListener() {

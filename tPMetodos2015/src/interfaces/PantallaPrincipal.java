@@ -20,6 +20,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.UIManager;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 public class PantallaPrincipal extends JFrame implements ActionListener{
 
@@ -55,18 +58,25 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 		setResizable(false);
 		
 		
-		// Logo 
-		//ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/icono.png"));
-	    
-	    
-	    //JLabel icono = new JLabel(img);
-	    //icono.setBounds(677, 11, 142, 141);
-	    //add(icono);
+		
 		
 		setFont(new Font("Lato", Font.PLAIN, 12));
 		setTitle("Licencia de conducir\t\t\t\t\t\t\t\t\t\t\t\t");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 10, 980, 710);
+		setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoCarnet.png")).getImage());
+		
+
+		/*
+		// Logo 
+		ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/iconoAuto.png")); 
+		JLabel lblNewLabel = new JLabel(img);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 7;
+		gbc_lblNewLabel.gridy = 0;
+		add(lblNewLabel, gbc_lblNewLabel);
+		 */
 		
 		/*
 		JMenuBar menuBar
@@ -113,7 +123,19 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 		//setContentPane(contentPane);
 		
 		PanelMenu panelMenu = new PanelMenu(this);
+		GridBagLayout gridBagLayout = (GridBagLayout) panelMenu.getLayout();
+		gridBagLayout.rowHeights = new int[]{98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
 		setContentPane(panelMenu);
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 

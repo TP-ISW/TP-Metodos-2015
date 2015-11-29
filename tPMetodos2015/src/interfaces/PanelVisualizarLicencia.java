@@ -12,7 +12,7 @@ import excepciones.ExcepcionClaseLicencia;
 import logica.ImprimirLicencia;
 
 
-public class PanelVisualizarLicencia{
+public class PanelVisualizarLicencia extends JPanel{
 
 	private JFrame frame = new JFrame();
 	private JPanel licenciaCompleta = new JPanel();

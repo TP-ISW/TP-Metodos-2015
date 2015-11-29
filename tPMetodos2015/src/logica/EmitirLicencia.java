@@ -38,7 +38,7 @@ public class EmitirLicencia {
 		daoLicenciaVigente.save(licVig);
 	}
 		
-	public  void crearLicencia(Titular titular, String observacion, String categoria, Clase claseSolicitada) throws ExcepcionClaseLicencia{
+	public  Licenciavigente crearLicencia(Titular titular, String observacion, String categoria, Clase claseSolicitada) throws ExcepcionClaseLicencia{
 		List<Calendar> fechasVigencia = calcularVigenciaLicencia(titular, categoria);
 		
 		//se juntan todas las clases de las cuales el titular tiene licencias vigentes
@@ -60,7 +60,7 @@ public class EmitirLicencia {
 		licenciaVigente.setUsuario(new Usuario());
 		licenciaVigente.setTitular(titular);
 		
-		PanelVisualizarLicencia panel = new PanelVisualizarLicencia(licenciaVigente);
+		return licenciaVigente;
 	}
 	
 	private void expirarLicenciasMenorJerarquia(Clase claseSolicitada, Titular titular) {

@@ -220,7 +220,7 @@ textNombre.addKeyListener(new KeyListener(){
 		add(lblTipoDeDocumento, gbc_lblTipoDeDocumento);
 		
 		comboTipoDoc = new JComboBox();
-		comboTipoDoc.setModel(new DefaultComboBoxModel(new String[] {"", "DNI", "LU"}));
+		comboTipoDoc.setModel(new DefaultComboBoxModel(new String[] {"", "DNI", "LC", "LE"}));
 		GridBagConstraints gbc_comboTipoDoc = new GridBagConstraints();
 		gbc_comboTipoDoc.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboTipoDoc.insets = new Insets(0, 0, 5, 5);
