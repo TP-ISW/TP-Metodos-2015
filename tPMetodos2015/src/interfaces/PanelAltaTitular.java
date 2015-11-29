@@ -28,6 +28,7 @@ import javax.swing.text.JTextComponent;
 import com.toedter.calendar.JDateChooser;
 
 import clasesDeTablas.Titular;
+import clasesDeTablas.TitularAux;
 import excepciones.ExcepcionContribuyente;
 import excepciones.ExcepcionLicenciasInvalidas;
 import excepciones.ExcepcionNull;
@@ -828,10 +829,23 @@ public class PanelAltaTitular extends JPanel {
                 throw new ExcepcionValidador("Fecha de nacimiento incorrecta");
 		else{
 			List<String> clasesSolicitadas =obtenerClasesTildadas();
-			altaTitular.altaTitular(textNumeroDoc.getText(), (String) comboTipoDoc.getSelectedItem(),
-					textNombre.getText(), textApellido.getText(), textDireccion.getText(), 
-					(boolean) checkBoxDondante.isSelected(), (String) comboFactorRH.getSelectedItem(), (String) comboGrupoSanguineo.getSelectedItem(), 
-					fechaNac,(String) comboBoxSexo.getSelectedItem(), (String) textRutaImagen.getText(), clasesSolicitadas);
+			
+			TitularAux titularAux = new TitularAux();
+			
+			titularAux.setNroDoc(textNumeroDoc.getText());
+			titularAux.setTipoDoc((String) comboTipoDoc.getSelectedItem());
+			titularAux.setNombre(textNombre.getText());
+			titularAux.setApellido(textApellido.getText());
+			titularAux.setDomicilio(textDireccion.getText());
+			titularAux.setDonante((boolean) checkBoxDondante.isSelected());
+			titularAux.setGrupoSanguineo((String) comboGrupoSanguineo.getSelectedItem());
+			titularAux.setFactorRh((String) comboFactorRH.getSelectedItem());
+			titularAux.setFechaNacimiento(fechaNac);
+			titularAux.setSexo((String) comboBoxSexo.getSelectedItem());
+			titularAux.setFoto((String) textRutaImagen.getText());
+			titularAux.setClases(clasesSolicitadas);
+			
+			altaTitular.altaTitular(titularAux);
 		}
 	}
 		catch(ExcepcionNull e1){ JOptionPane.showMessageDialog(this,"No se han cargado todos los datos", "Error", JOptionPane.INFORMATION_MESSAGE);
