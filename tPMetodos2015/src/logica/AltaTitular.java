@@ -74,6 +74,7 @@ public class AltaTitular {
 			daoTitular.save(nuevoTitular);
 
 	}
+	//se verifica que el titular sea contribuyente del municipio
 	private void verificarSiEsContribuyente(String nroDoc, String tipoDoc) throws ExcepcionContribuyente {
 		// TODO Auto-generated method stub
 		DAOContribuyente daoContribuyente = new DAOContribuyente();
@@ -87,16 +88,21 @@ public class AltaTitular {
 		
 		
 	}
+	
 	private void chequearLicenciasSolicitadas(Titular nuevoTitular)throws ExcepcionLicenciasInvalidas {
 		// TODO Auto-generated method stub
 		Calendar fechaNacimientoTitular = nuevoTitular.getFechaNacimiento();
 		int edad= EmitirLicencia.calcularEdad(fechaNacimientoTitular);
+		
+		//se verifica que el titular tenga al menos 17 anos
 		if(edad<17){
 			throw new ExcepcionLicenciasInvalidas("No cumple la edad mínima");
 		}
 		
 		
-		
+		//se verifica que el titular tenga al menos 21 anos para obtener clases profesionales
+		//se verifica que el titular haya tenido una licencia previamente
+		//se verifica que no posea licencia vigente con la clase que solicita, ni licencia de menor jerarquia
 		for (Clase claseSolicitada : nuevoTitular.getClasesSolicitadas()) {
 			if(clasesRequieren21.contains(claseSolicitada.getIdClase())){
 				if(edad<21)
@@ -145,6 +151,8 @@ public class AltaTitular {
 		}
 		return false;
 	}
+	//este metodo verifica si el titular fue cargado previamente en el sistema. 
+	//si es así lo devuelve para que sus datos se muestren en panntalla
 	public Titular verificarExistenciaTitular(String nroDoc, String tipoDoc) {
 		TitularPK titularPK = new TitularPK();
 		titularPK.setNroDoc(nroDoc);
