@@ -10,7 +10,7 @@ public class Inyeccion {
 			|| cadena.contains("}") || cadena.contains("(") || cadena.contains(")")
 			|| cadena.contains(";"))
 			{
-			throw new ExcepcionSQL("La cadena contiene posible código malicioso.");
+			throw new ExcepcionSQL("Al menos un campo con datos incorrectos");
 			} 
 		}
 }

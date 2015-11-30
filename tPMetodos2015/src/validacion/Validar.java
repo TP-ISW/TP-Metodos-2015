@@ -71,10 +71,6 @@ public class Validar{
 			throw new ExcepcionValidador("El usuario esta en un rango de edades no aceptado.");
 		};
 		
-		/*if(titular.getSexo()!="Masculino" && titular.getSexo()!="Femenino"){
-			throw new ExcepcionValidador("El sexo seleccioes inválido.");
-		};*/
-		
 		List<String> gruposValidos = Arrays.asList("A","B","AB","O");
 		
 		if(!gruposValidos.contains(titular.getGrupoSanguineo())){
@@ -97,6 +93,9 @@ public class Validar{
 		if(titular.getFoto().length()>200 || !titular.getFoto().endsWith(".jpg"))
 			throw new ExcepcionValidador("La dirección de la foto es inválida.");
 		
+		/*if(titular.getSexo()!="Masculino" && titular.getSexo()!="Femenino"){
+			throw new ExcepcionValidador("El sexo seleccioes inválido.");
+		};*/
 	}
 	
 	static void controlSQL(Titular titular) throws ExcepcionSQL{
