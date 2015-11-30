@@ -681,8 +681,9 @@ public class PanelAltaTitular extends JPanel {
 		add(checkBoxClaseF, gbc_checkBoxClaseF);
 		JLabel lblFoto = new JLabel("Foto:");
 		GridBagConstraints gbc_lblImagen = new GridBagConstraints();
+		gbc_lblImagen.anchor = GridBagConstraints.EAST;
 		gbc_lblImagen.insets = new Insets(0, 0, 5, 5);
-		gbc_lblImagen.gridx = 1;
+		gbc_lblImagen.gridx = 2;
 		gbc_lblImagen.gridy = 12;
 		add(lblFoto, gbc_lblImagen);
 		lblFoto.setFont(new Font("Lato Medium", Font.PLAIN, 14));

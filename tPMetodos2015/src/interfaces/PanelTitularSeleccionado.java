@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -58,7 +59,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			
 			GridBagLayout gridBagLayout = new GridBagLayout();
 			gridBagLayout.columnWidths = new int[]{136, 118, 378, 166, 139, 32, 0, 114, 109, 0};
-			gridBagLayout.rowHeights = new int[]{111, 16, 33, 38, 31, 33, 32, 35, 20, 35, 14, 0, 23, 58, 13, 30, 48, 25, 147, 25, 0};
+			gridBagLayout.rowHeights = new int[]{123, 16, 33, 38, 31, 33, 32, 35, 20, 35, 97, 0, 23, 58, 13, 30, 48, 25, 147, 25, 0};
 			gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 			setLayout(gridBagLayout);
@@ -212,7 +213,8 @@ public class PanelTitularSeleccionado extends JPanel {
 			gbc_labelFecha.gridy = 5;
 			add(labelFecha, gbc_labelFecha);
 			
-			JLabel labelFechaNacTitular = new JLabel(titular.getFechaNacimiento().toString());
+			Calendar fecha= titular.getFechaNacimiento();
+			JLabel labelFechaNacTitular = new JLabel(""+fecha.getInstance().get(Calendar.YEAR)+"/"+fecha.getInstance().get(Calendar.MONTH)+"/"+fecha.getInstance().get(Calendar.DATE));
 			labelFechaNacTitular.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 			GridBagConstraints gbc_labelFechaNacTitular = new GridBagConstraints();
 			gbc_labelFechaNacTitular.insets = new Insets(0, 0, 5, 5);
@@ -276,7 +278,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			                 */
 			                private static final long serialVersionUID = 1L;
 			                boolean[] columnEditables = new boolean[] {
-			                        false
+			                        false,false
 			                };
 			                public boolean isCellEditable(int row, int column) {
 			                        return columnEditables[column];
@@ -496,6 +498,7 @@ public class PanelTitularSeleccionado extends JPanel {
 	private void btnVisualizarLicencia(JFrame pantallaPrincipal, Titular titular) {
 		// TODO Auto-generated method stub
 		try{
+			
 			Clase claseSeleccionada= (Clase) tablaClase.getValueAt(tablaClase.getSelectedRow(),0);
 			 if (claseSeleccionada==null)
 	             throw new ExcepcionTabla("Seleccionar fila");
@@ -505,6 +508,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			
 			PanelVisualizarLicencia panelVisualizarLicencia = new PanelVisualizarLicencia(licenciaVigente);
 			this.setVisible(false);
+			
 			pantallaPrincipal.setContentPane(panelVisualizarLicencia);
 			
 		}
