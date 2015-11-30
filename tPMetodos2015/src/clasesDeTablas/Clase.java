@@ -30,7 +30,7 @@ public class Clase implements Serializable {
 	private List<Licenciavigente> licenciasVigentes;
 
 	//bi-directional many-to-many association to Titular
-	@ManyToMany(mappedBy="clasesSolicitadas")
+	@ManyToMany(fetch = FetchType.EAGER,mappedBy="clasesSolicitadas", cascade = CascadeType.ALL)
 	private List<Titular> titulares;
 
 	public Clase() {

@@ -23,7 +23,9 @@ import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 
-
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import clasesDeTablas.Clase;
 import clasesDeTablas.Licenciavigente;
@@ -31,6 +33,8 @@ import clasesDeTablas.Titular;
 import excepciones.ExcepcionClaseLicencia;
 import excepciones.ExcepcionTabla;
 import logica.EmitirLicencia;
+import persistencia.FabricaSessionFactory;
+
 import javax.swing.JEditorPane;
 
 public class PanelTitularSeleccionado extends JPanel {
@@ -136,7 +140,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			add(labelNombreTitular, gbc_labelNombreTitular);
 			
 			
-			ImageIcon iconoFotoPersona=new ImageIcon(this.getClass().getResource(titular.getFoto())); 
+			/*ImageIcon iconoFotoPersona=new ImageIcon(this.getClass().getResource(titular.getFoto())); 
 			Image imagenFotoPersona= iconoFotoPersona.getImage();
 			ImageIcon iconoFotoPersonaEscalado = new ImageIcon (imagenFotoPersona.getScaledInstance(70,70,Image.SCALE_SMOOTH)); 
 			
@@ -147,7 +151,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			gbc_lblFotoPersona.gridx = 7;
 			gbc_lblFotoPersona.gridy = 2;
 			add(lblFotoPersona, gbc_lblFotoPersona);
-			
+			*/
 			JLabel lblTipoDeDocumento = new JLabel("Tipo de documento:");
 			GridBagConstraints gbc_lblTipoDeDocumento = new GridBagConstraints();
 			gbc_lblTipoDeDocumento.anchor = GridBagConstraints.WEST;
@@ -279,9 +283,14 @@ public class PanelTitularSeleccionado extends JPanel {
 			                }
 			        });
 			        
-			       
+			SessionFactory factory= FabricaSessionFactory.getFactory();
+	        Session session = factory.getCurrentSession(); 
+	        session.beginTransaction();
+	        session.refresh(titular);
+			Hibernate.initialize(titular.getClasesSolicitadas());
+			session.getTransaction().commit();
 			        
-			for (Clase clase : titular.getClasesSolicitadas()) {
+			for (Clase clase :titular.getClasesSolicitadas() ) {
 						
 				modeloTablaClase.addRow(new Object[]{clase,clase.getIdClase()});
 			}
