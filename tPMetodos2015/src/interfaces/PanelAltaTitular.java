@@ -769,7 +769,15 @@ public class PanelAltaTitular extends JPanel {
 		btnHome.setIcon(homeEscalada);
 		
 		
-		
+		ImageIcon iconoPersona= new ImageIcon(this.getClass().getResource("/imagenes/iconoPersonaCeleste.png"));
+		Image imagenIconoPersona= iconoPersona.getImage();
+		ImageIcon imagenEscalada = new ImageIcon (imagenIconoPersona.getScaledInstance(120,120,Image.SCALE_SMOOTH)); 
+		labelFoto= new JLabel(imagenEscalada);
+		GridBagConstraints gbc_labelFoto = new GridBagConstraints();
+		gbc_labelFoto.insets = new Insets(1, 1, 1, 1);
+		gbc_labelFoto.gridy = 14;
+		gbc_labelFoto.gridx = 3;
+		add(labelFoto, gbc_labelFoto);
 		/*Clases : A,B,C,D,E,F,G 
 		 * C ->B
 		 * D -> C
@@ -805,10 +813,10 @@ public class PanelAltaTitular extends JPanel {
 			Image imagen= foto.getImage();
 			ImageIcon fotoEscalada = new ImageIcon (imagen.getScaledInstance(120,120,Image.SCALE_SMOOTH)); 
 			
-			labelFoto= new JLabel(fotoEscalada);
+			labelFoto.setIcon(fotoEscalada);
 			labelFoto.setForeground(new Color(153, 0, 0));
-			labelFoto.setBounds(377, 490, 147, 147);
-			add(labelFoto);
+			//labelFoto.setBounds(377, 490, 147, 147);
+			//add(labelFoto);
 			repaint();
 			
 			}
