@@ -44,7 +44,6 @@ public class DAOTitular implements Repositorio<Titular> {
         Session session = factory.getCurrentSession(); 
         session.beginTransaction();
         Titular objeto = (Titular) session.get(Titular.class, documento);
-        Hibernate.initialize(objeto.getClasesSolicitadas());
         session.getTransaction().commit();
         return objeto;
 	}
