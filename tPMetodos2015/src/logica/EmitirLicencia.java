@@ -142,10 +142,9 @@ public class EmitirLicencia {
 		List<Titular> todosLosTitulares =daoTitular.getAll();
 		
 		for (Titular titular : todosLosTitulares) {
-			if((titular.getApellido().toLowerCase().startsWith(apellido.toLowerCase()) && !apellido.isEmpty()) ||
-			   (titular.getNombre().toLowerCase().startsWith(nombre.toLowerCase()) && !nombre.isEmpty()) ||
-			   (titular.getId().getNroDoc().startsWith(nroDoc) && !nroDoc.isEmpty()) ||
-			   (titular.getId().getTipoDoc().toLowerCase().startsWith(tipoDoc.toLowerCase()) && !tipoDoc.isEmpty()) 
+			if((titular.getApellido().startsWith(apellido) && !apellido.isEmpty()) ||
+			   (titular.getNombre().startsWith(nombre) && !nombre.isEmpty()) ||
+			   (titular.getId().getNroDoc().startsWith(nroDoc) && !nroDoc.isEmpty())
 			   )
 				titulares.add(titular);
 		}
