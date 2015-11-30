@@ -45,6 +45,8 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PanelAltaTitular extends JPanel {
 	/**
@@ -140,6 +142,12 @@ public class PanelAltaTitular extends JPanel {
 		
 		//Campo a completar con Apellido
 		textApellido = new JTextField();
+		textApellido.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textApellido.selectAll();
+			}
+		});
 		textApellido.setForeground(new Color(0, 0, 0));
 		GridBagConstraints gbc_textApellido = new GridBagConstraints();
 		gbc_textApellido.anchor = GridBagConstraints.SOUTH;
@@ -213,6 +221,12 @@ public class PanelAltaTitular extends JPanel {
 		
         //Campo a completar Nombre
 		textNombre = new JTextField();
+		textNombre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textNombre.selectAll();
+			}
+		});
 		GridBagConstraints gbc_textNombre = new GridBagConstraints();
 		gbc_textNombre.gridwidth = 2;
 		gbc_textNombre.fill = GridBagConstraints.HORIZONTAL;
@@ -422,6 +436,12 @@ public class PanelAltaTitular extends JPanel {
 		
 		//Campo textDireccion permite solo letras, numeros (espacio y ') y tamaño:50, y mayuscula
 		textDireccion = new JTextField();
+		textDireccion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textDireccion.selectAll();
+			}
+		});
 		GridBagConstraints gbc_textDireccion = new GridBagConstraints();
 		gbc_textDireccion.anchor = GridBagConstraints.NORTH;
 		gbc_textDireccion.fill = GridBagConstraints.HORIZONTAL;
