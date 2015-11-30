@@ -172,5 +172,5 @@ public class AltaTitular {
 		if(titular==null)
 			return false;
 		return true;			
-	}
+	} 
 }
