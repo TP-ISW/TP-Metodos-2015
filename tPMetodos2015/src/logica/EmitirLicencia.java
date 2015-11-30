@@ -115,7 +115,7 @@ public class EmitirLicencia {
 		daoLicenciaExpirada.save(licenciaExpirada);
 		
 	}
-
+	// se verifica que no posea una clase de igual o mayor rango a la que solicita
 	private void verificarClaseSolicitada(Clase claseSolicitada, List<Clase> clasesVigentes) throws ExcepcionClaseLicencia {
 		// TODO Auto-generated method stub
 		if(clasesVigentes.contains(claseSolicitada))
@@ -135,7 +135,7 @@ public class EmitirLicencia {
 		}
 		
 	}
-
+	//este método se ejecuta cada vez que se ingresa un caracter en los campos detallados abajo, devuelve los titulares que cumplan con la busqueda
 	public List<Titular> buscarTitular(String nombre, String apellido, String nroDoc, String tipoDoc) {
 		List<Titular> titulares = new ArrayList<>();
 		DAOTitular daoTitular= new DAOTitular();
@@ -151,7 +151,7 @@ public class EmitirLicencia {
 		}
 		return titulares;
 	}
-	
+	//de acuerdo a la fecha de nacimiento, devuelve la edad actual
 	public static int calcularEdad(Calendar fechaNacimientoTitular){
 		Calendar fechaActual = Calendar.getInstance();
 		
@@ -162,6 +162,7 @@ public class EmitirLicencia {
 		
 		return edad;
 	}
+	
 	
 	public List<Calendar> calcularVigenciaLicencia (Titular titular, String categoria){
 		
@@ -190,6 +191,7 @@ public class EmitirLicencia {
 		return fechasVigencia;
 	}
 
+	//se calculan cuantos años desde su emision tiene la licencia
 	public static int antiguedadLicencia(Licenciavigente licVig) {
 		// TODO Auto-generated method stub
 		Calendar fechaActual= Calendar.getInstance();
