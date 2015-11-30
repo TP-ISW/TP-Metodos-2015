@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import clasesDeTablas.Clase;
 import clasesDeTablas.Titular;
+import clasesDeTablas.TitularAux;
 import clasesDeTablas.TitularPK;
 import excepciones.ExcepcionContribuyente;
 import excepciones.ExcepcionLicenciasInvalidas;
@@ -36,18 +37,20 @@ public class TestDAOTitular extends TestCase {
 		stringClases.add("A");
 		AltaTitular altaTitular = new AltaTitular();
 		try {
-			altaTitular.altaTitular("37566732",
-					"DNI",
-					"MATIAS",
-					"SEQUEIRA",
-					"GENERAL PAZ 1111",
-					false,
-					"+",
-					"A",
-					fechaNac,
-					"M",
-					"FOTO.jpg",
-					stringClases);
+			TitularAux titularAux = new TitularAux();
+			titularAux.setApellido("SEQUEIRA");
+			titularAux.setClases(stringClases);
+			titularAux.setDomicilio("GENERAL PAZ 1111");
+			titularAux.setDonante(false);
+			titularAux.setFactorRh("+");
+			titularAux.setFechaNacimiento(fechaNac);
+			titularAux.setFoto("FOTO.jpg");
+			titularAux.setGrupoSanguineo("A");
+			titularAux.setNombre("MATIAS");
+			titularAux.setNroDoc("37566732");
+			titularAux.setSexo("M");
+			titularAux.setTipoDoc("DNI");
+			altaTitular.altaTitular(titularAux);
 		} catch (ExcepcionValidador e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

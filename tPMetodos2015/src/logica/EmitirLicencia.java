@@ -25,6 +25,7 @@ public class EmitirLicencia {
 		Titular titular = licVig.getTitular();		
 		DAOTitular daoTitular= new DAOTitular();
 		DAOLicenciaVigente daoLicenciaVigente = new DAOLicenciaVigente();
+		
 			
 		//setea comprobante a licencia
 		licVig.setComprobante(comprobante);
@@ -35,6 +36,7 @@ public class EmitirLicencia {
 		//por último, le agrego la licenciavigente al titular, lo actualizo y guardo la licencia en la BD
 		titular.getLicenciasVigentes().add(licVig);
 		daoTitular.update(titular);
+		licVig.setTitular(titular);
 		daoLicenciaVigente.save(licVig);
 	}
 		
