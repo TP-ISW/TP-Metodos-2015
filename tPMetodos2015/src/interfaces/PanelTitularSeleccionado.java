@@ -53,9 +53,9 @@ public class PanelTitularSeleccionado extends JPanel {
 			
 			
 			GridBagLayout gridBagLayout = new GridBagLayout();
-			gridBagLayout.columnWidths = new int[]{136, 118, 378, 166, 139, 32, 114, 109, 0};
+			gridBagLayout.columnWidths = new int[]{136, 118, 378, 166, 139, 32, 0, 114, 109, 0};
 			gridBagLayout.rowHeights = new int[]{111, 16, 33, 38, 31, 33, 32, 35, 20, 35, 14, 0, 23, 58, 13, 30, 48, 25, 147, 25, 0};
-			gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+			gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 			setLayout(gridBagLayout);
 			
@@ -71,8 +71,8 @@ public class PanelTitularSeleccionado extends JPanel {
 				panelTitulo.setBackground(new Color(0, 0, 51));
 				panelTitulo.setLayout(null);
 				GridBagConstraints gbc_panelTitulo = new GridBagConstraints();
-				gbc_panelTitulo.gridwidth = 7;
-				gbc_panelTitulo.insets = new Insets(0, 0, 5, 0);
+				gbc_panelTitulo.gridwidth = 8;
+				gbc_panelTitulo.insets = new Insets(0, 0, 5, 5);
 				gbc_panelTitulo.fill = GridBagConstraints.BOTH;
 				gbc_panelTitulo.gridx = 0;
 				gbc_panelTitulo.gridy = 0;
@@ -93,7 +93,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			JLabel lblFoto = new JLabel("Foto:");
 			GridBagConstraints gbc_lblImagen = new GridBagConstraints();
 			gbc_lblImagen.insets = new Insets(0, 0, 5, 5);
-			gbc_lblImagen.gridx = 6;
+			gbc_lblImagen.gridx = 7;
 			gbc_lblImagen.gridy = 1;
 			add(lblFoto, gbc_lblImagen);
 			lblFoto.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -134,6 +134,19 @@ public class PanelTitularSeleccionado extends JPanel {
 			gbc_labelNombreTitular.gridx = 4;
 			gbc_labelNombreTitular.gridy = 2;
 			add(labelNombreTitular, gbc_labelNombreTitular);
+			
+			
+			ImageIcon iconoFotoPersona=new ImageIcon(this.getClass().getResource(titular.getFoto())); 
+			Image imagenFotoPersona= iconoFotoPersona.getImage();
+			ImageIcon iconoFotoPersonaEscalado = new ImageIcon (imagenFotoPersona.getScaledInstance(70,70,Image.SCALE_SMOOTH)); 
+			
+			JLabel lblFotoPersona = new JLabel(iconoFotoPersonaEscalado);
+			GridBagConstraints gbc_lblFotoPersona = new GridBagConstraints();
+			gbc_lblFotoPersona.gridheight = 3;
+			gbc_lblFotoPersona.insets = new Insets(0, 0, 5, 5);
+			gbc_lblFotoPersona.gridx = 7;
+			gbc_lblFotoPersona.gridy = 2;
+			add(lblFotoPersona, gbc_lblFotoPersona);
 			
 			JLabel lblTipoDeDocumento = new JLabel("Tipo de documento:");
 			GridBagConstraints gbc_lblTipoDeDocumento = new GridBagConstraints();
@@ -205,12 +218,12 @@ public class PanelTitularSeleccionado extends JPanel {
 			
 			JLabel lblGrupoSanguineo = new JLabel("Grupo sangu\u00EDneo:");
 			lblGrupoSanguineo.setFont(new Font("Lato Medium", Font.PLAIN, 14));
-			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-			gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel.gridx = 1;
-			gbc_lblNewLabel.gridy = 6;
-			add(lblGrupoSanguineo, gbc_lblNewLabel);
+			GridBagConstraints gbc_lblGrupoSanguineo = new GridBagConstraints();
+			gbc_lblGrupoSanguineo.anchor = GridBagConstraints.WEST;
+			gbc_lblGrupoSanguineo.insets = new Insets(0, 0, 5, 5);
+			gbc_lblGrupoSanguineo.gridx = 1;
+			gbc_lblGrupoSanguineo.gridy = 6;
+			add(lblGrupoSanguineo, gbc_lblGrupoSanguineo);
 			
 			JLabel labelGrupoSanguineoTitular = new JLabel(titular.getGrupoSanguineo());
 			labelGrupoSanguineoTitular.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -259,7 +272,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			                 */
 			                private static final long serialVersionUID = 1L;
 			                boolean[] columnEditables = new boolean[] {
-			                        false
+			                        false,false
 			                };
 			                public boolean isCellEditable(int row, int column) {
 			                        return columnEditables[column];
@@ -447,7 +460,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 			gbc_btnCancelar.anchor = GridBagConstraints.SOUTHWEST;
 			gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
-			gbc_btnCancelar.gridx = 6;
+			gbc_btnCancelar.gridx = 7;
 			gbc_btnCancelar.gridy = 17;
 			add(btnCancelar, gbc_btnCancelar);
 			btnCancelar.addActionListener(new ActionListener() {
