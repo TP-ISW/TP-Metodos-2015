@@ -818,7 +818,7 @@ public class PanelAltaTitular extends JPanel {
 	}
 	private void titularExistente(Titular titular) {
 		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(this,	titular.getApellido()+"\t"+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this,	titular.getApellido()+"   "+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);
 		textNombre.setText(titular.getNombre());
 		textApellido.setText(titular.getApellido());
 		textDireccion.setText(titular.getDomicilio());
