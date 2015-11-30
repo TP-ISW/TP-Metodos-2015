@@ -163,18 +163,21 @@ public class EmitirLicencia {
 		return edad;
 	}
 	
-	
+	// se calcula cuantos años estara vigente una licencia, y se retorna fecha emision y fecha de expiracion
 	public List<Calendar> calcularVigenciaLicencia (Titular titular, String categoria){
 		
 		Calendar fechaInicioVigencia = Calendar.getInstance();
 		Calendar fechaNacimientoTitular = titular.getFechaNacimiento();
 		
+		// a la fecha de expiracion se le setea el dia y mes del nacimiento del titular
 		Calendar fechaExpiracion = Calendar.getInstance();
 		fechaExpiracion.set(Calendar.DAY_OF_MONTH, fechaNacimientoTitular.get(Calendar.DAY_OF_MONTH));
 		fechaExpiracion.set(Calendar.MONTH, fechaNacimientoTitular.get(Calendar.MONTH));
-
+		
+		// se calcula la edad para saber cuantos años de vigencia tendra la licencia
 		int edad = calcularEdad(fechaNacimientoTitular);
 		
+		// segun la edad del titular se le setea a la fecha de expiracion el año correspondiente
 		if((edad < 21 && categoria.equals("nuevo")) || edad > 70)
 			fechaExpiracion.set(Calendar.YEAR, fechaNacimientoTitular.get(Calendar.YEAR)+1);		
 		if((edad < 21 && categoria.equals("renovacion")) || (edad > 60 && edad <= 70) )
@@ -184,6 +187,7 @@ public class EmitirLicencia {
 		if(edad > 46 && edad <= 60)
 			fechaExpiracion.set(fechaExpiracion.YEAR, fechaNacimientoTitular.get(Calendar.YEAR)+4);
 		
+		// se crea una lista con las dos fechas indicadas para el retorno
 		List<Calendar> fechasVigencia = new ArrayList<Calendar>();
 		fechasVigencia.add(fechaInicioVigencia);
 		fechasVigencia.add(fechaExpiracion);
