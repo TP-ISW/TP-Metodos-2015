@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -72,38 +73,56 @@ public class PanelAltaTitular extends JPanel {
 	private JCheckBox checkBoxDondante;
 	private JLabel labelFecha;
 	private JButton btnAceptar;
+	private JButton btnHome;
 	/**
 	 * Create the panel.
 	 */
-	public PanelAltaTitular() {
+	public PanelAltaTitular(JFrame pantallaPrincipal) {
 		setBackground(new Color(245, 255, 250));
 		
 	
 		
 		
 			GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{44, 94, 129, 123, 65, 20, 83, 109, 108, 294, 0};
-		gridBagLayout.rowHeights = new int[]{100, 16, 56, 25, 24, 24, 20, 20, 35, 14, 23, 23, 41, 25, 147, 25, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{44, 393, 116, 129, 123, 32, 20, 83, 143, 41, 154, 294, 0};
+		gridBagLayout.rowHeights = new int[]{116, 16, 28, 25, 24, 24, 20, 20, 35, 14, 23, 23, 41, 25, 147, 25, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
+/*Titulo*/
 		
-		JTextPane txtpnDarAltaTitular = new JTextPane();
-		txtpnDarAltaTitular.setEditable(false);
-		txtpnDarAltaTitular.setBackground(new Color(0, 0, 51));
-		txtpnDarAltaTitular.setForeground(SystemColor.window);
-		txtpnDarAltaTitular.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
-		txtpnDarAltaTitular.setText("\r\n\tALTA TITULAR");
-		GridBagConstraints gbc_txtpnDarAltaTitular = new GridBagConstraints();
-		gbc_txtpnDarAltaTitular.weightx = 1.0;
-		gbc_txtpnDarAltaTitular.fill = GridBagConstraints.BOTH;
-		gbc_txtpnDarAltaTitular.insets = new Insets(0, 0, 5, 0);
-		gbc_txtpnDarAltaTitular.gridwidth = 10;
-		gbc_txtpnDarAltaTitular.gridx = 0;
-		gbc_txtpnDarAltaTitular.gridy = 0;
-		add(txtpnDarAltaTitular, gbc_txtpnDarAltaTitular);
-	
+		
+		ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/Icono-mano-llave.png")); 
+		Image imagen= img.getImage();
+		ImageIcon iconoEscalado = new ImageIcon (imagen.getScaledInstance(70,70,Image.SCALE_SMOOTH)); 
+		
+			
+			JPanel panelTitulo = new JPanel();
+			panelTitulo.setBackground(new Color(0, 0, 51));
+			panelTitulo.setLayout(null);
+			GridBagConstraints gbc_panelTitulo = new GridBagConstraints();
+			gbc_panelTitulo.gridwidth = 10;
+			gbc_panelTitulo.insets = new Insets(0, 0, 5, 5);
+			gbc_panelTitulo.fill = GridBagConstraints.BOTH;
+			gbc_panelTitulo.gridx = 1;
+			gbc_panelTitulo.gridy = 0;
+			add(panelTitulo, gbc_panelTitulo);
+			
+			JTextPane txtpnTITULO = new JTextPane();
+			txtpnTITULO.setBounds(137, 32, 337, 48);
+			panelTitulo.add(txtpnTITULO);
+			txtpnTITULO.setEditable(false);
+			txtpnTITULO.setBackground(new Color(0, 0, 51));
+			txtpnTITULO.setForeground(new Color(0, 102, 204));
+			txtpnTITULO.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
+			txtpnTITULO.setText("ALTA TITULAR");
+			JLabel lblImagen = new JLabel(iconoEscalado);
+			lblImagen.setBounds(10, 11, 108, 84);
+			panelTitulo.add(lblImagen);
+		
+		
+		
 		
 		
 		
@@ -113,7 +132,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_lblApellido.anchor = GridBagConstraints.WEST;
 		gbc_lblApellido.fill = GridBagConstraints.VERTICAL;
 		gbc_lblApellido.insets = new Insets(0, 0, 5, 5);
-		gbc_lblApellido.gridx = 1;
+		gbc_lblApellido.gridx = 2;
 		gbc_lblApellido.gridy = 3;
 		add(lblApellido, gbc_lblApellido);
 		//Diseño etiquetas
@@ -127,7 +146,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_textApellido.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textApellido.insets = new Insets(0, 0, 5, 5);
 		gbc_textApellido.gridwidth = 2;
-		gbc_textApellido.gridx = 2;
+		gbc_textApellido.gridx = 3;
 		gbc_textApellido.gridy = 3;
 		add(textApellido, gbc_textApellido);
 		textApellido.setColumns(10);
@@ -187,7 +206,7 @@ public class PanelAltaTitular extends JPanel {
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 		gbc_lblNombre.anchor = GridBagConstraints.WEST;
 		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNombre.gridx = 6;
+		gbc_lblNombre.gridx = 7;
 		gbc_lblNombre.gridy = 3;
 		add(lblNombre, gbc_lblNombre);
 		lblNombre.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -199,7 +218,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_textNombre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textNombre.anchor = GridBagConstraints.NORTH;
 		gbc_textNombre.insets = new Insets(0, 0, 5, 5);
-		gbc_textNombre.gridx = 7;
+		gbc_textNombre.gridx = 8;
 		gbc_textNombre.gridy = 3;
 		add(textNombre, gbc_textNombre);
 		textNombre.setColumns(10);
@@ -257,7 +276,7 @@ public class PanelAltaTitular extends JPanel {
 		GridBagConstraints gbc_lblTipoDeDocumento = new GridBagConstraints();
 		gbc_lblTipoDeDocumento.anchor = GridBagConstraints.WEST;
 		gbc_lblTipoDeDocumento.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTipoDeDocumento.gridx = 1;
+		gbc_lblTipoDeDocumento.gridx = 2;
 		gbc_lblTipoDeDocumento.gridy = 4;
 		add(lblTipoDeDocumento, gbc_lblTipoDeDocumento);
 		lblTipoDeDocumento.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -269,7 +288,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_comboTipoDoc.anchor = GridBagConstraints.SOUTH;
 		gbc_comboTipoDoc.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboTipoDoc.insets = new Insets(0, 0, 5, 5);
-		gbc_comboTipoDoc.gridx = 2;
+		gbc_comboTipoDoc.gridx = 3;
 		gbc_comboTipoDoc.gridy = 4;
 		add(comboTipoDoc, gbc_comboTipoDoc);
 		
@@ -277,7 +296,7 @@ public class PanelAltaTitular extends JPanel {
 		GridBagConstraints gbc_lblNumeroDoc = new GridBagConstraints();
 		gbc_lblNumeroDoc.anchor = GridBagConstraints.EAST;
 		gbc_lblNumeroDoc.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNumeroDoc.gridx = 6;
+		gbc_lblNumeroDoc.gridx = 7;
 		gbc_lblNumeroDoc.gridy = 4;
 		add(lblNumeroDoc, gbc_lblNumeroDoc);
 		lblNumeroDoc.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -289,7 +308,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_textNumeroDoc.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textNumeroDoc.anchor = GridBagConstraints.NORTH;
 		gbc_textNumeroDoc.insets = new Insets(0, 0, 5, 5);
-		gbc_textNumeroDoc.gridx = 7;
+		gbc_textNumeroDoc.gridx = 8;
 		gbc_textNumeroDoc.gridy = 4;
 		add(textNumeroDoc, gbc_textNumeroDoc);
 		textNumeroDoc.setColumns(10);
@@ -350,33 +369,33 @@ public class PanelAltaTitular extends JPanel {
 			
 		});
 		
-		labelFecha = new JLabel("Fecha de Nacimiento:");
-		labelFecha.setFont(new Font("Lato Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_labelFecha = new GridBagConstraints();
-		gbc_labelFecha.insets = new Insets(0, 0, 5, 5);
-		gbc_labelFecha.gridx = 1;
-		gbc_labelFecha.gridy = 5;
-		add(labelFecha, gbc_labelFecha);
-		
 		dateChooserNacimiento = new JDateChooser();
 		/*Hacer que el dateChooser sea no editable mateniendo la letra visible*/
 		dateChooserNacimiento.getDateEditor().setEnabled(false);
 		((JTextComponent) dateChooserNacimiento.getDateEditor()).setDisabledTextColor(Color.darkGray);
 		
+		labelFecha = new JLabel("Fecha de Nacimiento:");
+		labelFecha.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+		GridBagConstraints gbc_labelFecha = new GridBagConstraints();
+		gbc_labelFecha.insets = new Insets(0, 0, 5, 5);
+		gbc_labelFecha.gridx = 2;
+		gbc_labelFecha.gridy = 5;
+		add(labelFecha, gbc_labelFecha);
 		
-		dateChooserNacimiento.getCalendarButton().setBackground(new Color(204, 0, 51));
+		
+		dateChooserNacimiento.getCalendarButton().setBackground(Color.YELLOW);
 		GridBagConstraints gbc_dateChooserNacimiento = new GridBagConstraints();
 		gbc_dateChooserNacimiento.anchor = GridBagConstraints.SOUTH;
 		gbc_dateChooserNacimiento.fill = GridBagConstraints.HORIZONTAL;
 		gbc_dateChooserNacimiento.insets = new Insets(0, 0, 5, 5);
-		gbc_dateChooserNacimiento.gridx = 2;
+		gbc_dateChooserNacimiento.gridx = 3;
 		gbc_dateChooserNacimiento.gridy = 5;
 		add(dateChooserNacimiento, gbc_dateChooserNacimiento);
 		JLabel lblSexo = new JLabel("Sexo:");
 		GridBagConstraints gbc_lblSexo = new GridBagConstraints();
 		gbc_lblSexo.anchor = GridBagConstraints.WEST;
 		gbc_lblSexo.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSexo.gridx = 6;
+		gbc_lblSexo.gridx = 7;
 		gbc_lblSexo.gridy = 5;
 		add(lblSexo, gbc_lblSexo);
 		lblSexo.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -387,7 +406,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_comboBoxSexo.anchor = GridBagConstraints.NORTH;
 		gbc_comboBoxSexo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxSexo.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxSexo.gridx = 7;
+		gbc_comboBoxSexo.gridx = 8;
 		gbc_comboBoxSexo.gridy = 5;
 		add(comboBoxSexo, gbc_comboBoxSexo);
 		
@@ -395,7 +414,7 @@ public class PanelAltaTitular extends JPanel {
 		GridBagConstraints gbc_lblDireccin = new GridBagConstraints();
 		gbc_lblDireccin.anchor = GridBagConstraints.WEST;
 		gbc_lblDireccin.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDireccin.gridx = 1;
+		gbc_lblDireccin.gridx = 2;
 		gbc_lblDireccin.gridy = 6;
 		add(lblDireccin, gbc_lblDireccin);
 		lblDireccin.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -408,7 +427,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_textDireccion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textDireccion.insets = new Insets(0, 0, 5, 5);
 		gbc_textDireccion.gridwidth = 2;
-		gbc_textDireccion.gridx = 2;
+		gbc_textDireccion.gridx = 3;
 		gbc_textDireccion.gridy = 6;
 		add(textDireccion, gbc_textDireccion);
 		textDireccion.setColumns(10);
@@ -460,15 +479,15 @@ public class PanelAltaTitular extends JPanel {
 	                }
 	        
 	                });
-		//etiquetas
-		JLabel lblGrupoSanguineo = new JLabel("Grupo sangu\u00EDneo:");
-		lblGrupoSanguineo.setFont(new Font("Lato Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblIcono = new GridBagConstraints();
-		gbc_lblIcono.anchor = GridBagConstraints.WEST;
-		gbc_lblIcono.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIcono.gridx = 1;
-		gbc_lblIcono.gridy = 7;
-		add(lblGrupoSanguineo, gbc_lblIcono);
+		 //etiquetas
+		 JLabel lblGrupoSanguineo = new JLabel("Grupo sangu\u00EDneo:");
+		 lblGrupoSanguineo.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+		 GridBagConstraints gbc_lblIcono = new GridBagConstraints();
+		 gbc_lblIcono.anchor = GridBagConstraints.WEST;
+		 gbc_lblIcono.insets = new Insets(0, 0, 5, 5);
+		 gbc_lblIcono.gridx = 2;
+		 gbc_lblIcono.gridy = 7;
+		 add(lblGrupoSanguineo, gbc_lblIcono);
 		 
 		 
 		 //Combo box con opciones de gurpo sanguino
@@ -478,14 +497,14 @@ public class PanelAltaTitular extends JPanel {
 		 gbc_comboGrupoSanguineo.anchor = GridBagConstraints.NORTH;
 		 gbc_comboGrupoSanguineo.fill = GridBagConstraints.HORIZONTAL;
 		 gbc_comboGrupoSanguineo.insets = new Insets(0, 0, 5, 5);
-		 gbc_comboGrupoSanguineo.gridx = 2;
+		 gbc_comboGrupoSanguineo.gridx = 3;
 		 gbc_comboGrupoSanguineo.gridy = 7;
 		 add(comboGrupoSanguineo, gbc_comboGrupoSanguineo);
 		
 		 JLabel lblFactorRh = new JLabel("Factor RH:");
 		 GridBagConstraints gbc_lblFactorRh = new GridBagConstraints();
 		 gbc_lblFactorRh.insets = new Insets(0, 0, 5, 5);
-		 gbc_lblFactorRh.gridx = 3;
+		 gbc_lblFactorRh.gridx = 4;
 		 gbc_lblFactorRh.gridy = 7;
 		 add(lblFactorRh, gbc_lblFactorRh);
 		 lblFactorRh.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -497,7 +516,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_comboFactorRH.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboFactorRH.anchor = GridBagConstraints.NORTH;
 		gbc_comboFactorRH.insets = new Insets(0, 0, 5, 5);
-		gbc_comboFactorRH.gridx = 4;
+		gbc_comboFactorRH.gridx = 5;
 		gbc_comboFactorRH.gridy = 7;
 		add(comboFactorRH, gbc_comboFactorRH);
 		
@@ -506,7 +525,7 @@ public class PanelAltaTitular extends JPanel {
 				GridBagConstraints gbc_checkBoxDondante = new GridBagConstraints();
 				gbc_checkBoxDondante.anchor = GridBagConstraints.WEST;
 				gbc_checkBoxDondante.insets = new Insets(0, 0, 5, 5);
-				gbc_checkBoxDondante.gridx = 6;
+				gbc_checkBoxDondante.gridx = 7;
 				gbc_checkBoxDondante.gridy = 7;
 				add(checkBoxDondante, gbc_checkBoxDondante);
 		JLabel lblClasesSolicitadas = new JLabel("Clases solicitadas:");
@@ -514,7 +533,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_lblClasesSolicitadas.anchor = GridBagConstraints.EAST;
 		gbc_lblClasesSolicitadas.fill = GridBagConstraints.VERTICAL;
 		gbc_lblClasesSolicitadas.insets = new Insets(0, 0, 5, 5);
-		gbc_lblClasesSolicitadas.gridx = 1;
+		gbc_lblClasesSolicitadas.gridx = 2;
 		gbc_lblClasesSolicitadas.gridy = 9;
 		add(lblClasesSolicitadas, gbc_lblClasesSolicitadas);
 		lblClasesSolicitadas.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -524,7 +543,7 @@ public class PanelAltaTitular extends JPanel {
 		GridBagConstraints gbc_checkBoxClaseA = new GridBagConstraints();
 		gbc_checkBoxClaseA.anchor = GridBagConstraints.NORTHWEST;
 		gbc_checkBoxClaseA.insets = new Insets(0, 0, 5, 5);
-		gbc_checkBoxClaseA.gridx = 2;
+		gbc_checkBoxClaseA.gridx = 3;
 		gbc_checkBoxClaseA.gridy = 10;
 		add(checkBoxClaseA, gbc_checkBoxClaseA);
 		
@@ -535,7 +554,7 @@ public class PanelAltaTitular extends JPanel {
 		GridBagConstraints gbc_checkBoxClaseC = new GridBagConstraints();
 		gbc_checkBoxClaseC.anchor = GridBagConstraints.NORTHWEST;
 		gbc_checkBoxClaseC.insets = new Insets(0, 0, 5, 5);
-		gbc_checkBoxClaseC.gridx = 3;
+		gbc_checkBoxClaseC.gridx = 4;
 		gbc_checkBoxClaseC.gridy = 10;
 		add(checkBoxClaseC, gbc_checkBoxClaseC);
 		
@@ -564,7 +583,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_checkBoxClaseE.anchor = GridBagConstraints.NORTH;
 		gbc_checkBoxClaseE.fill = GridBagConstraints.HORIZONTAL;
 		gbc_checkBoxClaseE.insets = new Insets(0, 0, 5, 5);
-		gbc_checkBoxClaseE.gridx = 4;
+		gbc_checkBoxClaseE.gridx = 5;
 		gbc_checkBoxClaseE.gridy = 10;
 		add(checkBoxClaseE, gbc_checkBoxClaseE);
 		checkBoxClaseE.addActionListener(new ActionListener() {
@@ -589,7 +608,7 @@ public class PanelAltaTitular extends JPanel {
 		GridBagConstraints gbc_checkBoxClaseG = new GridBagConstraints();
 		gbc_checkBoxClaseG.anchor = GridBagConstraints.NORTHWEST;
 		gbc_checkBoxClaseG.insets = new Insets(0, 0, 5, 5);
-		gbc_checkBoxClaseG.gridx = 6;
+		gbc_checkBoxClaseG.gridx = 7;
 		gbc_checkBoxClaseG.gridy = 10;
 		add(checkBoxClaseG, gbc_checkBoxClaseG);
 		
@@ -599,7 +618,7 @@ public class PanelAltaTitular extends JPanel {
 		GridBagConstraints gbc_checkBoxClaseB = new GridBagConstraints();
 		gbc_checkBoxClaseB.anchor = GridBagConstraints.NORTHWEST;
 		gbc_checkBoxClaseB.insets = new Insets(0, 0, 5, 5);
-		gbc_checkBoxClaseB.gridx = 2;
+		gbc_checkBoxClaseB.gridx = 3;
 		gbc_checkBoxClaseB.gridy = 11;
 		add(checkBoxClaseB, gbc_checkBoxClaseB);
 		
@@ -609,7 +628,7 @@ public class PanelAltaTitular extends JPanel {
 		GridBagConstraints gbc_checkBoxClaseD = new GridBagConstraints();
 		gbc_checkBoxClaseD.anchor = GridBagConstraints.NORTHWEST;
 		gbc_checkBoxClaseD.insets = new Insets(0, 0, 5, 5);
-		gbc_checkBoxClaseD.gridx = 3;
+		gbc_checkBoxClaseD.gridx = 4;
 		gbc_checkBoxClaseD.gridy = 11;
 		add(checkBoxClaseD, gbc_checkBoxClaseD);
 		checkBoxClaseD.addActionListener(new ActionListener() {
@@ -637,23 +656,23 @@ public class PanelAltaTitular extends JPanel {
 		gbc_checkBoxClaseF.anchor = GridBagConstraints.NORTH;
 		gbc_checkBoxClaseF.fill = GridBagConstraints.HORIZONTAL;
 		gbc_checkBoxClaseF.insets = new Insets(0, 0, 5, 5);
-		gbc_checkBoxClaseF.gridx = 4;
+		gbc_checkBoxClaseF.gridx = 5;
 		gbc_checkBoxClaseF.gridy = 11;
 		add(checkBoxClaseF, gbc_checkBoxClaseF);
-		JLabel lblImagen = new JLabel("Foto:");
+		JLabel lblFoto = new JLabel("Foto:");
 		GridBagConstraints gbc_lblImagen = new GridBagConstraints();
 		gbc_lblImagen.insets = new Insets(0, 0, 5, 5);
 		gbc_lblImagen.gridx = 1;
 		gbc_lblImagen.gridy = 12;
-		add(lblImagen, gbc_lblImagen);
-		lblImagen.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+		add(lblFoto, gbc_lblImagen);
+		lblFoto.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 		
 		textRutaImagen = new JTextField();
 		GridBagConstraints gbc_textRutaImagen = new GridBagConstraints();
 		gbc_textRutaImagen.gridwidth = 2;
 		gbc_textRutaImagen.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textRutaImagen.insets = new Insets(0, 0, 5, 5);
-		gbc_textRutaImagen.gridx = 2;
+		gbc_textRutaImagen.gridx = 3;
 		gbc_textRutaImagen.gridy = 12;
 		add(textRutaImagen, gbc_textRutaImagen);
 		textRutaImagen.setColumns(10);
@@ -661,11 +680,11 @@ public class PanelAltaTitular extends JPanel {
 		JButton btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.setFont(new Font("Lato Black", Font.PLAIN, 13));
 		btnSeleccionar.setBackground(new Color(240, 255, 255));
-		btnSeleccionar.setForeground(new Color(153, 0, 0));
+		btnSeleccionar.setForeground(new Color(0, 0, 51));
 		GridBagConstraints gbc_btnSeleccionar = new GridBagConstraints();
 		gbc_btnSeleccionar.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnSeleccionar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSeleccionar.gridx = 3;
+		gbc_btnSeleccionar.gridx = 4;
 		gbc_btnSeleccionar.gridy = 13;
 		add(btnSeleccionar, gbc_btnSeleccionar);
 		
@@ -684,20 +703,20 @@ public class PanelAltaTitular extends JPanel {
 		/* Boton Aceptar*/
 		
 		btnAceptar = new JButton("Aceptar");
-		btnAceptar.setForeground(new Color(153, 0, 0));
+		btnAceptar.setForeground(new Color(0, 0, 51));
 		btnAceptar.setFont(new Font("Lato Black", Font.PLAIN, 13));
 		btnAceptar.setBackground(new Color(240, 255, 255));
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
 		gbc_btnAceptar.anchor = GridBagConstraints.SOUTH;
 		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAceptar.gridx = 7;
+		gbc_btnAceptar.gridx = 8;
 		gbc_btnAceptar.gridy = 14;
 		add(btnAceptar, gbc_btnAceptar);
 		btnAceptar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnAceptarAction(e);
+				btnAceptarAction(pantallaPrincipal);
 				// TODO Auto-generated method stub
 				
 			}
@@ -705,11 +724,30 @@ public class PanelAltaTitular extends JPanel {
 			
 		});
 		
-		
-		/*Grupo Sanguino y Factor RH*/
+		ImageIcon home= new ImageIcon(this.getClass().getResource("/imagenes/home.png"));
+		Image imagenHome= home.getImage();
+		ImageIcon homeEscalada = new ImageIcon (imagenHome.getScaledInstance(30,30,Image.SCALE_SMOOTH)); 
+		btnHome = new JButton();
+		 btnHome.setBackground(new Color(245, 255, 250));
+			btnHome.setOpaque(true);
+			btnHome.setBorder(null);
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnHomeAction(pantallaPrincipal);
+			}
 
+			
+		});
 		
-		/* Apellido, Nombre  y Direccion*/
+		GridBagConstraints gbc_btnHome = new GridBagConstraints();
+		gbc_btnHome.anchor = GridBagConstraints.SOUTH;
+		gbc_btnHome.insets = new Insets(0, 0, 5, 5);
+		gbc_btnHome.gridx = 9;
+		gbc_btnHome.gridy = 14;
+		add(btnHome, gbc_btnHome);
+		btnHome.setIcon(homeEscalada);
+		
+		
 		
 		/*Clases : A,B,C,D,E,F,G 
 		 * C ->B
@@ -717,17 +755,9 @@ public class PanelAltaTitular extends JPanel {
 		 * E -> C
 		 */
 
-		/*Fecha de nacimiento*/
-		
-		
-		/*Sexo*/
 		
 		
 		
-	
-		
-		
-		/*Foto*/
 	
 	}
 	private void btnSeleccionarAction(ActionEvent e) {
@@ -802,7 +832,7 @@ public class PanelAltaTitular extends JPanel {
 		
 	}
 	
-	private void btnAceptarAction(ActionEvent e) {
+	private void btnAceptarAction(JFrame pantallaPrincipal) {
 		
 		try{
 			
@@ -846,6 +876,8 @@ public class PanelAltaTitular extends JPanel {
 			titularAux.setClases(clasesSolicitadas);
 			
 			altaTitular.altaTitular(titularAux);
+			JOptionPane.showMessageDialog(this,"El titular "+titularAux.getApellido()+" "+titularAux.getNombre()+" se ha cargado" , "Éxito", JOptionPane.INFORMATION_MESSAGE);
+			btnHomeAction(pantallaPrincipal);
 		}
 	}
 		catch(ExcepcionNull e1){ JOptionPane.showMessageDialog(this,"No se han cargado todos los datos", "Error", JOptionPane.INFORMATION_MESSAGE);
@@ -863,4 +895,9 @@ public class PanelAltaTitular extends JPanel {
 			 JOptionPane.showMessageDialog(this,e5.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 		}
+	private void btnHomeAction(JFrame pantallaPrincipal) {
+		// TODO Auto-generated method stub
+		setVisible(false);
+		pantallaPrincipal.setContentPane(new PanelMenu(pantallaPrincipal));
+	}
 }

@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import java.awt.SystemColor;
@@ -25,11 +26,14 @@ import java.awt.event.KeyListener;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import logica.EmitirLicencia;
 import clasesDeTablas.Titular;
@@ -47,31 +51,47 @@ public class PanelEmitirLicencia extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelEmitirLicencia() {
+	public PanelEmitirLicencia(JFrame pantallaPrincipal) {
 		setBackground(new Color(245, 255, 250));
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{43, 146, 204, 17, 123, 157};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 51, 0, 97, 0, 86, 0};
-		gridBagLayout.columnWeights = new double[]{4.9E-324, 1.0, 1.0, 0.0, 0.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{43, 146, 204, 17, 236, 140, 157};
+		gridBagLayout.rowHeights = new int[]{119, 13, 0, 0, 0, 0, 51, 0, 97, 140, 0, 86, 0};
+		gridBagLayout.columnWeights = new double[]{4.9E-324, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-	
-		JTextPane txtpnDarAltaTitular = new JTextPane();
-		txtpnDarAltaTitular.setEditable(false);
-		txtpnDarAltaTitular.setBackground(new Color(0, 0, 51));
-		txtpnDarAltaTitular.setForeground(SystemColor.window);
-		txtpnDarAltaTitular.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
-		txtpnDarAltaTitular.setText("\r\n\tEMITIR LICENCIA");
-		GridBagConstraints gbc_txtpnDarAltaTitular = new GridBagConstraints();
-		gbc_txtpnDarAltaTitular.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtpnDarAltaTitular.gridwidth = 7;
-		gbc_txtpnDarAltaTitular.insets = new Insets(0, 0, 5, 0);
-		gbc_txtpnDarAltaTitular.weightx = 1.0;
-		gbc_txtpnDarAltaTitular.gridx = 0;
-		gbc_txtpnDarAltaTitular.gridy = 1;
-		add(txtpnDarAltaTitular, gbc_txtpnDarAltaTitular);
+/*Titulo*/
+		
+		
+		ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/Icono-mano-llave.png")); 
+		Image imagen= img.getImage();
+		ImageIcon iconoEscalado = new ImageIcon (imagen.getScaledInstance(70,70,Image.SCALE_SMOOTH)); 
+		
+			
+			JPanel panelTitulo = new JPanel();
+			panelTitulo.setBackground(new Color(0, 0, 51));
+			panelTitulo.setLayout(null);
+			GridBagConstraints gbc_panelTitulo = new GridBagConstraints();
+			gbc_panelTitulo.gridwidth = 7;
+			gbc_panelTitulo.insets = new Insets(0, 0, 5, 0);
+			gbc_panelTitulo.fill = GridBagConstraints.BOTH;
+			gbc_panelTitulo.gridx = 0;
+			gbc_panelTitulo.gridy = 0;
+			add(panelTitulo, gbc_panelTitulo);
+			
+			JTextPane txtpnTITULO = new JTextPane();
+			txtpnTITULO.setBounds(137, 32, 337, 48);
+			panelTitulo.add(txtpnTITULO);
+			txtpnTITULO.setEditable(false);
+			txtpnTITULO.setBackground(new Color(0, 0, 51));
+			txtpnTITULO.setForeground(new Color(0, 102, 204));
+			txtpnTITULO.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
+			txtpnTITULO.setText("EMITIR LICENCIA");
+			JLabel lblImagen = new JLabel(iconoEscalado);
+			lblImagen.setBounds(10, 11, 108, 84);
+			panelTitulo.add(lblImagen);
+		
 		
 		JLabel lblApellido = new JLabel("Apellido:");
 		lblApellido.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -243,44 +263,6 @@ textNombre.addKeyListener(new KeyListener(){
 		gbc_lblNmeroDeDocumento.gridy = 5;
 		add(lblNmeroDeDocumento, gbc_lblNmeroDeDocumento);
 		
-		textNroDocumento = new JTextField();
-		GridBagConstraints gbc_textNroDocumento = new GridBagConstraints();
-		gbc_textNroDocumento.insets = new Insets(0, 0, 5, 5);
-		gbc_textNroDocumento.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textNroDocumento.gridx = 5;
-		gbc_textNroDocumento.gridy = 5;
-		add(textNroDocumento, gbc_textNroDocumento);
-		textNroDocumento.setColumns(10);
-		textNroDocumento.addKeyListener(new KeyListener(){
-            
-            public void keyTyped(KeyEvent e)
-             
-            {textNroDocumento.setText(textNroDocumento.getText().toUpperCase());
-            
-              char c=e.getKeyChar(); 
-     
-             
-              if(!(Character.isDigit(c)) )
-            	  e.consume(); 
-              if (textNroDocumento.getText().length()== 8)
-                 e.consume();
-              
-              armarLista();
-            }
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
 		
 		
         modeloTablaTitulares =(new DefaultTableModel(
@@ -302,6 +284,44 @@ textNombre.addKeyListener(new KeyListener(){
                 }
         });
         
+        textNroDocumento = new JTextField();
+        GridBagConstraints gbc_textNroDocumento = new GridBagConstraints();
+        gbc_textNroDocumento.insets = new Insets(0, 0, 5, 5);
+        gbc_textNroDocumento.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textNroDocumento.gridx = 5;
+        gbc_textNroDocumento.gridy = 5;
+        add(textNroDocumento, gbc_textNroDocumento);
+        textNroDocumento.setColumns(10);
+        textNroDocumento.addKeyListener(new KeyListener(){
+            
+            public void keyTyped(KeyEvent e)
+             
+            {textNroDocumento.setText(textNroDocumento.getText().toUpperCase());
+            
+              char c=e.getKeyChar(); 
+     
+             
+              if(!(Character.isDigit(c)) )
+            	  e.consume(); 
+              if (textNroDocumento.getText().length()== 8)
+                 e.consume();
+              
+              armarLista();
+            }
+
+        	@Override
+        	public void keyPressed(KeyEvent e) {
+        		// TODO Auto-generated method stub
+        		
+        	}
+
+        	@Override
+        	public void keyReleased(KeyEvent e) {
+        		// TODO Auto-generated method stub
+        		
+        	}
+        });
+        
         
         JScrollPane scrollPane = new JScrollPane();
         GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -320,28 +340,56 @@ textNombre.addKeyListener(new KeyListener(){
         tablaTitulares.getColumnModel().getColumn(0).setMaxWidth(0);
         tablaTitulares.getColumnModel().getColumn(0).setMinWidth(0);
         tablaTitulares.getColumnModel().getColumn(0).setPreferredWidth(0);
-       
-        btnAceptar = new JButton("Aceptar");
-		btnAceptar.setForeground(new Color(153, 0, 0));
-		btnAceptar.setFont(new Font("Lato Black", Font.PLAIN, 13));
-		btnAceptar.setBackground(new Color(240, 255, 255));
-		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
-		gbc_btnAceptar.anchor = GridBagConstraints.SOUTH;
-		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAceptar.gridx = 5;
-		gbc_btnAceptar.gridy = 9;
-		add(btnAceptar, gbc_btnAceptar);
-		btnAceptar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				btnAceptarAction(e);
-				// TODO Auto-generated method stub
-				
-			}
+		
+		
+		ImageIcon home= new ImageIcon(this.getClass().getResource("/imagenes/home.png"));
+		Image imagenHome= home.getImage();
+		ImageIcon homeEscalada = new ImageIcon (imagenHome.getScaledInstance(30,30,Image.SCALE_SMOOTH)); 
+		 
+		  btnAceptar = new JButton("Aceptar");
+		  btnAceptar.setForeground(new Color(0, 0, 51));
+		  btnAceptar.setFont(new Font("Lato Black", Font.PLAIN, 13));
+		  btnAceptar.setBackground(new Color(240, 255, 255));
+		  GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
+		  gbc_btnAceptar.anchor = GridBagConstraints.SOUTH;
+		  gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
+		  gbc_btnAceptar.gridx = 5;
+		  gbc_btnAceptar.gridy = 10;
+		  add(btnAceptar, gbc_btnAceptar);
+		  btnAceptar.addActionListener(new ActionListener() {
+		  	
+		  	@Override
+		  	public void actionPerformed(ActionEvent e) {
+		  		btnAceptarAction(pantallaPrincipal);
+		  		// TODO Auto-generated method stub
+		  		
+		  	}
 
-			
-		});
+		  	
+		  });
+		 JButton btnHome = new JButton();
+		 btnHome.setBackground(new Color(245, 255, 250));
+			btnHome.setOpaque(true);
+			btnHome.setBorder(null);
+		 btnHome.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 		btnHomeAction(pantallaPrincipal);
+		 	}
+
+		 	
+		 });
+		 btnHome.setForeground(new Color(245, 255, 250));
+		 btnHome.setBackground(new Color(245, 255, 250));
+		 GridBagConstraints gbc_btnHome = new GridBagConstraints();
+		 gbc_btnHome.insets = new Insets(0, 0, 5, 0);
+		 gbc_btnHome.anchor = GridBagConstraints.SOUTHWEST;
+		 gbc_btnHome.gridx = 6;
+		 gbc_btnHome.gridy = 10;
+		 add(btnHome, gbc_btnHome);
+		 btnHome.setIcon(homeEscalada);
+		
+		 
+		
 	}
 	
 	private void armarLista(){
@@ -364,16 +412,26 @@ textNombre.addKeyListener(new KeyListener(){
 	
 	
 
-	private void btnAceptarAction(ActionEvent e) {
+	private void btnAceptarAction(JFrame pantallaPrincipal) {
 		// TODO Auto-generated method stub
 		try{
 		Titular titularSeleccionado= (Titular) tablaTitulares.getValueAt(tablaTitulares.getSelectedRow(),0);
 		 if (titularSeleccionado==null)
              throw new ExcepcionTabla("Seleccionar fila");
+		setVisible(false);
+		pantallaPrincipal.setContentPane(new PanelTitularSeleccionado(pantallaPrincipal, titularSeleccionado));
+		
 		}
+		
+		
 		catch(ExcepcionTabla e1){
-			
+			 JOptionPane.showMessageDialog(this,e1.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
+	}
+	private void btnHomeAction(JFrame pantallaPrincipal) {
+		// TODO Auto-generated method stub
+		setVisible(false);
+		pantallaPrincipal.setContentPane(new PanelMenu(pantallaPrincipal));
 	}
 
 }

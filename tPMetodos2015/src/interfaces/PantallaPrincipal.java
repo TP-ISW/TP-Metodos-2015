@@ -123,10 +123,6 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 		//setContentPane(contentPane);
 		
 		PanelMenu panelMenu = new PanelMenu(this);
-		GridBagLayout gridBagLayout = (GridBagLayout) panelMenu.getLayout();
-		gridBagLayout.rowHeights = new int[]{109, 28, 63, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
 		setContentPane(panelMenu);
 		
 		
@@ -147,11 +143,11 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()== menu_AltaTitular){
-			PanelAltaTitular panelAltaTitular= new PanelAltaTitular();
+			PanelAltaTitular panelAltaTitular= new PanelAltaTitular(this);
 			setContentPane(panelAltaTitular);
 		}
 		if(e.getSource()== menu_EmitirLicencia){
-			PanelEmitirLicencia panelEmitirLicencia= new PanelEmitirLicencia();
+			PanelEmitirLicencia panelEmitirLicencia= new PanelEmitirLicencia(this);
 			setContentPane(panelEmitirLicencia);
 		}
 	}

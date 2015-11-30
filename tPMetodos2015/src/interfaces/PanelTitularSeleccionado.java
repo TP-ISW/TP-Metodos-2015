@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -52,34 +54,49 @@ public class PanelTitularSeleccionado extends JPanel {
 			
 			GridBagLayout gridBagLayout = new GridBagLayout();
 			gridBagLayout.columnWidths = new int[]{136, 118, 378, 166, 139, 32, 114, 109, 0};
-			gridBagLayout.rowHeights = new int[]{100, 16, 33, 38, 31, 33, 32, 35, 20, 35, 14, 0, 23, 58, 13, 30, 48, 25, 147, 25, 0};
+			gridBagLayout.rowHeights = new int[]{111, 16, 33, 38, 31, 33, 32, 35, 20, 35, 14, 0, 23, 58, 13, 30, 48, 25, 147, 25, 0};
 			gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 			gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 			setLayout(gridBagLayout);
 			
 			/*Titulo*/
-			JTextPane txtpnDarAltaTitular = new JTextPane();
-			txtpnDarAltaTitular.setEditable(false);
-			txtpnDarAltaTitular.setBackground(new Color(0, 0, 51));
-			txtpnDarAltaTitular.setForeground(SystemColor.window);
-			txtpnDarAltaTitular.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
-			txtpnDarAltaTitular.setText("\r\n\tEMITIR LICENCIA");
-			GridBagConstraints gbc_txtpnDarAltaTitular = new GridBagConstraints();
-			gbc_txtpnDarAltaTitular.weightx = 1.0;
-			gbc_txtpnDarAltaTitular.fill = GridBagConstraints.BOTH;
-			gbc_txtpnDarAltaTitular.insets = new Insets(0, 0, 5, 0);
-			gbc_txtpnDarAltaTitular.gridwidth = 8;
-			gbc_txtpnDarAltaTitular.gridx = 0;
-			gbc_txtpnDarAltaTitular.gridy = 0;
-			add(txtpnDarAltaTitular, gbc_txtpnDarAltaTitular);
 			
-			JLabel lblImagen = new JLabel("Foto:");
+			
+			ImageIcon img=new ImageIcon(this.getClass().getResource("/imagenes/Icono-mano-llave.png")); 
+			Image imagen= img.getImage();
+			ImageIcon iconoEscalado = new ImageIcon (imagen.getScaledInstance(70,70,Image.SCALE_SMOOTH)); 
+			
+				
+				JPanel panelTitulo = new JPanel();
+				panelTitulo.setBackground(new Color(0, 0, 51));
+				panelTitulo.setLayout(null);
+				GridBagConstraints gbc_panelTitulo = new GridBagConstraints();
+				gbc_panelTitulo.gridwidth = 7;
+				gbc_panelTitulo.insets = new Insets(0, 0, 5, 0);
+				gbc_panelTitulo.fill = GridBagConstraints.BOTH;
+				gbc_panelTitulo.gridx = 0;
+				gbc_panelTitulo.gridy = 0;
+				add(panelTitulo, gbc_panelTitulo);
+				
+				JTextPane txtpnTITULO = new JTextPane();
+				txtpnTITULO.setBounds(137, 32, 337, 48);
+				panelTitulo.add(txtpnTITULO);
+				txtpnTITULO.setEditable(false);
+				txtpnTITULO.setBackground(new Color(0, 0, 51));
+				txtpnTITULO.setForeground(new Color(0, 102, 204));
+				txtpnTITULO.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
+				txtpnTITULO.setText("EMITIR LICENCIA");
+				JLabel lblImagen = new JLabel(iconoEscalado);
+				lblImagen.setBounds(10, 11, 108, 84);
+				panelTitulo.add(lblImagen);
+			
+			JLabel lblFoto = new JLabel("Foto:");
 			GridBagConstraints gbc_lblImagen = new GridBagConstraints();
 			gbc_lblImagen.insets = new Insets(0, 0, 5, 5);
 			gbc_lblImagen.gridx = 6;
 			gbc_lblImagen.gridy = 1;
-			add(lblImagen, gbc_lblImagen);
-			lblImagen.setFont(new Font("Lato Medium", Font.PLAIN, 14));
+			add(lblFoto, gbc_lblImagen);
+			lblFoto.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 			
 			JLabel lblApellido = new JLabel("Apellido:");
 			lblApellido.setFont(new Font("Lato Medium", Font.PLAIN, 14));
@@ -399,8 +416,8 @@ public class PanelTitularSeleccionado extends JPanel {
 							}
 						});
 			
-						JButton btnVisualizarLicencia = new JButton("Visuallizar licencia");
-						btnVisualizarLicencia.setForeground(new Color(153, 0, 0));
+						JButton btnVisualizarLicencia = new JButton("Visualizar licencia");
+						btnVisualizarLicencia.setForeground(new Color(0, 0, 51));
 						btnVisualizarLicencia.setFont(new Font("Lato Black", Font.PLAIN, 13));
 						btnVisualizarLicencia.setBackground(new Color(240, 255, 255));
 						GridBagConstraints gbc_btnVisualizarLicencia = new GridBagConstraints();
@@ -424,7 +441,7 @@ public class PanelTitularSeleccionado extends JPanel {
 								});
 			
 			JButton btnCancelar = new JButton("Cancelar");
-			btnCancelar.setForeground(new Color(153, 0, 0));
+			btnCancelar.setForeground(new Color(0, 0, 51));
 			btnCancelar.setFont(new Font("Lato Black", Font.PLAIN, 13));
 			btnCancelar.setBackground(new Color(240, 255, 255));
 			GridBagConstraints gbc_btnCancelar = new GridBagConstraints();

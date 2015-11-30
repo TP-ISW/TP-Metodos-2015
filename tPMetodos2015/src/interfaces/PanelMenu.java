@@ -91,7 +91,7 @@ public class PanelMenu extends JPanel {
 		panelTitulo.add(txtpnTITULO);
 		txtpnTITULO.setEditable(false);
 		txtpnTITULO.setBackground(new Color(0, 0, 51));
-		txtpnTITULO.setForeground(SystemColor.window);
+		txtpnTITULO.setForeground(new Color(0, 102, 204));
 		txtpnTITULO.setFont(new Font("Lato Heavy", Font.PLAIN, 30));
 		txtpnTITULO.setText("\r\nMENU PRINCIPAL");
 		
@@ -106,9 +106,17 @@ public class PanelMenu extends JPanel {
 		
 		
 		
-		
-		btnAltaTitular = new JButton("Alta Titular");
+		ImageIcon iconoAltaTitular=new ImageIcon(this.getClass().getResource("/imagenes/iconoAltaTitular.png")); 
+		Image imagenAltaTitular= iconoAltaTitular.getImage();
+		ImageIcon imagenAltaTitularEscalada = new ImageIcon (imagenAltaTitular.getScaledInstance(50,50,Image.SCALE_SMOOTH)); 
+		btnAltaTitular = new JButton("\t\t\tAlta Titular");
+		btnAltaTitular.setBackground(new Color(245, 255, 250));
+		btnAltaTitular.setOpaque(true);
+		btnAltaTitular.setBorder(null);
+		btnAltaTitular.setIcon(imagenAltaTitularEscalada);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.anchor = GridBagConstraints.WEST;
+		gbc_btnNewButton.gridwidth = 3;
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 3;
 		gbc_btnNewButton.gridy = 4;
@@ -128,6 +136,13 @@ public class PanelMenu extends JPanel {
 		});
 		
 		btnEmitirLicencia = new JButton("Emitir Licencia");
+		ImageIcon iconoEmitirLicencia=new ImageIcon(this.getClass().getResource("/imagenes/iconoEmitirLicencia.png")); 
+		Image imagenEmitirLicencia= iconoEmitirLicencia.getImage();
+		ImageIcon imagenEmitirLicenciaEscalada = new ImageIcon (imagenEmitirLicencia.getScaledInstance(50,50,Image.SCALE_SMOOTH)); 
+	
+		btnEmitirLicencia.setBackground(new Color(245, 255, 250));
+		btnEmitirLicencia.setBorder(null);
+		btnEmitirLicencia.setIcon(imagenEmitirLicenciaEscalada);
 		GridBagConstraints gbc_btnEmitirLicencia = new GridBagConstraints();
 		gbc_btnEmitirLicencia.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEmitirLicencia.gridx = 3;
@@ -156,7 +171,7 @@ btnEmitirLicencia.addActionListener(new ActionListener() {
 	private void btnAltaTitularAction(JFrame pantallaPrincipal) {
 		// TODO Auto-generated method stub
 		this.removeAll();
-		PanelAltaTitular panelAlta = new PanelAltaTitular();
+		PanelAltaTitular panelAlta = new PanelAltaTitular(pantallaPrincipal);
 		pantallaPrincipal.setContentPane(panelAlta);
 	}
 	
@@ -164,7 +179,7 @@ btnEmitirLicencia.addActionListener(new ActionListener() {
 	private void btnEmitirLicenciaAction(JFrame pantallaPrincipal) {
 		// TODO Auto-generated method stub
 		this.removeAll();
-		PanelEmitirLicencia panelEmitirLicencia = new PanelEmitirLicencia();
+		PanelEmitirLicencia panelEmitirLicencia = new PanelEmitirLicencia(pantallaPrincipal);
 		pantallaPrincipal.setContentPane(panelEmitirLicencia);
 		
 	}
