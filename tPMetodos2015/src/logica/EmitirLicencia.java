@@ -49,8 +49,12 @@ public class EmitirLicencia {
 		expirarLicenciasMenorJerarquia(licVig.getClase(), titular);
 		
 		
-		
-		
+		session = factory.getCurrentSession(); 
+		session.beginTransaction();
+        session.refresh(titular);
+		Hibernate.initialize(titular.getClasesSolicitadas());//inicializo las clases solicitadas
+		Hibernate.initialize(titular.getLicenciasVigentes());//inicializo las licencias vigentes
+		session.getTransaction().commit();	
 		//se eliminan las clases solicitadas por el titular y el titular en la clase solicitada
 		List<Clase> clasesAEliminar = new ArrayList<>();
 		for (Clase clase : titular.getClasesSolicitadas()) {
