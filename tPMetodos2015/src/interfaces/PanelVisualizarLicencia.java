@@ -69,7 +69,7 @@ public class PanelVisualizarLicencia extends JPanel {
 		});
 		add(btnImprimir);
 		
-		Calendar fechaNacimiento = Calendar.getInstance();
+		Calendar fechaNacimiento = licencia.getTitular().getFechaNacimiento();
 		
 		JLabel lblSexo = new JLabel("Sexo:");
 		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 9));
@@ -155,7 +155,7 @@ public class PanelVisualizarLicencia extends JPanel {
 		panelLicenciaFrente.add(lblDomicilio_1);
 		lblDomicilio_1.setFont(new Font("Dialog", Font.PLAIN, 9));
 		
-		JLabel lblFecha = new JLabel(""+fechaVencimiento.getInstance().get(Calendar.YEAR)+"/"+fechaVencimiento.getInstance().get(Calendar.MONTH)+"/"+fechaVencimiento.getInstance().get(Calendar.DATE)+" ");
+		JLabel lblFecha = new JLabel(""+fechaVencimiento.get(Calendar.DATE)+"/"+fechaVencimiento.get(Calendar.MONTH)+"/"+fechaVencimiento.get(Calendar.YEAR)+" ");
 		lblFecha.setBounds(262, 121, 55, 14);
 		panelLicenciaFrente.add(lblFecha);
 		lblFecha.setFont(new Font("Dialog", Font.PLAIN, 9));
@@ -220,7 +220,7 @@ public class PanelVisualizarLicencia extends JPanel {
 		lblM.setBounds(234, 22, 54, 14);
 		panel.add(lblM);
 		lblM.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		JLabel lblFechaDeNacimiento = new JLabel(""+fechaNacimiento.getInstance().get(Calendar.YEAR)+"/"+fechaNacimiento.getInstance().get(Calendar.MONTH)+"/"+fechaNacimiento.getInstance().get(Calendar.DATE)+" ");
+		JLabel lblFechaDeNacimiento = new JLabel(""+fechaNacimiento.get(Calendar.DATE)+"/"+fechaNacimiento.get(Calendar.MONTH)+"/"+fechaNacimiento.get(Calendar.YEAR)+" ");
 		lblFechaDeNacimiento.setBounds(110, 22, 72, 14);
 		panel.add(lblFechaDeNacimiento);
 		lblFechaDeNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 9));
@@ -229,7 +229,8 @@ public class PanelVisualizarLicencia extends JPanel {
 		lblCategoria.setBounds(68, 71, 61, 14);
 		panel.add(lblCategoria);
 		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		JLabel label_1 = new JLabel(""+fechaOtorgamiento.getInstance().get(Calendar.YEAR)+"/"+fechaOtorgamiento.getInstance().get(Calendar.MONTH)+"/"+fechaOtorgamiento.getInstance().get(Calendar.DATE)+" ");
+		int mes = fechaOtorgamiento.getInstance().get(Calendar.MONTH)+1;
+		JLabel label_1 = new JLabel(""+fechaOtorgamiento.getInstance().get(Calendar.DATE)+"/"+mes+"/"+fechaOtorgamiento.getInstance().get(Calendar.YEAR)+" ");
 		label_1.setBounds(116, 146, 104, 14);
 		panel.add(label_1);
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
