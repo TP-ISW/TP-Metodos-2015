@@ -47,16 +47,15 @@ public class PanelVisualizarLicencia extends JPanel {
 		add(licenciaCompleta);
 		licenciaCompleta.setLayout(null);
 		
-		JLabel lblApellido_1 = new JLabel(""+licencia.getTitular().getApellido());
-		lblApellido_1.setBounds(293, 98, 145, 14);
-		lblApellido_1.setFont(new Font("Dialog", Font.PLAIN, 9));
-		licenciaCompleta.add(lblApellido_1);
+		JPanel panelLicenciaFrente = new JPanel();
+		panelLicenciaFrente.setBackground(new Color(204, 204, 255));
+		panelLicenciaFrente.setBounds(32, 22, 403, 194);
+		licenciaCompleta.add(panelLicenciaFrente);
+		panelLicenciaFrente.setLayout(null);
 		
-		Calendar fechaVencimiento = licencia.getFechaVencimiento();
 		btnImprimir.setFont(new Font("Lato Black", Font.PLAIN, 13));
 		btnImprimir.setForeground(new Color(0, 0, 51));
 		btnImprimir.setBounds(369, 493, 121, 23);
-		
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -69,7 +68,17 @@ public class PanelVisualizarLicencia extends JPanel {
 		});
 		add(btnImprimir);
 		
-		Calendar fechaNacimiento = licencia.getTitular().getFechaNacimiento();
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Lato Black", Font.PLAIN, 13));
+		btnVolver.setForeground(new Color(0, 0, 51));
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
+		btnVolver.setBounds(30, 493, 118, 23);
+		add(btnVolver);
+		
 		
 		JLabel lblSexo = new JLabel("Sexo:");
 		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 9));
@@ -83,14 +92,6 @@ public class PanelVisualizarLicencia extends JPanel {
 		if(licencia.getTitular().getDonante()==true){
 			lblSi= new JLabel("Si");
 		}
-		
-		Calendar fechaOtorgamiento = Calendar.getInstance();
-		
-		JPanel panelLicenciaFrente = new JPanel();
-		panelLicenciaFrente.setBackground(new Color(204, 204, 255));
-		panelLicenciaFrente.setBounds(32, 22, 403, 194);
-		licenciaCompleta.add(panelLicenciaFrente);
-		panelLicenciaFrente.setLayout(null);
 		
 		JLabel lblLicenciaN = new JLabel("Licencia N\u00BA:");
 		lblLicenciaN.setBounds(156, 46, 50, 12);
@@ -112,11 +113,16 @@ public class PanelVisualizarLicencia extends JPanel {
 		panelLicenciaFrente.add(lblApellido);
 		lblApellido.setFont(new Font("Dialog", Font.PLAIN, 9));
 		
+		JLabel lblApellido_1 = new JLabel(""+licencia.getTitular().getApellido());
+		lblApellido_1.setBounds(293, 98, 145, 14);
+		lblApellido_1.setFont(new Font("Dialog", Font.PLAIN, 9));
+		licenciaCompleta.add(lblApellido_1);
+		
 		JLabel lblDomicilio = new JLabel("Domicilio:");
 		lblDomicilio.setBounds(156, 96, 50, 14);
 		panelLicenciaFrente.add(lblDomicilio);
 		lblDomicilio.setFont(new Font("Dialog", Font.PLAIN, 9));
-		
+				
 		JLabel lblFechaDeVencimiento = new JLabel("Fecha de Vencimiento:");
 		lblFechaDeVencimiento.setBounds(156, 121, 118, 14);
 		panelLicenciaFrente.add(lblFechaDeVencimiento);
@@ -155,7 +161,10 @@ public class PanelVisualizarLicencia extends JPanel {
 		panelLicenciaFrente.add(lblDomicilio_1);
 		lblDomicilio_1.setFont(new Font("Dialog", Font.PLAIN, 9));
 		
-		JLabel lblFecha = new JLabel(""+fechaVencimiento.get(Calendar.DATE)+"/"+fechaVencimiento.get(Calendar.MONTH)+"/"+fechaVencimiento.get(Calendar.YEAR)+" ");
+		
+		Calendar fechaVencimiento = licencia.getFechaVencimiento();
+		int mesVencimiento = fechaVencimiento.get(Calendar.MONTH)+1;
+		JLabel lblFecha = new JLabel(""+fechaVencimiento.get(Calendar.DATE)+"/"+mesVencimiento+"/"+fechaVencimiento.get(Calendar.YEAR)+" ");
 		lblFecha.setBounds(262, 121, 55, 14);
 		panelLicenciaFrente.add(lblFecha);
 		lblFecha.setFont(new Font("Dialog", Font.PLAIN, 9));
@@ -220,7 +229,11 @@ public class PanelVisualizarLicencia extends JPanel {
 		lblM.setBounds(234, 22, 54, 14);
 		panel.add(lblM);
 		lblM.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		JLabel lblFechaDeNacimiento = new JLabel(""+fechaNacimiento.get(Calendar.DATE)+"/"+fechaNacimiento.get(Calendar.MONTH)+"/"+fechaNacimiento.get(Calendar.YEAR)+" ");
+		
+
+		Calendar fechaNacimiento = licencia.getTitular().getFechaNacimiento();
+		int mesNacimiento = fechaNacimiento.get(Calendar.MONTH)+1;
+		JLabel lblFechaDeNacimiento = new JLabel(""+fechaNacimiento.get(Calendar.DATE)+"/"+mesNacimiento+"/"+fechaNacimiento.get(Calendar.YEAR)+" ");
 		lblFechaDeNacimiento.setBounds(110, 22, 72, 14);
 		panel.add(lblFechaDeNacimiento);
 		lblFechaDeNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 9));
@@ -229,21 +242,14 @@ public class PanelVisualizarLicencia extends JPanel {
 		lblCategoria.setBounds(68, 71, 61, 14);
 		panel.add(lblCategoria);
 		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		int mes = fechaOtorgamiento.getInstance().get(Calendar.MONTH)+1;
-		JLabel label_1 = new JLabel(""+fechaOtorgamiento.getInstance().get(Calendar.DATE)+"/"+mes+"/"+fechaOtorgamiento.getInstance().get(Calendar.YEAR)+" ");
+		
+		Calendar fechaOtorgamiento = Calendar.getInstance();
+		int mesOtorgamiento = fechaOtorgamiento.getInstance().get(Calendar.MONTH)+1;
+		JLabel label_1 = new JLabel(""+fechaOtorgamiento.getInstance().get(Calendar.DATE)+"/"+mesOtorgamiento+"/"+fechaOtorgamiento.getInstance().get(Calendar.YEAR)+" ");
 		label_1.setBounds(116, 146, 104, 14);
 		panel.add(label_1);
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.setFont(new Font("Lato Black", Font.PLAIN, 13));
-		btnVolver.setForeground(new Color(0, 0, 51));
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-			}
-		});
-		btnVolver.setBounds(30, 493, 118, 23);
-		add(btnVolver);
+		
 	}
 }
