@@ -28,6 +28,9 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 import clasesDeTablas.Clase;
 import clasesDeTablas.Licenciavigente;
 import clasesDeTablas.Titular;
@@ -50,8 +53,9 @@ public class PanelTitularSeleccionado extends JPanel {
 	private JEditorPane editorPaneObserv;
 	/**
 	 * Create the panel.
+	 * @throws MalformedURLException 
 	 */
-	public PanelTitularSeleccionado(JFrame pantallaPrincipal, Titular titular) {
+	public PanelTitularSeleccionado(JFrame pantallaPrincipal, Titular titular) throws MalformedURLException {
 		
 			setBackground(new Color(245, 255, 250));
 			
@@ -140,11 +144,11 @@ public class PanelTitularSeleccionado extends JPanel {
 			gbc_labelNombreTitular.gridy = 2;
 			add(labelNombreTitular, gbc_labelNombreTitular);
 			
-			
-			/*ImageIcon iconoFotoPersona=new ImageIcon(this.getClass().getResource(titular.getFoto())); 
+			File file = new File(titular.getFoto());
+			ImageIcon iconoFotoPersona=new ImageIcon(file.toURL()); 
 			Image imagenFotoPersona= iconoFotoPersona.getImage();
 			ImageIcon iconoFotoPersonaEscalado = new ImageIcon (imagenFotoPersona.getScaledInstance(70,70,Image.SCALE_SMOOTH)); 
-			
+		
 			JLabel lblFotoPersona = new JLabel(iconoFotoPersonaEscalado);
 			GridBagConstraints gbc_lblFotoPersona = new GridBagConstraints();
 			gbc_lblFotoPersona.gridheight = 3;
@@ -152,7 +156,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			gbc_lblFotoPersona.gridx = 7;
 			gbc_lblFotoPersona.gridy = 2;
 			add(lblFotoPersona, gbc_lblFotoPersona);
-			*/
+			
 			JLabel lblTipoDeDocumento = new JLabel("Tipo de documento:");
 			GridBagConstraints gbc_lblTipoDeDocumento = new GridBagConstraints();
 			gbc_lblTipoDeDocumento.anchor = GridBagConstraints.WEST;
@@ -344,30 +348,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			gbc_lblObservacin.gridy = 12;
 			add(lblObservacin, gbc_lblObservacin);
 					
-			/*JButton btnImprimir = new JButton("Imprimir");
-			btnImprimir.setForeground(new Color(153, 0, 0));
-			btnImprimir.setFont(new Font("Lato Black", Font.PLAIN, 13));
-			btnImprimir.setBackground(new Color(240, 255, 255));
-			GridBagConstraints gbc_btnImprimir = new GridBagConstraints();
-			gbc_btnImprimir.anchor = GridBagConstraints.SOUTH;
-			gbc_btnImprimir.insets = new Insets(0, 0, 5, 5);
-			gbc_btnImprimir.gridx = 6;
-			gbc_btnImprimir.gridy = 14;
-			add(btnImprimir, gbc_btnImprimir);
-			btnImprimir.addActionListener(new ActionListener() {
-						
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								btnImprimirAction();
-								// TODO Auto-generated method stub
-								
-							}
-
-
-							
-
-							
-			});*/
+		
 						
 						editorPaneObserv = new JEditorPane();
 						GridBagConstraints gbc_editorPaneObserv = new GridBagConstraints();
@@ -528,10 +509,7 @@ public class PanelTitularSeleccionado extends JPanel {
 
 
 
-	/*private void btnImprimirAction() {
-		// TODO Auto-generated method stub
-		
-	}*/
+	
 	private void btnCancelarAction(JFrame pantallaPrincipal) {
 		// TODO Auto-generated method stub
 		this.setVisible(false);
