@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import clasesDeTablas.Clase;
 import clasesDeTablas.Contribuyente;
 import clasesDeTablas.ContribuyentePK;
@@ -16,6 +20,7 @@ import excepciones.*;
 import persistencia.DAOClase;
 import persistencia.DAOContribuyente;
 import persistencia.DAOTitular;
+import persistencia.FabricaSessionFactory;
 import validacion.Validar;
 
 public class AltaTitular {
@@ -50,6 +55,14 @@ public class AltaTitular {
 		nuevoTitular.setNombre(titularAux.getNombre());
 		nuevoTitular.setSexo(titularAux.getSexo());
 		nuevoTitular.setId(id);
+		
+		SessionFactory factory= FabricaSessionFactory.getFactory();
+        Session session = factory.getCurrentSession(); 
+        session.beginTransaction();
+        session.refresh(nuevoTitular);
+		Hibernate.initialize(nuevoTitular.getLicenciasExpiradas());//inicializo las licencias expiradas
+		Hibernate.initialize(nuevoTitular.getLicenciasVigentes());//inicializo las licencias vigentes
+		session.getTransaction().commit();
 		
 		DAOClase daoClase = new DAOClase();
 		
@@ -93,6 +106,8 @@ public class AltaTitular {
 		// TODO Auto-generated method stub
 		Calendar fechaNacimientoTitular = nuevoTitular.getFechaNacimiento();
 		int edad= EmitirLicencia.calcularEdad(fechaNacimientoTitular);
+		
+		
 		
 		//se verifica que el titular tenga al menos 17 anos
 		if(edad<17){
