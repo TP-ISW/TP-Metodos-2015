@@ -50,10 +50,13 @@ public class EmitirLicencia {
 		session.getTransaction().commit();
 		
 		//se eliminan las clases solicitadas por el titular y el titular en la clase solicitada
+		List<Clase> clasesAEliminar = new ArrayList<>();
 		for (Clase clase : titular.getClasesSolicitadas()) {
 			if(clase.getIdClase().equals(licVig.getClase().getIdClase()))
-				titular.getClasesSolicitadas().remove(clase);
+				clasesAEliminar.add(clase);
 		}
+		titular.getClasesSolicitadas().removeAll(clasesAEliminar);
+		
 		licVig.getClase().getTitulares().remove(titular);
 		
 		//por último, le agrego la licenciavigente al titular, lo actualizo y guardo la licencia en la BD
