@@ -56,14 +56,15 @@ public class AltaTitular {
 		nuevoTitular.setSexo(titularAux.getSexo());
 		nuevoTitular.setId(id);
 		
-		SessionFactory factory= FabricaSessionFactory.getFactory();
-        Session session = factory.getCurrentSession(); 
-        session.beginTransaction();
-        session.refresh(nuevoTitular);
-		Hibernate.initialize(nuevoTitular.getLicenciasExpiradas());//inicializo las licencias expiradas
-		Hibernate.initialize(nuevoTitular.getLicenciasVigentes());//inicializo las licencias vigentes
-		session.getTransaction().commit();
-		
+		if(titularYaExiste(titularAux.getNroDoc(), titularAux.getTipoDoc())){
+			SessionFactory factory= FabricaSessionFactory.getFactory();
+			Session session = factory.getCurrentSession(); 
+			session.beginTransaction();
+			session.refresh(nuevoTitular);
+			Hibernate.initialize(nuevoTitular.getLicenciasExpiradas());//inicializo las licencias expiradas
+			Hibernate.initialize(nuevoTitular.getLicenciasVigentes());//inicializo las licencias vigentes
+			session.getTransaction().commit();
+		}
 		DAOClase daoClase = new DAOClase();
 		
 		//se obtienen las clase seleccionadas como un lista de String
