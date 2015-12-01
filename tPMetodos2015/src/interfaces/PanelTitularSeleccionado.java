@@ -41,6 +41,8 @@ import logica.EmitirLicencia;
 import persistencia.FabricaSessionFactory;
 
 import javax.swing.JEditorPane;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class PanelTitularSeleccionado extends JPanel {
 
@@ -50,8 +52,8 @@ public class PanelTitularSeleccionado extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTable tablaClase;
 	private DefaultTableModel modeloTablaClase;
-	private JEditorPane editorPaneCategoria;
 	private JEditorPane editorPaneObserv;
+	private JComboBox comboCategoria;
 	
 	public PanelTitularSeleccionado(JFrame pantallaPrincipal, Titular titular) {
 		
@@ -79,7 +81,7 @@ public class PanelTitularSeleccionado extends JPanel {
 				panelTitulo.setLayout(null);
 				GridBagConstraints gbc_panelTitulo = new GridBagConstraints();
 				gbc_panelTitulo.gridwidth = 9;
-				gbc_panelTitulo.insets = new Insets(0, 0, 5, 5);
+				gbc_panelTitulo.insets = new Insets(0, 0, 5, 0);
 				gbc_panelTitulo.fill = GridBagConstraints.BOTH;
 				gbc_panelTitulo.gridx = 0;
 				gbc_panelTitulo.gridy = 0;
@@ -383,36 +385,14 @@ public class PanelTitularSeleccionado extends JPanel {
 						gbc_lblCategora.gridy = 15;
 						add(lblCategora, gbc_lblCategora);
 						
-						editorPaneCategoria = new JEditorPane();
-						GridBagConstraints gbc_editorPaneCategoria = new GridBagConstraints();
-						gbc_editorPaneCategoria.gridwidth = 2;
-						gbc_editorPaneCategoria.insets = new Insets(0, 0, 5, 5);
-						gbc_editorPaneCategoria.fill = GridBagConstraints.BOTH;
-						gbc_editorPaneCategoria.gridx = 2;
-						gbc_editorPaneCategoria.gridy = 15;
-						add(editorPaneCategoria, gbc_editorPaneCategoria);
-						editorPaneCategoria.addKeyListener(new KeyListener(){
-				            
-				            public void keyTyped(KeyEvent e)
-				             
-				            {
-
-				             if (editorPaneObserv.getText().length()== 50)
-				                 e.consume();
-				            }
-
-							@Override
-							public void keyPressed(KeyEvent e) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void keyReleased(KeyEvent e) {
-								// TODO Auto-generated method stub
-								
-							}
-						});
+						comboCategoria = new JComboBox();
+						comboCategoria.setModel(new DefaultComboBoxModel(new String[] {"", "Nuevo", "Renovaci\u00F3n"}));
+						GridBagConstraints gbc_comboCategoria = new GridBagConstraints();
+						gbc_comboCategoria.insets = new Insets(0, 0, 5, 5);
+						gbc_comboCategoria.fill = GridBagConstraints.HORIZONTAL;
+						gbc_comboCategoria.gridx = 2;
+						gbc_comboCategoria.gridy = 15;
+						add(comboCategoria, gbc_comboCategoria);
 			
 						JButton btnVisualizarLicencia = new JButton("Visualizar licencia");
 						btnVisualizarLicencia.setForeground(new Color(0, 0, 51));
@@ -478,11 +458,11 @@ public class PanelTitularSeleccionado extends JPanel {
 			
 			Clase claseSeleccionada= (Clase) tablaClase.getValueAt(tablaClase.getSelectedRow(),0);
 			 
-			if(editorPaneCategoria.getText().isEmpty()){
+			if(comboCategoria.getSelectedIndex()==0){
 				throw new ExcepcionNull("Completar categoría");
 			}
 			EmitirLicencia licencia = new EmitirLicencia();
-			Licenciavigente licenciaVigente = licencia.crearLicencia(titular, editorPaneObserv.getText(), editorPaneCategoria.getText(), claseSeleccionada);
+			Licenciavigente licenciaVigente = licencia.crearLicencia(titular, editorPaneObserv.getText(), (String) comboCategoria.getSelectedItem(), claseSeleccionada);
 			
 			PanelVisualizarLicencia panelVisualizarLicencia = new PanelVisualizarLicencia(licenciaVigente, pantallaPrincipal);
 			//this.setVisible(false);

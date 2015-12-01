@@ -591,6 +591,7 @@ public class PanelAltaTitular extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxClaseC.isSelected()==true) {
 					 checkBoxClaseB.setEnabled(false);
+					 checkBoxClaseB.setSelected(false);
 					 repaint();
 				 }
 				if (checkBoxClaseC.isSelected()==false) {
@@ -602,7 +603,7 @@ public class PanelAltaTitular extends JPanel {
 			}
 		});
 		
-		//Si se selecciona E, se desactiva la opcion de seleccionar B,C y E
+		//Si se selecciona E, se desactiva la opcion de seleccionar B y C
 		checkBoxClaseE = new JCheckBox("Clase E");
 		checkBoxClaseE.setBackground(new Color(240, 255, 255));
 		GridBagConstraints gbc_checkBoxClaseE = new GridBagConstraints();
@@ -618,12 +619,15 @@ public class PanelAltaTitular extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBoxClaseE.isSelected()==true) {
 					 checkBoxClaseB.setEnabled(false);
+					 checkBoxClaseB.setSelected(false);
 					 checkBoxClaseC.setEnabled(false);
+					 checkBoxClaseC.setSelected(false);
 					 repaint();
 				 }
 				if (checkBoxClaseE.isSelected()==false) {
 					 checkBoxClaseB.setEnabled(true);
 					 checkBoxClaseC.setEnabled(true);
+
 					 repaint();
 				 }
 			}	
@@ -664,6 +668,8 @@ public class PanelAltaTitular extends JPanel {
 				if (checkBoxClaseD.isSelected()==true) {
 					 checkBoxClaseB.setEnabled(false);
 					 checkBoxClaseC.setEnabled(false);
+					 checkBoxClaseB.setSelected(false);
+					 checkBoxClaseC.setSelected(false);
 					 repaint();
 				 }
 				if (checkBoxClaseD.isSelected()==false) {
@@ -849,7 +855,8 @@ public class PanelAltaTitular extends JPanel {
 	}
 	private void titularExistente(Titular titular) {
 		// TODO Auto-generated method stub
-		//Se compltan todos los campos con los datos del titular que 
+		//Se compltan todos los campos con los datos del titular que coincide con el documento y tipo de documento
+		//Se deshabilita el campo documento y tipo de documento
 		JOptionPane.showMessageDialog(this,	titular.getApellido()+"   "+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);
 		textNombre.setText(titular.getNombre());
 		textApellido.setText(titular.getApellido());
@@ -861,6 +868,8 @@ public class PanelAltaTitular extends JPanel {
 		if(titular.getDonante()){
 			checkBoxDondante.setSelected(true);
 		}
+		comboTipoDoc.setEditable(false);
+		textNumeroDoc.setEditable(false);
 		
 	}
 	
