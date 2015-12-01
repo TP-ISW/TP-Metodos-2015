@@ -40,6 +40,14 @@ public class EmitirLicencia {
 		//aquellas licencias vigentes de menor jerarquía se deben hacer expirar (se hacen LicenciaExpirada)
 		expirarLicenciasMenorJerarquia(licVig.getClase(), titular);
 		
+		//inicializo las clases solicitadas
+		SessionFactory factory= FabricaSessionFactory.getFactory();
+        Session session = factory.getCurrentSession(); 
+        session.beginTransaction();
+        session.refresh(titular);
+		Hibernate.initialize(titular.getLicenciasVigentes());
+		session.getTransaction().commit();
+		
 		//se eliminan las clases solicitadas por el titular y el titular en la clase solicitada
 		titular.getClasesSolicitadas().remove(licVig.getClase());
 		licVig.getClase().getTitulares().remove(titular);
