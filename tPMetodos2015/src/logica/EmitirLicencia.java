@@ -106,6 +106,7 @@ public class EmitirLicencia {
 	
 	private void expirarLicenciasMenorJerarquia(Clase claseSolicitada, Titular titular) {
 		// TODO Auto-generated method stub
+		
 		List<Licenciavigente> licenciasVigentes= titular.getLicenciasVigentes();
 		
 		//reviso las licencias vigentes para ver si alguna tiene la clase de menor jerarquía que la solicitada
@@ -126,6 +127,14 @@ public class EmitirLicencia {
 		DAOTitular daoTitular = new DAOTitular();
 		DAOLicenciaExpirada daoLicenciaExpirada = new DAOLicenciaExpirada();
 		DAOLicenciaVigente daoLicenciaVigente = new DAOLicenciaVigente();
+		
+		SessionFactory factory= FabricaSessionFactory.getFactory();
+        Session session = factory.getCurrentSession(); 
+        session.beginTransaction();
+        session.refresh(titular);
+		Hibernate.initialize(titular.getLicenciasExpiradas());//inicializo las lic exp
+		Hibernate.initialize(titular.getLicenciasVigentes());//inicializo las licencias vigentes
+		session.getTransaction().commit();	
 		
 		Licenciaexpirada licenciaExpirada = new Licenciaexpirada();
 		licenciaExpirada.setCategoria(licenciaVigente.getCategoria());
