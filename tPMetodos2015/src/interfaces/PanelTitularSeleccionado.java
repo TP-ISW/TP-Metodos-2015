@@ -506,7 +506,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			 
 			
 			EmitirLicencia licencia = new EmitirLicencia();
-			Licenciavigente licenciaVigente = licencia.crearLicencia(titular, editorPaneObserv.getText().toUpperCase(), editorPaneCategoria.getText().toUpperCase(), claseSeleccionada);
+			Licenciavigente licenciaVigente = licencia.crearLicencia(titular, editorPaneObserv.getText(), editorPaneObserv.getText(), claseSeleccionada);
 			
 			PanelVisualizarLicencia panelVisualizarLicencia = new PanelVisualizarLicencia(licenciaVigente);
 			this.setVisible(false);
@@ -519,8 +519,14 @@ public class PanelTitularSeleccionado extends JPanel {
 			}
 			catch(ExcepcionClaseLicencia e2){
 				JOptionPane.showMessageDialog(this,e2.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
-			}		
+			}
+		
+		
+		
+		
 	}
+
+
 
 	/*private void btnImprimirAction() {
 		// TODO Auto-generated method stub
