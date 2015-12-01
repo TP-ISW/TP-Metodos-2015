@@ -558,6 +558,12 @@ public class PanelAltaTitular extends JPanel {
 		add(lblClasesSolicitadas, gbc_lblClasesSolicitadas);
 		lblClasesSolicitadas.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 		
+		/*Clases : A,B,C,D,E,F,G 
+		 * C ->B
+		 * D -> C
+		 * E -> C
+		 */
+		
 		checkBoxClaseA = new JCheckBox("Clase A");
 		checkBoxClaseA.setBackground(new Color(240, 255, 255));
 		GridBagConstraints gbc_checkBoxClaseA = new GridBagConstraints();
@@ -660,7 +666,7 @@ public class PanelAltaTitular extends JPanel {
 					 checkBoxClaseC.setEnabled(false);
 					 repaint();
 				 }
-				if (checkBoxClaseC.isSelected()==false) {
+				if (checkBoxClaseD.isSelected()==false) {
 					 checkBoxClaseB.setEnabled(true);
 					 checkBoxClaseC.setEnabled(true);
 					 repaint();
@@ -778,11 +784,7 @@ public class PanelAltaTitular extends JPanel {
 		gbc_labelFoto.gridy = 14;
 		gbc_labelFoto.gridx = 3;
 		add(labelFoto, gbc_labelFoto);
-		/*Clases : A,B,C,D,E,F,G 
-		 * C ->B
-		 * D -> C
-		 * E -> C
-		 */
+		
 
 		
 		
