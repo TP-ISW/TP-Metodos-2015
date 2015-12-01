@@ -31,6 +31,7 @@ public class EmitirLicencia {
 		Titular titular = licVig.getTitular();		
 		DAOTitular daoTitular= new DAOTitular();
 		DAOLicenciaVigente daoLicenciaVigente = new DAOLicenciaVigente();
+		DAOClase daoClase= new DAOClase();
 		
 			
 		//setea comprobante a licencia
@@ -38,12 +39,18 @@ public class EmitirLicencia {
 			
 		//aquellas licencias vigentes de menor jerarquía se deben hacer expirar (se hacen LicenciaExpirada)
 		expirarLicenciasMenorJerarquia(licVig.getClase(), titular);
-			
+		
+		//se eliminan las clases solicitadas por el titular y el titular en la clase solicitada
+		titular.getClasesSolicitadas().remove(licVig.getClase());
+		licVig.getClase().getTitulares().remove(titular);
+		
 		//por último, le agrego la licenciavigente al titular, lo actualizo y guardo la licencia en la BD
+		//tambien se actualiza la clase (se borra el titular)
 		titular.getLicenciasVigentes().add(licVig);
 		daoTitular.update(titular);
 		licVig.setTitular(titular);
 		daoLicenciaVigente.save(licVig);
+		daoClase.update(licVig.getClase());
 	}
 		
 	public  Licenciavigente crearLicencia(Titular titular, String observacion, String categoria, Clase claseSolicitada) throws ExcepcionClaseLicencia{
