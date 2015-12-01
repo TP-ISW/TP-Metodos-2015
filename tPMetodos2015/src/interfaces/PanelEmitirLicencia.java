@@ -277,7 +277,7 @@ textNombre.addKeyListener(new KeyListener(){
                  */
                 private static final long serialVersionUID = 1L;
                 boolean[] columnEditables = new boolean[] {
-                        false, false, false, false
+                        false, false, false, false,false
                 };
                 public boolean isCellEditable(int row, int column) {
                         return columnEditables[column];
@@ -415,9 +415,11 @@ textNombre.addKeyListener(new KeyListener(){
 	private void btnAceptarAction(JFrame pantallaPrincipal) {
 		// TODO Auto-generated method stub
 		try{
+		if(tablaTitulares.getSelectedRowCount()!=1 )
+			 throw new ExcepcionTabla("Seleccionar fila");
 		Titular titularSeleccionado= (Titular) tablaTitulares.getValueAt(tablaTitulares.getSelectedRow(),0);
-		 if (titularSeleccionado==null)
-             throw new ExcepcionTabla("Seleccionar fila");
+		
+            
 		setVisible(false);
 		pantallaPrincipal.setContentPane(new PanelTitularSeleccionado(pantallaPrincipal, titularSeleccionado));
 		

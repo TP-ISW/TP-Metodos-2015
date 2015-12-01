@@ -499,9 +499,11 @@ public class PanelTitularSeleccionado extends JPanel {
 		// TODO Auto-generated method stub
 		try{
 			
+			if(tablaClase.getSelectedRowCount()!=1 )
+			 throw new ExcepcionTabla("Seleccionar fila");
+			
 			Clase claseSeleccionada= (Clase) tablaClase.getValueAt(tablaClase.getSelectedRow(),0);
-			 if (claseSeleccionada==null)
-	             throw new ExcepcionTabla("Seleccionar fila");
+			 
 			
 			EmitirLicencia licencia = new EmitirLicencia();
 			Licenciavigente licenciaVigente = licencia.crearLicencia(titular, editorPaneObserv.getText().toUpperCase(), editorPaneCategoria.getText().toUpperCase(), claseSeleccionada);
