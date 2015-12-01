@@ -849,6 +849,7 @@ public class PanelAltaTitular extends JPanel {
 	}
 	private void titularExistente(Titular titular) {
 		// TODO Auto-generated method stub
+		//Se compltan todos los campos con los datos del titular que 
 		JOptionPane.showMessageDialog(this,	titular.getApellido()+"   "+titular.getNombre(), "Titular existente", JOptionPane.INFORMATION_MESSAGE);
 		textNombre.setText(titular.getNombre());
 		textApellido.setText(titular.getApellido());

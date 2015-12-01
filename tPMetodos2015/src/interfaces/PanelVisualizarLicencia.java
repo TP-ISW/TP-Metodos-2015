@@ -21,26 +21,29 @@ public class PanelVisualizarLicencia extends JPanel {
 	 */
 	private static final long serialVersionUID = 882180666384926462L;
 
-	private JPanel licenciaCompleta = new JPanel();
+	private JPanel licenciaCompleta;
 	private JButton btnImprimir = new JButton("Imprimir");
 	ImprimirLicencia licenciaAImprimir = new ImprimirLicencia();
 	private Licenciavigente licencia;
 	private JLabel labelFechaNac;
 	private JLabel lblSi;
 
-	public PanelVisualizarLicencia(Licenciavigente licVig) {
-		try{licencia = licVig;
-		initialize();}
+	public PanelVisualizarLicencia(Licenciavigente licVig, JFrame pantallaPrincipal) {
+		try{
+		licencia = licVig;
+		initialize(pantallaPrincipal);
+		}
 		catch(MalformedURLException e1){
 			System.out.println("Error foto persona");
 		}
 	}
 		
-	private void initialize() throws MalformedURLException {
+	private void initialize(JFrame pantallaPrincipal) throws MalformedURLException {
 		
 		setBounds(100, 50, 500, 520);
 		
 		setLayout(null);
+		licenciaCompleta= new JPanel();
 		licenciaCompleta.setBackground(Color.WHITE);
 		licenciaCompleta.setBorder(new LineBorder(new Color(0, 0, 0)));
 		licenciaCompleta.setBounds(30, 11, 460, 471);
@@ -60,6 +63,7 @@ public class PanelVisualizarLicencia extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					licenciaAImprimir.imprimirLicencia(licencia, licenciaCompleta);
+					btnHomeAction(pantallaPrincipal);
 				} catch (ExcepcionClaseLicencia e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -73,22 +77,13 @@ public class PanelVisualizarLicencia extends JPanel {
 		btnVolver.setForeground(new Color(0, 0, 51));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
+				btnVolverAction();
 			}
+
+			
 		});
 		btnVolver.setBounds(30, 493, 118, 23);
 		add(btnVolver);
-		
-		
-		JLabel lblSexo = new JLabel("Sexo:");
-		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblSexo.setBounds(237, 279, 54, 14);
-		licenciaCompleta.add(lblSexo);
-		
-		JLabel lblFactor = new JLabel("Factor:");
-		lblFactor.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblFactor.setBounds(165, 354, 46, 14);
-		licenciaCompleta.add(lblFactor);
 		if(licencia.getTitular().getDonante()==true){
 			lblSi= new JLabel("Si");
 		}
@@ -109,14 +104,9 @@ public class PanelVisualizarLicencia extends JPanel {
 		lblNombres.setFont(new Font("Dialog", Font.PLAIN, 9));
 		
 		JLabel lblApellido = new JLabel("Apellido:");
-		lblApellido.setBounds(156, 76, 118, 14);
+		lblApellido.setBounds(156, 76, 67, 14);
 		panelLicenciaFrente.add(lblApellido);
 		lblApellido.setFont(new Font("Dialog", Font.PLAIN, 9));
-		
-		JLabel lblApellido_1 = new JLabel(""+licencia.getTitular().getApellido());
-		lblApellido_1.setBounds(293, 98, 145, 14);
-		lblApellido_1.setFont(new Font("Dialog", Font.PLAIN, 9));
-		licenciaCompleta.add(lblApellido_1);
 		
 		JLabel lblDomicilio = new JLabel("Domicilio:");
 		lblDomicilio.setBounds(156, 96, 50, 14);
@@ -134,7 +124,7 @@ public class PanelVisualizarLicencia extends JPanel {
 		lblObservaciones.setFont(new Font("Dialog", Font.PLAIN, 9));
 		
 		JLabel lblObservaciones_1 = new JLabel(""+licencia.getObservaciones());
-		lblObservaciones_1.setBounds(258, 146, 63, 14);
+		lblObservaciones_1.setBounds(258, 146, 135, 14);
 		panelLicenciaFrente.add(lblObservaciones_1);
 		lblObservaciones_1.setFont(new Font("Dialog", Font.PLAIN, 9));
 		
@@ -152,12 +142,12 @@ public class PanelVisualizarLicencia extends JPanel {
 		lblNroLic.setFont(new Font("Dialog", Font.PLAIN, 9));
 		
 		JLabel lblNombres_1 = new JLabel(""+licencia.getTitular().getNombre());
-		lblNombres_1.setBounds(262, 59, 55, 12);
+		lblNombres_1.setBounds(262, 59, 131, 12);
 		panelLicenciaFrente.add(lblNombres_1);
 		lblNombres_1.setFont(new Font("Dialog", Font.PLAIN, 9));
 		
 		JLabel lblDomicilio_1 = new JLabel(""+licencia.getTitular().getDomicilio());
-		lblDomicilio_1.setBounds(258, 97, 50, 12);
+		lblDomicilio_1.setBounds(258, 97, 135, 12);
 		panelLicenciaFrente.add(lblDomicilio_1);
 		lblDomicilio_1.setFont(new Font("Dialog", Font.PLAIN, 9));
 		
@@ -165,9 +155,14 @@ public class PanelVisualizarLicencia extends JPanel {
 		Calendar fechaVencimiento = licencia.getFechaVencimiento();
 		int mesVencimiento = fechaVencimiento.get(Calendar.MONTH)+1;
 		JLabel lblFecha = new JLabel(""+fechaVencimiento.get(Calendar.DATE)+"/"+mesVencimiento+"/"+fechaVencimiento.get(Calendar.YEAR)+" ");
-		lblFecha.setBounds(262, 121, 55, 14);
+		lblFecha.setBounds(262, 121, 118, 14);
 		panelLicenciaFrente.add(lblFecha);
 		lblFecha.setFont(new Font("Dialog", Font.PLAIN, 9));
+		
+		JLabel lblApellido_1 = new JLabel(""+licencia.getTitular().getApellido());
+		lblApellido_1.setBounds(258, 76, 135, 14);
+		panelLicenciaFrente.add(lblApellido_1);
+		lblApellido_1.setFont(new Font("Dialog", Font.PLAIN, 9));
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(204, 204, 255));
@@ -186,7 +181,7 @@ public class PanelVisualizarLicencia extends JPanel {
 		lblDocumento.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
 		JLabel lblCategora = new JLabel("Categor\u00EDa:");
-		lblCategora.setBounds(10, 71, 128, 14);
+		lblCategora.setBounds(10, 71, 46, 14);
 		panel.add(lblCategora);
 		lblCategora.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
@@ -211,22 +206,22 @@ public class PanelVisualizarLicencia extends JPanel {
 		lblFechaDeOtorgamiento.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
 		JLabel labelSigno = new JLabel(licencia.getTitular().getFactorRh());
-		labelSigno.setBounds(164, 96, 56, 14);
+		labelSigno.setBounds(232, 96, 90, 14);
 		panel.add(labelSigno);
 		labelSigno.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
 		JLabel lblA = new JLabel(licencia.getTitular().getGrupoSanguineo());
-		lblA.setBounds(54, 96, 50, 14);
+		lblA.setBounds(54, 96, 128, 14);
 		panel.add(lblA);
 		lblA.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
 		JLabel labelNroDoc = new JLabel(""+licencia.getTitular().getId().getTipoDoc()+" "+licencia.getTitular().getId().getNroDoc());
-		labelNroDoc.setBounds(68, 46, 104, 14);
+		labelNroDoc.setBounds(68, 46, 152, 14);
 		panel.add(labelNroDoc);
 		labelNroDoc.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
 		JLabel lblM = new JLabel(licencia.getTitular().getSexo());
-		lblM.setBounds(234, 22, 54, 14);
+		lblM.setBounds(222, 22, 54, 14);
 		panel.add(lblM);
 		lblM.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
@@ -239,7 +234,7 @@ public class PanelVisualizarLicencia extends JPanel {
 		lblFechaDeNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
 		JLabel lblCategoria = new JLabel(licencia.getCategoria());
-		lblCategoria.setBounds(68, 71, 61, 14);
+		lblCategoria.setBounds(68, 71, 280, 14);
 		panel.add(lblCategoria);
 		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
@@ -251,5 +246,25 @@ public class PanelVisualizarLicencia extends JPanel {
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
 		
+		JLabel lblSexo = new JLabel("Sexo:");
+		lblSexo.setBounds(192, 22, 54, 14);
+		panel.add(lblSexo);
+		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		
+		JLabel lblFactor = new JLabel("Factor:");
+		lblFactor.setBounds(192, 96, 46, 14);
+		panel.add(lblFactor);
+		lblFactor.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		
+		
+	}
+	private void btnHomeAction(JFrame pantallaPrincipal) {
+		// TODO Auto-generated method stub
+		setVisible(false);
+		pantallaPrincipal.setContentPane(new PanelMenu(pantallaPrincipal));
+	}
+	private void btnVolverAction() {
+				// TODO Auto-generated method stub
+		setVisible(false);
 	}
 }
