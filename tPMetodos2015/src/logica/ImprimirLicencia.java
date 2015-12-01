@@ -29,7 +29,7 @@ public class ImprimirLicencia implements Printable{
 	public void imprimirLicencia(Licenciavigente licenciaVigente, JPanel  licenciaAImprimir) throws ExcepcionClaseLicencia{
 		
 		DAOComprobante daoComprobante = new DAOComprobante();
-		
+		licencia = licenciaVigente;
 		panelLicencia = licenciaAImprimir;
 		
 		//se instancia un comprobante y se setean valores ficticios
