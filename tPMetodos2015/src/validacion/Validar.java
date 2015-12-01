@@ -71,7 +71,7 @@ public class Validar{
 			throw new ExcepcionValidador("El usuario esta en un rango de edades no aceptado.");
 		};
 		
-		List<String> gruposValidos = Arrays.asList("A","B","AB","O");
+		List<String> gruposValidos = Arrays.asList("A","B","AB","0");
 		
 		if(!gruposValidos.contains(titular.getGrupoSanguineo())){
 			throw new ExcepcionValidador("El grupo sanguíneo es inválido.");
