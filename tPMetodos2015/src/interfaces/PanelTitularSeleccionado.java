@@ -386,7 +386,7 @@ public class PanelTitularSeleccionado extends JPanel {
 						add(lblCategora, gbc_lblCategora);
 						
 						comboCategoria = new JComboBox();
-						comboCategoria.setModel(new DefaultComboBoxModel(new String[] {"", "Nuevo", "Renovaci\u00F3n"}));
+						comboCategoria.setModel(new DefaultComboBoxModel(new String[] {"", "nuevo", "renovacion"}));
 						GridBagConstraints gbc_comboCategoria = new GridBagConstraints();
 						gbc_comboCategoria.insets = new Insets(0, 0, 5, 5);
 						gbc_comboCategoria.fill = GridBagConstraints.HORIZONTAL;
@@ -452,7 +452,7 @@ public class PanelTitularSeleccionado extends JPanel {
 	private void btnVisualizarLicencia(JFrame pantallaPrincipal, Titular titular) {
 		// TODO Auto-generated method stub
 		try{
-			System.out.println(tablaClase.getSelectedRowCount());
+			
 			if(tablaClase.getSelectedRowCount()!=1 )
 			 throw new ExcepcionTabla("Seleccionar una fila");
 				
