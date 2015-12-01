@@ -40,30 +40,27 @@ public class EmitirLicencia {
 		//aquellas licencias vigentes de menor jerarquía se deben hacer expirar (se hacen LicenciaExpirada)
 		expirarLicenciasMenorJerarquia(licVig.getClase(), titular);
 		
-		//inicializo las clases solicitadas
+		
 		SessionFactory factory= FabricaSessionFactory.getFactory();
         Session session = factory.getCurrentSession(); 
         session.beginTransaction();
         session.refresh(titular);
-		Hibernate.initialize(titular.getClasesSolicitadas());
+		Hibernate.initialize(titular.getClasesSolicitadas());//inicializo las clases solicitadas
+		Hibernate.initialize(titular.getLicenciasVigentes());//inicializo las licencias vigentes
 		session.getTransaction().commit();
 		
 		//se eliminan las clases solicitadas por el titular y el titular en la clase solicitada
-		titular.getClasesSolicitadas().remove(licVig.getClase());
+		for (Clase clase : titular.getClasesSolicitadas()) {
+			if(clase.getIdClase().equals(licVig.getClase().getIdClase()))
+				titular.getClasesSolicitadas().remove(clase);
+		}
 		licVig.getClase().getTitulares().remove(titular);
 		
-		//inicializo las clases solicitadas
-		SessionFactory factory1= FabricaSessionFactory.getFactory();
-        Session session1 = factory1.getCurrentSession(); 
-        session1.beginTransaction();
-        session1.refresh(titular);
-		Hibernate.initialize(titular.getLicenciasVigentes());
-		session1.getTransaction().commit();
 		//por último, le agrego la licenciavigente al titular, lo actualizo y guardo la licencia en la BD
 		//tambien se actualiza la clase (se borra el titular)
 		titular.getLicenciasVigentes().add(licVig);
-		daoTitular.update(titular);
 		licVig.setTitular(titular);
+		daoTitular.update(titular);
 		daoLicenciaVigente.save(licVig);
 		daoClase.update(licVig.getClase());
 	}
