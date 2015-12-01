@@ -45,13 +45,20 @@ public class EmitirLicencia {
         Session session = factory.getCurrentSession(); 
         session.beginTransaction();
         session.refresh(titular);
-		Hibernate.initialize(titular.getLicenciasVigentes());
+		Hibernate.initialize(titular.getClasesSolicitadas());
 		session.getTransaction().commit();
 		
 		//se eliminan las clases solicitadas por el titular y el titular en la clase solicitada
 		titular.getClasesSolicitadas().remove(licVig.getClase());
 		licVig.getClase().getTitulares().remove(titular);
 		
+		//inicializo las clases solicitadas
+		SessionFactory factory1= FabricaSessionFactory.getFactory();
+        Session session1 = factory1.getCurrentSession(); 
+        session1.beginTransaction();
+        session1.refresh(titular);
+		Hibernate.initialize(titular.getLicenciasVigentes());
+		session1.getTransaction().commit();
 		//por último, le agrego la licenciavigente al titular, lo actualizo y guardo la licencia en la BD
 		//tambien se actualiza la clase (se borra el titular)
 		titular.getLicenciasVigentes().add(licVig);
