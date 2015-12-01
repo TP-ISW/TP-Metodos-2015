@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import clasesDeTablas.Clase;
 import clasesDeTablas.Comprobante;
 import clasesDeTablas.Licenciaexpirada;
@@ -17,6 +21,8 @@ import persistencia.DAOClase;
 import persistencia.DAOLicenciaExpirada;
 import persistencia.DAOLicenciaVigente;
 import persistencia.DAOTitular;
+import persistencia.DAOUsuario;
+import persistencia.FabricaSessionFactory;
 
 public class EmitirLicencia {
 	//categoria "nuevo" o "renovacion", con minusculas y sin tildes!!
@@ -44,12 +50,20 @@ public class EmitirLicencia {
 		List<Calendar> fechasVigencia = calcularVigenciaLicencia(titular, categoria);
 		
 		//se juntan todas las clases de las cuales el titular tiene licencias vigentes
+		SessionFactory factory= FabricaSessionFactory.getFactory();
+        Session session = factory.getCurrentSession(); 
+        session.beginTransaction();
+        session.refresh(titular);
+		Hibernate.initialize(titular.getLicenciasVigentes());
+		session.getTransaction().commit();
 		List <Clase> clasesVigentes= new ArrayList<>();
 		for (Licenciavigente licVig : titular.getLicenciasVigentes()) {
 			clasesVigentes.add(licVig.getClase());
 		}
 		//se verifica que las clases solicitadas no sean de menor o igual jerarquía que las vigentes
 		verificarClaseSolicitada(claseSolicitada,clasesVigentes);
+		//se trae un usuario cualquiera
+		DAOUsuario daoUsuario = new DAOUsuario();
 		
 		//se procede a crear una licencia vigente
 		Licenciavigente licenciaVigente = new Licenciavigente();
@@ -59,8 +73,9 @@ public class EmitirLicencia {
 		licenciaVigente.setFechaVencimiento(fechasVigencia.get(1));
 		licenciaVigente.setObservaciones(observacion);
 		licenciaVigente.setClase(claseSolicitada);
-		licenciaVigente.setUsuario(new Usuario());
+		licenciaVigente.setUsuario(daoUsuario.getById("elusuario"));
 		licenciaVigente.setTitular(titular);
+		licenciaVigente.setNumeroCopia("1");
 		
 		return licenciaVigente;
 	}

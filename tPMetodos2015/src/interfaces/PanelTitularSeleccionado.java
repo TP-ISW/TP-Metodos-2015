@@ -499,12 +499,14 @@ public class PanelTitularSeleccionado extends JPanel {
 		// TODO Auto-generated method stub
 		try{
 			
+			if(tablaClase.getSelectedRowCount()!=1 )
+			 throw new ExcepcionTabla("Seleccionar fila");
+			
 			Clase claseSeleccionada= (Clase) tablaClase.getValueAt(tablaClase.getSelectedRow(),0);
-			 if (claseSeleccionada==null)
-	             throw new ExcepcionTabla("Seleccionar fila");
+			 
 			
 			EmitirLicencia licencia = new EmitirLicencia();
-			Licenciavigente licenciaVigente = licencia.crearLicencia(titular, editorPaneObserv.getText(), editorPaneObserv.getText(), claseSeleccionada);
+			Licenciavigente licenciaVigente = licencia.crearLicencia(titular, editorPaneObserv.getText().toUpperCase(), editorPaneCategoria.getText().toUpperCase(), claseSeleccionada);
 			
 			PanelVisualizarLicencia panelVisualizarLicencia = new PanelVisualizarLicencia(licenciaVigente);
 			this.setVisible(false);
@@ -517,14 +519,8 @@ public class PanelTitularSeleccionado extends JPanel {
 			}
 			catch(ExcepcionClaseLicencia e2){
 				JOptionPane.showMessageDialog(this,e2.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
-			}
-		
-		
-		
-		
+			}		
 	}
-
-
 
 	/*private void btnImprimirAction() {
 		// TODO Auto-generated method stub
