@@ -68,17 +68,13 @@ public class EmitirLicencia {
 	private void expirarLicenciasMenorJerarquia(Clase claseSolicitada, Titular titular) {
 		// TODO Auto-generated method stub
 		List<Licenciavigente> licenciasVigentes= titular.getLicenciasVigentes();
-		//si es licencia C, expirar la B (si hay)
-		if(claseSolicitada.getDescripcion().equals("C")&& licenciasVigentes!=null)
+		
+		//reviso las licencias vigentes para ver si alguna tiene la clase de menor jerarquía que la solicitada
+		if(licenciasVigentes!=null)		
 			for (Licenciavigente licenciaVigente : licenciasVigentes) {
-				if(licenciaVigente.getClase().getDescripcion().equals("B"))
+				if(claseSolicitada.superior(licenciaVigente.getClase()))
 					expirarLicencia(licenciaVigente,titular);
-			}
-		//si es licencia D o E, expirar la C (si hay)
-		else if((claseSolicitada.getDescripcion().equals("D")||claseSolicitada.getDescripcion().equals("E")) && licenciasVigentes!=null)
-			for (Licenciavigente licenciaVigente : licenciasVigentes) {
-				if(licenciaVigente.getClase().getDescripcion().equals("C"))
-					expirarLicencia(licenciaVigente,titular);
+						
 			}
 	}
 
@@ -121,19 +117,10 @@ public class EmitirLicencia {
 		if(clasesVigentes.contains(claseSolicitada))
 			throw new ExcepcionClaseLicencia("Ya posee una licencia vigente con la clase solicitada");
 		
-		else if(claseSolicitada.getDescripcion().equals("B")){
-			for (Clase clase : clasesVigentes) {
-				if(clase.getDescripcion().equals("C")||clase.getDescripcion().equals("D")||clase.getDescripcion().equals("E"))
-					throw new ExcepcionClaseLicencia("Ya posee una licencia vigente de mayor jerarquía que la B");
-			}
+		for (Clase clase : clasesVigentes) {
+			if(clase.superior(claseSolicitada))
+				throw new ExcepcionClaseLicencia("Ya posee una licencia vigente de mayor jerarquía que la solicitada");
 		}
-		else if(claseSolicitada.getDescripcion().equals("C")){
-			for (Clase clase : clasesVigentes) {
-				if(clase.getDescripcion().equals("D")||clase.getDescripcion().equals("E"))
-					throw new ExcepcionClaseLicencia("Ya posee una licencia vigente de mayor jerarquía que la C");
-			}
-		}
-		
 	}
 	//este método se ejecuta cada vez que se ingresa un caracter en los campos detallados abajo, devuelve los titulares que cumplan con la busqueda
 	public List<Titular> buscarTitular(String nombre, String apellido, String nroDoc, String tipoDoc) {
