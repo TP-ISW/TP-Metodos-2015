@@ -452,9 +452,10 @@ public class PanelTitularSeleccionado extends JPanel {
 	private void btnVisualizarLicencia(JFrame pantallaPrincipal, Titular titular) {
 		// TODO Auto-generated method stub
 		try{
-			
+			System.out.println(tablaClase.getSelectedRowCount());
 			if(tablaClase.getSelectedRowCount()!=1 )
-			 throw new ExcepcionTabla("Seleccionar fila");
+			 throw new ExcepcionTabla("Seleccionar una fila");
+				
 			
 			Clase claseSeleccionada= (Clase) tablaClase.getValueAt(tablaClase.getSelectedRow(),0);
 			 

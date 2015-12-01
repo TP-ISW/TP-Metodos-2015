@@ -415,8 +415,9 @@ textNombre.addKeyListener(new KeyListener(){
 	private void btnAceptarAction(JFrame pantallaPrincipal) {
 		// TODO Auto-generated method stub
 		try{
+			System.out.println(tablaTitulares.getSelectedRowCount());
 		if(tablaTitulares.getSelectedRowCount()!=1 )
-			 throw new ExcepcionTabla("Seleccionar fila");
+			 throw new ExcepcionTabla("Seleccionar una fila");
 		Titular titularSeleccionado= (Titular) tablaTitulares.getValueAt(tablaTitulares.getSelectedRow(),0);
 		
             
