@@ -195,13 +195,13 @@ public class EmitirLicencia {
 		
 		// segun la edad del titular se le setea a la fecha de expiracion el año correspondiente
 		if((edad < 21 && categoria.equals("nuevo")) || edad > 70)
-			fechaExpiracion.set(Calendar.YEAR, fechaNacimientoTitular.get(Calendar.YEAR)+1);		
+			fechaExpiracion.set(Calendar.YEAR, fechaInicioVigencia.get(Calendar.YEAR)+1);		
 		if((edad < 21 && categoria.equals("renovacion")) || (edad > 60 && edad <= 70) )
-			fechaExpiracion.set(fechaExpiracion.YEAR, fechaNacimientoTitular.get(Calendar.YEAR)+3);
+			fechaExpiracion.set(fechaExpiracion.YEAR, fechaInicioVigencia.get(Calendar.YEAR)+3);
 		if(edad >= 21 && edad <= 46)
-			fechaExpiracion.set(fechaExpiracion.YEAR, fechaNacimientoTitular.get(Calendar.YEAR)+5);
+			fechaExpiracion.set(fechaExpiracion.YEAR, fechaInicioVigencia.get(Calendar.YEAR)+5);
 		if(edad > 46 && edad <= 60)
-			fechaExpiracion.set(fechaExpiracion.YEAR, fechaNacimientoTitular.get(Calendar.YEAR)+4);
+			fechaExpiracion.set(fechaExpiracion.YEAR, fechaInicioVigencia.get(Calendar.YEAR)+4);
 		
 		// se crea una lista con las dos fechas indicadas para el retorno
 		List<Calendar> fechasVigencia = new ArrayList<Calendar>();
