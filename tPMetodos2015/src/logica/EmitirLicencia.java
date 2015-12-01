@@ -33,21 +33,23 @@ public class EmitirLicencia {
 		DAOLicenciaVigente daoLicenciaVigente = new DAOLicenciaVigente();
 		DAOClase daoClase= new DAOClase();
 		
-			
-		//setea comprobante a licencia
-		licVig.setComprobante(comprobante);
-			
-		//aquellas licencias vigentes de menor jerarquía se deben hacer expirar (se hacen LicenciaExpirada)
-		expirarLicenciasMenorJerarquia(licVig.getClase(), titular);
-		
-		
 		SessionFactory factory= FabricaSessionFactory.getFactory();
         Session session = factory.getCurrentSession(); 
         session.beginTransaction();
         session.refresh(titular);
 		Hibernate.initialize(titular.getClasesSolicitadas());//inicializo las clases solicitadas
 		Hibernate.initialize(titular.getLicenciasVigentes());//inicializo las licencias vigentes
-		session.getTransaction().commit();
+		session.getTransaction().commit();	
+		
+		//setea comprobante a licencia
+		licVig.setComprobante(comprobante);
+			
+		
+		//aquellas licencias vigentes de menor jerarquía se deben hacer expirar (se hacen LicenciaExpirada)
+		expirarLicenciasMenorJerarquia(licVig.getClase(), titular);
+		
+		
+		
 		
 		//se eliminan las clases solicitadas por el titular y el titular en la clase solicitada
 		List<Clase> clasesAEliminar = new ArrayList<>();
