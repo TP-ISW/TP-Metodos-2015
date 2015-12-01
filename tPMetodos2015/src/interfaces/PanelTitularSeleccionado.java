@@ -487,7 +487,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			PanelVisualizarLicencia panelVisualizarLicencia = new PanelVisualizarLicencia(licenciaVigente);
 			//this.setVisible(false);
 			
-			pantallaPrincipal.add(panelVisualizarLicencia);
+			pantallaPrincipal.setContentPane(panelVisualizarLicencia);
 			
 		}
 			catch(ExcepcionTabla e1){
