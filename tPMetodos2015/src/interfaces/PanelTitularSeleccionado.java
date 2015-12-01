@@ -35,6 +35,7 @@ import clasesDeTablas.Clase;
 import clasesDeTablas.Licenciavigente;
 import clasesDeTablas.Titular;
 import excepciones.ExcepcionClaseLicencia;
+import excepciones.ExcepcionNull;
 import excepciones.ExcepcionTabla;
 import logica.EmitirLicencia;
 import persistencia.FabricaSessionFactory;
@@ -51,11 +52,8 @@ public class PanelTitularSeleccionado extends JPanel {
 	private DefaultTableModel modeloTablaClase;
 	private JEditorPane editorPaneCategoria;
 	private JEditorPane editorPaneObserv;
-	/**
-	 * Create the panel.
-	 * @throws MalformedURLException 
-	 */
-	public PanelTitularSeleccionado(JFrame pantallaPrincipal, Titular titular) throws MalformedURLException {
+	
+	public PanelTitularSeleccionado(JFrame pantallaPrincipal, Titular titular) {
 		
 			setBackground(new Color(245, 255, 250));
 			
@@ -80,7 +78,7 @@ public class PanelTitularSeleccionado extends JPanel {
 				panelTitulo.setBackground(new Color(0, 0, 51));
 				panelTitulo.setLayout(null);
 				GridBagConstraints gbc_panelTitulo = new GridBagConstraints();
-				gbc_panelTitulo.gridwidth = 8;
+				gbc_panelTitulo.gridwidth = 9;
 				gbc_panelTitulo.insets = new Insets(0, 0, 5, 5);
 				gbc_panelTitulo.fill = GridBagConstraints.BOTH;
 				gbc_panelTitulo.gridx = 0;
@@ -99,18 +97,11 @@ public class PanelTitularSeleccionado extends JPanel {
 				lblImagen.setBounds(10, 11, 108, 84);
 				panelTitulo.add(lblImagen);
 			
-			JLabel lblFoto = new JLabel("Foto:");
-			GridBagConstraints gbc_lblImagen = new GridBagConstraints();
-			gbc_lblImagen.insets = new Insets(0, 0, 5, 5);
-			gbc_lblImagen.gridx = 7;
-			gbc_lblImagen.gridy = 1;
-			add(lblFoto, gbc_lblImagen);
-			lblFoto.setFont(new Font("Lato Medium", Font.PLAIN, 14));
-			
 			JLabel lblApellido = new JLabel("Apellido:");
+			lblApellido.setForeground(new Color(0, 0, 153));
 			lblApellido.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 			GridBagConstraints gbc_lblApellido = new GridBagConstraints();
-			gbc_lblApellido.anchor = GridBagConstraints.WEST;
+			gbc_lblApellido.anchor = GridBagConstraints.EAST;
 			gbc_lblApellido.fill = GridBagConstraints.VERTICAL;
 			gbc_lblApellido.insets = new Insets(0, 0, 5, 5);
 			gbc_lblApellido.gridx = 1;
@@ -128,8 +119,9 @@ public class PanelTitularSeleccionado extends JPanel {
 			
 			
 			JLabel lblNombre = new JLabel("Nombre:");
+			lblNombre.setForeground(new Color(0, 0, 153));
 			GridBagConstraints gbc_lblNombre = new GridBagConstraints();
-			gbc_lblNombre.anchor = GridBagConstraints.WEST;
+			gbc_lblNombre.anchor = GridBagConstraints.EAST;
 			gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
 			gbc_lblNombre.gridx = 3;
 			gbc_lblNombre.gridy = 2;
@@ -144,22 +136,12 @@ public class PanelTitularSeleccionado extends JPanel {
 			gbc_labelNombreTitular.gridy = 2;
 			add(labelNombreTitular, gbc_labelNombreTitular);
 			
-			File file = new File(titular.getFoto());
-			ImageIcon iconoFotoPersona=new ImageIcon(file.toURL()); 
-			Image imagenFotoPersona= iconoFotoPersona.getImage();
-			ImageIcon iconoFotoPersonaEscalado = new ImageIcon (imagenFotoPersona.getScaledInstance(70,70,Image.SCALE_SMOOTH)); 
-		
-			JLabel lblFotoPersona = new JLabel(iconoFotoPersonaEscalado);
-			GridBagConstraints gbc_lblFotoPersona = new GridBagConstraints();
-			gbc_lblFotoPersona.gridheight = 3;
-			gbc_lblFotoPersona.insets = new Insets(0, 0, 5, 5);
-			gbc_lblFotoPersona.gridx = 7;
-			gbc_lblFotoPersona.gridy = 2;
-			add(lblFotoPersona, gbc_lblFotoPersona);
+			
 			
 			JLabel lblTipoDeDocumento = new JLabel("Tipo de documento:");
+			lblTipoDeDocumento.setForeground(new Color(0, 0, 153));
 			GridBagConstraints gbc_lblTipoDeDocumento = new GridBagConstraints();
-			gbc_lblTipoDeDocumento.anchor = GridBagConstraints.WEST;
+			gbc_lblTipoDeDocumento.anchor = GridBagConstraints.EAST;
 			gbc_lblTipoDeDocumento.insets = new Insets(0, 0, 5, 5);
 			gbc_lblTipoDeDocumento.gridx = 1;
 			gbc_lblTipoDeDocumento.gridy = 3;
@@ -175,6 +157,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			add(labelTipoDocTitular, gbc_labelTipoDocTitular);
 			
 			JLabel lblNumeroDoc = new JLabel("N\u00FAmero de documento:");
+			lblNumeroDoc.setForeground(new Color(0, 0, 153));
 			GridBagConstraints gbc_lblNumeroDoc = new GridBagConstraints();
 			gbc_lblNumeroDoc.anchor = GridBagConstraints.EAST;
 			gbc_lblNumeroDoc.insets = new Insets(0, 0, 5, 5);
@@ -192,8 +175,9 @@ public class PanelTitularSeleccionado extends JPanel {
 			add(labelNroDocTitular, gbc_labelNroDocTitular);
 			
 			JLabel lblSexo = new JLabel("Sexo:");
+			lblSexo.setForeground(new Color(0, 0, 153));
 			GridBagConstraints gbc_lblSexo = new GridBagConstraints();
-			gbc_lblSexo.anchor = GridBagConstraints.WEST;
+			gbc_lblSexo.anchor = GridBagConstraints.EAST;
 			gbc_lblSexo.insets = new Insets(0, 0, 5, 5);
 			gbc_lblSexo.gridx = 1;
 			gbc_lblSexo.gridy = 4;
@@ -209,6 +193,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			add(labelSexoTitular, gbc_labelSexoTitular);
 			
 			JLabel labelFecha = new JLabel("Fecha de Nacimiento:");
+			labelFecha.setForeground(new Color(0, 0, 153));
 			labelFecha.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 			GridBagConstraints gbc_labelFecha = new GridBagConstraints();
 			gbc_labelFecha.anchor = GridBagConstraints.WEST;
@@ -227,9 +212,10 @@ public class PanelTitularSeleccionado extends JPanel {
 			add(labelFechaNacTitular, gbc_labelFechaNacTitular);
 			
 			JLabel lblGrupoSanguineo = new JLabel("Grupo sangu\u00EDneo:");
+			lblGrupoSanguineo.setForeground(new Color(0, 0, 153));
 			lblGrupoSanguineo.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 			GridBagConstraints gbc_lblGrupoSanguineo = new GridBagConstraints();
-			gbc_lblGrupoSanguineo.anchor = GridBagConstraints.WEST;
+			gbc_lblGrupoSanguineo.anchor = GridBagConstraints.EAST;
 			gbc_lblGrupoSanguineo.insets = new Insets(0, 0, 5, 5);
 			gbc_lblGrupoSanguineo.gridx = 1;
 			gbc_lblGrupoSanguineo.gridy = 6;
@@ -244,8 +230,9 @@ public class PanelTitularSeleccionado extends JPanel {
 			add(labelGrupoSanguineoTitular, gbc_labelGrupoSanguineoTitular);
 			
 			JLabel lblFactorRh = new JLabel("Factor RH:");
+			lblFactorRh.setForeground(new Color(0, 0, 153));
 			GridBagConstraints gbc_lblFactorRh = new GridBagConstraints();
-			gbc_lblFactorRh.anchor = GridBagConstraints.WEST;
+			gbc_lblFactorRh.anchor = GridBagConstraints.EAST;
 			gbc_lblFactorRh.insets = new Insets(0, 0, 5, 5);
 			gbc_lblFactorRh.gridx = 3;
 			gbc_lblFactorRh.gridy = 6;
@@ -261,8 +248,9 @@ public class PanelTitularSeleccionado extends JPanel {
 			add(labelFactorTitular, gbc_labelFactorTitular);
 			
 			JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
+			lblDireccin.setForeground(new Color(0, 0, 153));
 			GridBagConstraints gbc_lblDireccin = new GridBagConstraints();
-			gbc_lblDireccin.anchor = GridBagConstraints.WEST;
+			gbc_lblDireccin.anchor = GridBagConstraints.EAST;
 			gbc_lblDireccin.insets = new Insets(0, 0, 5, 5);
 			gbc_lblDireccin.gridx = 1;
 			gbc_lblDireccin.gridy = 7;
@@ -329,6 +317,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			add(labelDirecTitular, gbc_labelDirecTitutlar);
 			
 			JLabel lblClasesSolicitadas = new JLabel("Clases solicitadas:");
+			lblClasesSolicitadas.setForeground(new Color(0, 0, 153));
 			GridBagConstraints gbc_lblClasesSolicitadas = new GridBagConstraints();
 			gbc_lblClasesSolicitadas.anchor = GridBagConstraints.EAST;
 			gbc_lblClasesSolicitadas.fill = GridBagConstraints.VERTICAL;
@@ -341,8 +330,10 @@ public class PanelTitularSeleccionado extends JPanel {
 			
 			
 			JLabel lblObservacin = new JLabel("Observaci\u00F3n:");
+			lblObservacin.setForeground(new Color(0, 0, 153));
 			lblObservacin.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 			GridBagConstraints gbc_lblObservacin = new GridBagConstraints();
+			gbc_lblObservacin.anchor = GridBagConstraints.EAST;
 			gbc_lblObservacin.insets = new Insets(0, 0, 5, 5);
 			gbc_lblObservacin.gridx = 1;
 			gbc_lblObservacin.gridy = 12;
@@ -383,8 +374,10 @@ public class PanelTitularSeleccionado extends JPanel {
 						});
 						
 						JLabel lblCategora = new JLabel("Categor\u00EDa:");
+						lblCategora.setForeground(new Color(0, 0, 153));
 						lblCategora.setFont(new Font("Lato Medium", Font.PLAIN, 14));
 						GridBagConstraints gbc_lblCategora = new GridBagConstraints();
+						gbc_lblCategora.anchor = GridBagConstraints.EAST;
 						gbc_lblCategora.insets = new Insets(0, 0, 5, 5);
 						gbc_lblCategora.gridx = 1;
 						gbc_lblCategora.gridy = 15;
@@ -485,14 +478,16 @@ public class PanelTitularSeleccionado extends JPanel {
 			
 			Clase claseSeleccionada= (Clase) tablaClase.getValueAt(tablaClase.getSelectedRow(),0);
 			 
-			
+			if(editorPaneCategoria.getText().isEmpty()){
+				throw new ExcepcionNull("Completar categoría");
+			}
 			EmitirLicencia licencia = new EmitirLicencia();
-			Licenciavigente licenciaVigente = licencia.crearLicencia(titular, editorPaneObserv.getText(), editorPaneObserv.getText(), claseSeleccionada);
+			Licenciavigente licenciaVigente = licencia.crearLicencia(titular, editorPaneObserv.getText(), editorPaneCategoria.getText(), claseSeleccionada);
 			
 			PanelVisualizarLicencia panelVisualizarLicencia = new PanelVisualizarLicencia(licenciaVigente);
-			this.setVisible(false);
+			//this.setVisible(false);
 			
-			pantallaPrincipal.setContentPane(panelVisualizarLicencia);
+			pantallaPrincipal.add(panelVisualizarLicencia);
 			
 		}
 			catch(ExcepcionTabla e1){
@@ -501,7 +496,10 @@ public class PanelTitularSeleccionado extends JPanel {
 			catch(ExcepcionClaseLicencia e2){
 				JOptionPane.showMessageDialog(this,e2.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
 			}
-		
+			catch( ExcepcionNull e3){
+				
+				JOptionPane.showMessageDialog(this,e3.getMensaje(), "Error", JOptionPane.INFORMATION_MESSAGE);
+			}
 		
 		
 		
