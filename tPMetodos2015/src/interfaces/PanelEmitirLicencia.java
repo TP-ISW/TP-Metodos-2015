@@ -22,6 +22,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.MalformedURLException;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -360,9 +361,13 @@ textNombre.addKeyListener(new KeyListener(){
 		  	
 		  	@Override
 		  	public void actionPerformed(ActionEvent e) {
-		  		btnAceptarAction(pantallaPrincipal);
-		  		// TODO Auto-generated method stub
-		  		
+
+					try {
+						btnAceptarAction(pantallaPrincipal);
+					} catch (MalformedURLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 		  	}
 
 		  	
@@ -412,7 +417,7 @@ textNombre.addKeyListener(new KeyListener(){
 	
 	
 
-	private void btnAceptarAction(JFrame pantallaPrincipal) {
+	private void btnAceptarAction(JFrame pantallaPrincipal) throws MalformedURLException {
 		// TODO Auto-generated method stub
 		try{
 		if(tablaTitulares.getSelectedRowCount()!=1 )
