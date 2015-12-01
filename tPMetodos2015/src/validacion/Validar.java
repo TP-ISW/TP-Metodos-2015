@@ -77,11 +77,11 @@ public class Validar{
 			throw new ExcepcionValidador("El grupo sanguíneo es inválido.");
 		};
 		
-		if(titular.getFactorRh() != "+" && titular.getFactorRh() != "-")
+		/*if(titular.getFactorRh() != "+" && titular.getFactorRh() != "-")
 			throw new ExcepcionValidador("El factor sanguíneo es inválido.");
 		
 		if(titular.getDonante()!= true && titular.getDonante()!=false)
-			throw new ExcepcionValidador("El campo donante inválido.");
+			throw new ExcepcionValidador("El campo donante inválido.");*/
 		
 		List<String> clasesValidos = Arrays.asList("A","B","C","D","E","F","G");
 		
