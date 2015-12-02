@@ -37,6 +37,7 @@ public class AltaTitular {
 
 	public void altaTitular(TitularAux titularAux)throws ExcepcionValidador, ExcepcionLicenciasInvalidas, ExcepcionContribuyente, ExcepcionSQL{
 		
+		
 		//se verifica que el titular sea contribuyente
 		verificarSiEsContribuyente(titularAux.getNroDoc(),titularAux.getTipoDoc());
 		
@@ -60,7 +61,7 @@ public class AltaTitular {
 			SessionFactory factory= FabricaSessionFactory.getFactory();
 			Session session = factory.getCurrentSession(); 
 			session.beginTransaction();
-			session.refresh(nuevoTitular);
+			//session.refresh(nuevoTitular);
 			Hibernate.initialize(nuevoTitular.getLicenciasExpiradas());//inicializo las licencias expiradas
 			Hibernate.initialize(nuevoTitular.getLicenciasVigentes());//inicializo las licencias vigentes
 			session.getTransaction().commit();
