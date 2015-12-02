@@ -76,7 +76,7 @@ public class Validar{
 		if(!gruposValidos.contains(titular.getGrupoSanguineo())){
 			throw new ExcepcionValidador("El grupo sanguíneo es inválido.");
 		};
-		
+
 		/*if(titular.getFactorRh() != "+" && titular.getFactorRh() != "-")
 			throw new ExcepcionValidador("El factor sanguíneo es inválido.");
 		

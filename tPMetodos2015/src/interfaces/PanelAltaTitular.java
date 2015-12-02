@@ -863,7 +863,7 @@ public class PanelAltaTitular extends JPanel {
 		textDireccion.setText(titular.getDomicilio());
 		dateChooserNacimiento.setCalendar(titular.getFechaNacimiento());
 		comboBoxSexo.setSelectedItem(titular.getSexo());
-		comboFactorRH.setSelectedItem(titular.getFactorRh());
+		comboFactorRH.setSelectedItem((String) titular.getFactorRh());
 		comboGrupoSanguineo.setSelectedItem(titular.getGrupoSanguineo());
 		if(titular.getDonante()){
 			checkBoxDondante.setSelected(true);
@@ -910,7 +910,7 @@ public class PanelAltaTitular extends JPanel {
 			titularAux.setDomicilio(textDireccion.getText());
 			titularAux.setDonante((boolean) checkBoxDondante.isSelected());
 			titularAux.setGrupoSanguineo((String) comboGrupoSanguineo.getSelectedItem());
-			titularAux.setFactorRh((String) comboFactorRH.getSelectedItem());
+			titularAux.setFactorRh(comboFactorRH.getSelectedItem().toString());
 			titularAux.setFechaNacimiento(fechaNac);
 			titularAux.setSexo((String) comboBoxSexo.getSelectedItem());
 			titularAux.setFoto((String) textRutaImagen.getText());
