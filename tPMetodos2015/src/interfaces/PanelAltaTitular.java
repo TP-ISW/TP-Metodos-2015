@@ -142,12 +142,6 @@ public class PanelAltaTitular extends JPanel {
 		
 		//Campo a completar con Apellido
 		textApellido = new JTextField();
-		textApellido.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				textApellido.selectAll();
-			}
-		});
 		textApellido.setForeground(new Color(0, 0, 0));
 		GridBagConstraints gbc_textApellido = new GridBagConstraints();
 		gbc_textApellido.anchor = GridBagConstraints.SOUTH;
@@ -158,7 +152,12 @@ public class PanelAltaTitular extends JPanel {
 		gbc_textApellido.gridy = 3;
 		add(textApellido, gbc_textApellido);
 		textApellido.setColumns(10);
-		
+		textApellido.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textApellido.selectAll();
+			}
+		});
 		
 		//Campo textApellido permite solo letras y tamaño:50
 		textApellido.addKeyListener(new KeyListener(){
@@ -166,7 +165,7 @@ public class PanelAltaTitular extends JPanel {
             public void keyTyped(KeyEvent e)
              
             {textApellido.setText(textApellido.getText().toUpperCase());
-            
+
               char c=e.getKeyChar(); 
               
              // e.toString().toUpperCase();
@@ -221,12 +220,6 @@ public class PanelAltaTitular extends JPanel {
 		
         //Campo a completar Nombre
 		textNombre = new JTextField();
-		textNombre.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				textNombre.selectAll();
-			}
-		});
 		GridBagConstraints gbc_textNombre = new GridBagConstraints();
 		gbc_textNombre.gridwidth = 2;
 		gbc_textNombre.fill = GridBagConstraints.HORIZONTAL;
@@ -236,6 +229,12 @@ public class PanelAltaTitular extends JPanel {
 		gbc_textNombre.gridy = 3;
 		add(textNombre, gbc_textNombre);
 		textNombre.setColumns(10);
+		textNombre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textNombre.selectAll();
+			}
+		});
 		//Campo textNombre permite solo letras (espacio y ') y tamaño:50, y mayuscula
 		textNombre.addKeyListener(new KeyListener(){
             
@@ -709,6 +708,12 @@ public class PanelAltaTitular extends JPanel {
 		gbc_textRutaImagen.gridy = 12;
 		add(textRutaImagen, gbc_textRutaImagen);
 		textRutaImagen.setColumns(10);
+		textRutaImagen.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textRutaImagen.selectAll();
+			}
+		});
 		
 		JButton btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.setFont(new Font("Lato Black", Font.PLAIN, 13));
