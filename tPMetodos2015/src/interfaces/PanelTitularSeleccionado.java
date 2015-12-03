@@ -465,7 +465,7 @@ public class PanelTitularSeleccionado extends JPanel {
 			EmitirLicencia licencia = new EmitirLicencia();
 			Licenciavigente licenciaVigente = licencia.crearLicencia(titular, editorPaneObserv.getText(), (String) comboCategoria.getSelectedItem(), claseSeleccionada);
 			
-			PanelVisualizarLicencia panelVisualizarLicencia = new PanelVisualizarLicencia(licenciaVigente, pantallaPrincipal);
+			PanelVisualizarLicencia panelVisualizarLicencia = new PanelVisualizarLicencia(licenciaVigente, pantallaPrincipal,this);
 			//this.setVisible(false);
 			
 			pantallaPrincipal.setContentPane(panelVisualizarLicencia);

@@ -28,17 +28,17 @@ public class PanelVisualizarLicencia extends JPanel {
 	private JLabel labelFechaNac;
 	private JLabel lblSi;
 
-	public PanelVisualizarLicencia(Licenciavigente licVig, JFrame pantallaPrincipal) {
+	public PanelVisualizarLicencia(Licenciavigente licVig, JFrame pantallaPrincipal, PanelTitularSeleccionado panelTitularSeleccionado) {
 		try{
 		licencia = licVig;
-		initialize(pantallaPrincipal);
+		initialize(pantallaPrincipal, panelTitularSeleccionado);
 		}
 		catch(MalformedURLException e1){
 			System.out.println("Error foto persona");
 		}
 	}
 		
-	private void initialize(JFrame pantallaPrincipal) throws MalformedURLException {
+	private void initialize(JFrame pantallaPrincipal, PanelTitularSeleccionado panelTitularSeleccionado) throws MalformedURLException {
 		
 		setBounds(100, 50, 500, 520);
 		
@@ -77,7 +77,7 @@ public class PanelVisualizarLicencia extends JPanel {
 		btnVolver.setForeground(new Color(0, 0, 51));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnVolverAction();
+				btnVolverAction(pantallaPrincipal,panelTitularSeleccionado);
 			}
 
 			
@@ -263,8 +263,10 @@ public class PanelVisualizarLicencia extends JPanel {
 		setVisible(false);
 		pantallaPrincipal.setContentPane(new PanelMenu(pantallaPrincipal));
 	}
-	private void btnVolverAction() {
+	private void btnVolverAction(JFrame pantallaPrincipal,PanelTitularSeleccionado panelTitularSeleccionado) {
 				// TODO Auto-generated method stub
+		
 		setVisible(false);
+		pantallaPrincipal.setContentPane(panelTitularSeleccionado);
 	}
 }
